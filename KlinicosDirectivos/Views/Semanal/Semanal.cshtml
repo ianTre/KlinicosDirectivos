@@ -1,0 +1,43 @@
+﻿
+@{
+
+    ViewBag.Title = "Semanal Atenciones Policlinico";
+}
+
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawVisualization);
+
+        function drawVisualization() {
+            // Some raw data (not necessarily accurate)
+            var data = google.visualization.arrayToDataTable([
+                ['Month', 'Turnos Tomados', 'Atenciones Efectivas'],
+                ['Profesional1', 16, 93],
+                ['Profesional2', 13, 112],
+                ['Profesional1', 16, 93],
+                ['Profesional1', 20, 93],
+                ['Profesional1', 40, 98],
+                ['Profesional1', 50, 98],
+                ['Profesional1', 60, 98],
+                ['Profesional1', 80, 98],
+            ]);
+
+            var options = {
+                title: 'Semana 25-11 Al 29-11',
+                vAxis: { title: 'Cantidad Atenciones' },
+                hAxis: { title: 'Profesional' },
+                seriesType: 'bars',
+            };
+
+            var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+
+<h2>Semanal Atenciones Policlinico</h2>
+<div id="chart_div" style="width:80%; height: 500px;"></div>
+
+
