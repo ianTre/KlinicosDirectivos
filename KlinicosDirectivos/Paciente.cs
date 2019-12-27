@@ -52,9 +52,9 @@ namespace KlinicosDirectivos
         public Nullable<int> idTipoDocumentoMaterno { get; set; }
         public string numeroDocumentoMaterno { get; set; }
         public string nombresMaterno { get; set; }
+        public Nullable<int> idGenero { get; set; }
         public Nullable<System.Guid> idDniFrente { get; set; }
         public Nullable<System.Guid> idDniDorso { get; set; }
-        public Nullable<int> idGenero { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Atenciones> Atenciones { get; set; }

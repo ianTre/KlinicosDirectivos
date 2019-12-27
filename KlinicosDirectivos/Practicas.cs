@@ -12,15 +12,18 @@ namespace KlinicosDirectivos
     using System;
     using System.Collections.Generic;
     
-    public partial class AtencionesEstadosLocal
+    public partial class Practicas
     {
-        public System.Guid id { get; set; }
-        public Nullable<int> idSectorOrigen { get; set; }
-        public Nullable<int> idSectorDestino { get; set; }
-        public Nullable<int> idPuestoTrabajo { get; set; }
-    
-        public virtual AtencionesEstados AtencionesEstados { get; set; }
-        public virtual Sectores Sectores { get; set; }
-        public virtual Sectores Sectores1 { get; set; }
+        public int id { get; set; }
+        public string nombre { get; set; }
+        public string especialidad { get; set; }
+        public string cod_sumar { get; set; }
+        public string tipo { get; set; }
+        public bool vigente { get; set; }
+        public string usuarioCrea { get; set; }
+        public System.DateTime fechaCrea { get; set; }
+        public string usuarioModi { get; set; }
+        public System.DateTime fechaModi { get; set; }
+        public string codigo_salud { get; set; }
     }
 }

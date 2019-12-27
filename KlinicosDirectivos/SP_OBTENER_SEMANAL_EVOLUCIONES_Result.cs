@@ -10,11 +10,10 @@
 namespace KlinicosDirectivos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class ProfesionalesEspecialidades
+    public partial class SP_OBTENER_SEMANAL_EVOLUCIONES_Result
     {
         public int idProfesional { get; set; }
-        public int idEspecialidad { get; set; }
+        public Nullable<int> cantidad { get; set; }
     }
 }

@@ -30,5 +30,6 @@ namespace KlinicosDirectivos
         public string regionSanitaria { get; set; }
         public Nullable<int> MailSistema_Id { get; set; }
         public Nullable<int> MailSistemaSMTP_Id { get; set; }
+        public string ApiBaseUrl { get; set; }
     }
 }

@@ -30,6 +30,5 @@ namespace KlinicosDirectivos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Turno> Turno { get; set; }
         public virtual Turno Turno1 { get; set; }
-        public virtual TurnoEstado TurnoEstado { get; set; }
     }
 }

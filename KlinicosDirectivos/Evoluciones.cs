@@ -17,7 +17,6 @@ namespace KlinicosDirectivos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Evoluciones()
         {
-            this.EvolucionesArchivos = new HashSet<EvolucionesArchivos>();
             this.EvolucionesNOTA1 = new HashSet<EvolucionesNOTA>();
             this.Observaciones = new HashSet<Observaciones>();
         }
@@ -36,8 +35,6 @@ namespace KlinicosDirectivos
         public virtual Atenciones Atenciones { get; set; }
         public virtual AtencionesEstados AtencionesEstados { get; set; }
         public virtual ProblemasSalud ProblemasSalud { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EvolucionesArchivos> EvolucionesArchivos { get; set; }
         public virtual EvolucionesNOTA EvolucionesNOTA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvolucionesNOTA> EvolucionesNOTA1 { get; set; }

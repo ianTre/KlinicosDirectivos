@@ -12,24 +12,17 @@ namespace KlinicosDirectivos
     using System;
     using System.Collections.Generic;
     
-    public partial class ClasificacionesRiesgo
+    public partial class Vacunas
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ClasificacionesRiesgo()
-        {
-            this.Atenciones = new HashSet<Atenciones>();
-        }
-    
         public int id { get; set; }
-        public string colorNombre { get; set; }
-        public string colorHtml { get; set; }
-        public string descripcion { get; set; }
+        public string numero { get; set; }
+        public string nombre { get; set; }
+        public string nombreRESAPRO { get; set; }
+        public string abreviatura { get; set; }
+        public bool vigente { get; set; }
         public string usuarioCrea { get; set; }
         public System.DateTime fechaCrea { get; set; }
         public string usuarioModi { get; set; }
         public System.DateTime fechaModi { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Atenciones> Atenciones { get; set; }
     }
 }

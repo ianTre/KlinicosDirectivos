@@ -17,10 +17,7 @@ namespace KlinicosDirectivos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sectores()
         {
-            this.AtencionesEstadosLocal = new HashSet<AtencionesEstadosLocal>();
-            this.AtencionesEstadosLocal1 = new HashSet<AtencionesEstadosLocal>();
             this.Sectores1 = new HashSet<Sectores>();
-            this.ConfiguracionAgenda = new HashSet<ConfiguracionAgenda>();
             this.UsuariosSectores = new HashSet<UsuariosSectores>();
         }
     
@@ -37,14 +34,8 @@ namespace KlinicosDirectivos
         public Nullable<int> idSectorPadre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AtencionesEstadosLocal> AtencionesEstadosLocal { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AtencionesEstadosLocal> AtencionesEstadosLocal1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sectores> Sectores1 { get; set; }
         public virtual Sectores Sectores2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ConfiguracionAgenda> ConfiguracionAgenda { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsuariosSectores> UsuariosSectores { get; set; }
     }

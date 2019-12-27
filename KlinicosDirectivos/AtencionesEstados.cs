@@ -47,7 +47,6 @@ namespace KlinicosDirectivos
         public virtual AtencionEstados AtencionEstados { get; set; }
         public virtual Especialidades Especialidades { get; set; }
         public virtual Profesionales Profesionales { get; set; }
-        public virtual AtencionesEstadosLocal AtencionesEstadosLocal { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Evoluciones> Evoluciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

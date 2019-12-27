@@ -12,11 +12,11 @@ namespace KlinicosDirectivos
     using System;
     using System.Collections.Generic;
     
-    public partial class EvolucionesArchivos
+    public partial class ProfesionalesDisponibles
     {
-        public System.Guid idEvolucion { get; set; }
-        public System.Guid idArchivo { get; set; }
-    
-        public virtual Evoluciones Evoluciones { get; set; }
+        public int id { get; set; }
+        public string usuarioCrea { get; set; }
+        public System.DateTime fechaCrea { get; set; }
+        public string modoAtencion { get; set; }
     }
 }

@@ -10,18 +10,12 @@
 namespace KlinicosDirectivos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class AtencionObrasSociales
+    public partial class SP_OBTENER_SEMANAL_ATENCIONES_Result
     {
-        public System.Guid id { get; set; }
-        public System.Guid idAtencion { get; set; }
-        public int idObraSocial { get; set; }
-        public string nroAfiliado { get; set; }
-        public string planObraSocial { get; set; }
-        public string usuarioCrea { get; set; }
-        public System.DateTime fechaCrea { get; set; }
-    
-        public virtual Atenciones Atenciones { get; set; }
+        public Nullable<int> idprof { get; set; }
+        public string primerNombre { get; set; }
+        public string primerApellido { get; set; }
+        public Nullable<int> cantAtenciones { get; set; }
     }
 }

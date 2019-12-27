@@ -28,7 +28,6 @@ namespace KlinicosDirectivos
         public int PlanillaDiariaRefId { get; set; }
         public string clase { get; set; }
     
-        public virtual PlanillaDiaria PlanillaDiaria { get; set; }
         public virtual TurnoTurnoEstado TurnoTurnoEstado { get; set; }
         public virtual TurnosReserva TurnosReserva { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -18,7 +18,6 @@ namespace KlinicosDirectivos
         public Atenciones()
         {
             this.AtencionesEstados = new HashSet<AtencionesEstados>();
-            this.AtencionObrasSociales = new HashSet<AtencionObrasSociales>();
             this.Evoluciones = new HashSet<Evoluciones>();
             this.Observaciones = new HashSet<Observaciones>();
         }
@@ -46,12 +45,9 @@ namespace KlinicosDirectivos
         public Nullable<int> idEstablecimiento { get; set; }
         public string Discriminator { get; set; }
     
-        public virtual ClasificacionesRiesgo ClasificacionesRiesgo { get; set; }
         public virtual Paciente Paciente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AtencionesEstados> AtencionesEstados { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AtencionObrasSociales> AtencionObrasSociales { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Evoluciones> Evoluciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

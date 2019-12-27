@@ -28,7 +28,6 @@ namespace KlinicosDirectivos
         public virtual Atenciones Atenciones { get; set; }
         public virtual AtencionesEstados AtencionesEstados { get; set; }
         public virtual Evoluciones Evoluciones { get; set; }
-        public virtual ObservacionAntropometrica ObservacionAntropometrica { get; set; }
         public virtual ProblemasSalud ProblemasSalud { get; set; }
         public virtual Paciente Paciente { get; set; }
     }
