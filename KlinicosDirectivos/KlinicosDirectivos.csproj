@@ -151,151 +151,128 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Atenciones.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="AtencionesEstados.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AtencionesEstadosLocal.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AtencionesModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AtencionesModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AtencionesModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AtencionesModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AtencionesModel.edmx</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="AtencionEstados.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AtencionObrasSociales.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ClasificacionesRiesgo.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ConfiguracionAgenda.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SemanalController.cs" />
     <Compile Include="Especialidades.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Establecimientos.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Evoluciones.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EvolucionesArchivos.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EvolucionesNOTA.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EvolucionesSM.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EvolucionesSOAP.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FormaIngreso.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HistoriaPlanillaDiaria.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+    <Compile Include="KlinicosContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KlinicosContext.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="ObservacionAntropometrica.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+    <Compile Include="KlinicosContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KlinicosContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KlinicosContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="Observaciones.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Paciente.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="PlanillaDiaria.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PlanillaDiarioEstado.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+    <Compile Include="Practicas.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="ProblemasSalud.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Profesionales.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProfesionalesEspecialidades.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+    <Compile Include="ProfesionalesDisponibles.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Sectores.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_OBTENER_SEMANAL_ATENCIONES_Result.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_OBTENER_SEMANAL_EVOLUCIONES_Result.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Turno.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TurnoEstado.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="TurnosReserva.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="TurnoTurnoEstado.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Usuarios.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="UsuariosSectores.cs">
-      <DependentUpon>AtencionesModel.tt</DependentUpon>
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Vacunas.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Semanal.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AtencionesModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AtencionesModel.Context.cs</LastGenOutput>
-      <DependentUpon>AtencionesModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="AtencionesModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AtencionesModel.edmx</DependentUpon>
-      <LastGenOutput>AtencionesModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="KlinicosContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KlinicosContext.edmx</DependentUpon>
+      <LastGenOutput>KlinicosContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="KlinicosContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KlinicosContext.edmx</DependentUpon>
+      <LastGenOutput>KlinicosContext.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="AtencionesModel.edmx">
+    <EntityDeploy Include="KlinicosContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AtencionesModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>KlinicosContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="AtencionesModel.edmx.diagram">
-      <DependentUpon>AtencionesModel.edmx</DependentUpon>
+    <Content Include="KlinicosContext.edmx.diagram">
+      <DependentUpon>KlinicosContext.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
