@@ -6,6 +6,11 @@
 }
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" ; style="height:40%">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
@@ -49,7 +54,38 @@
     </script>
 </head>
 
-<h2>Semanal Atenciones Policlinico</h2>
-<div id="chart_div" style="width:80%; height: 500px;"></div>
+<style>
+    .titulo {
+        word-wrap: break-word;
+        table-layout: fixed;
+        color: white;
+        font-size: 40px;
+        position: center;
+        margin-top:1%;
+    }
+</style>
 
+<div class="container-fluid">
+    <div class="row col-lg-offset-2" style="padding-left:20%">
+        <h2 class="titulo">Atenciones Semanales</h2>
+    </div>
 
+    <div class="container-fluid">
+        <div class="row col-lg-offset-2">
+            <div id="chart_div" style="width:80%; height: 450px"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-3">
+                <button class="boton-lista btn-lg py-3 px-4" style="grid-column-end:span 3" href="/Semanal/reporte">
+                    Anterior
+                </button>
+            </div>
+
+            <div class="col-lg-offset-5">
+                <button class="btn-lg py-3 px-4" style="grid-column-end:span 3" href="/Semanal/reporte">
+                    Siguiente
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

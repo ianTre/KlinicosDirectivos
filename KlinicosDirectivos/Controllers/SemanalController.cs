@@ -11,7 +11,7 @@ namespace KlinicosDirectivos.Controllers
     public class SemanalController : Controller
     {
         // GET: Semanal
-        public ActionResult Index()
+        public ActionResult Index(string lugar)
         {
             Klinicos_BEntities entidades = new Klinicos_BEntities();
             List<Sectores> listaSectores = entidades.Sectores.ToList();
@@ -21,21 +21,19 @@ namespace KlinicosDirectivos.Controllers
                 sectores.Add(new SelectListItem() { Text = sector.nombre, Value = sector.id.ToString() });
             }
 
-
-
-
             ViewBag.Sectores = sectores;
+            ViewBag.Establecimiento = lugar;
             return View("Inicio");
         }
 
-        public ActionResult SemanalEstablecimiento(int idEstablecimiento)
+        public ActionResult SemanalSector(int idSector)
         {
             DateTime fechaDesde = DateTime.Now.AddDays(-7);
             DateTime fechaHasta = DateTime.Now;
             Klinicos_BEntities entities = new Klinicos_BEntities();
             //var AtencionesXProfesional = from profesional in entities.Profesionales
             //                             join ae in entities.AtencionesEstados
-            //                             on new { profe = (int?)profesional.id , estable = Boolean.TrueString } equals new { profe = ae.idProfesionalDestino  , estable = ae.Evoluciones.Select(x => x.idEstablecimiento).Contains(1).ToString() }
+            //                             on new { profe = (int?)profesional.id , estable = Boolean.TrueString } equals new { profe = ae.idProfesionalDestino  , estable = ae.Evoluciones.Select(x => x.idSector).Contains(1).ToString() }
             //                             into pGroup
             //                             where pGroup.Count() > 10 
             //                             select new Semanal
@@ -53,8 +51,8 @@ namespace KlinicosDirectivos.Controllers
             //    semanal.cantidadEvoluciones = ObtenerEvolucionesPorProfesionales(semanal.idProfesional, fechaDesde, fechaHasta, entities);
             //}
 
-            var atencionesXProfesional = entities.SP_OBTENER_SEMANAL_ATENCIONES("12", "2019", 2015, 3);
-            var evolucionesXProfesional = entities.SP_OBTENER_SEMANAL_EVOLUCIONES("12", "2019", 2015, 3);
+            var atencionesXProfesional = entities.SP_OBTENER_SEMANAL_ATENCIONES("12", "2019", idSector, 3);
+            var evolucionesXProfesional = entities.SP_OBTENER_SEMANAL_EVOLUCIONES("12", "2019", idSector, 3);
             List<Semanal> semanales = CastearASemanales(atencionesXProfesional.ToList(),evolucionesXProfesional.ToList());
             
             return View("Semanal", semanales.Take(10));

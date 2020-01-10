@@ -30,6 +30,12 @@ namespace KlinicosDirectivos
         public virtual DbSet<Atenciones> Atenciones { get; set; }
         public virtual DbSet<AtencionesEstados> AtencionesEstados { get; set; }
         public virtual DbSet<AtencionEstados> AtencionEstados { get; set; }
+
+        internal object SP_OBTENER_ESTABLECIMIENTOS(string v1, string v2, int idEstablecimiento, int v3)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual DbSet<Evoluciones> Evoluciones { get; set; }
         public virtual DbSet<EvolucionesNOTA> EvolucionesNOTA { get; set; }
         public virtual DbSet<EvolucionesSM> EvolucionesSM { get; set; }

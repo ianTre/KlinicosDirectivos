@@ -2,7 +2,278 @@
     ViewBag.Title = "Home Page";
 }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" ; style="height:40%">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-                <div>
-                    <p> @Html.ActionLink("Obtener Semanal","Index","Semanal")  </p>
+    <style>
+        .item {
+            width: 100%;
+            height: 550px;
+        }
+
+            .item img {
+                height: 100%;
+                width: 100%;
+            }
+
+        .slide-box {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .h3 {
+            color: white;
+            border-color: black;
+            font-size: 35px;
+        }
+
+        .p3 {
+            color: white;
+            font-size: 20px;
+        }
+
+        .fondoOscuro {
+            max-width: 100%; /* Maximum width */
+            position: center;
+        }
+
+            .fondoOscuro .fondoContenido {
+                position: center;
+                background: rgb(0, 0, 0); /* Fallback color */
+                background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+                color: #f1f1f1; /* Grey text */
+            }
+    </style>
+
+
+
+    <div class="container-fluid" style="width:100%; height:100%">
+        <div class="row" style="height:100%">
+            <div id="myCarousel" class="carousel slide col-lg-offset-3" data-ride="carousel" style="width:100%; height:100%; margin:0">
+
+                @*Agregar Botones a la barra de desplazamiento*@
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                    <li data-target="#myCarousel" data-slide-to="4"></li>
+                    <li data-target="#myCarousel" data-slide-to="5"></li>
+                    <li data-target="#myCarousel" data-slide-to="6"></li>
+                    <li data-target="#myCarousel" data-slide-to="7"></li>
+                    <li data-target="#myCarousel" data-slide-to="8"></li>
+                </ol>
+
+                @*Agregar fotos e informacion al carousel*@
+                <div class="carousel-inner" style="height:100% ">
+
+                    <div class="item active">
+                        @* id: 15 *@
+                    <div class="slide-box fondoOscuro">
+                        <img src="/images/Lugares/Cemefir.jpg" alt="Cemefir" style="width:50%; height:100%">
+                        <img src="/images/Lugares/Cemefir2.jpg" alt="Cemefir" style="width:50%; height:100%">
+                        <div class="carousel-caption fondoContenido">
+                            <h3 class="h3">CEMEFIR</h3>
+                            <p class="p3">Direccion: Perú 2433, San Justo</p>
+                            <p class="p3">Telefono: (011) 4651-2986</p>
+                            <p class="btn btn-primary"><a style="color:white" href="http://192.168.71.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
+                            <p class="btn btn-primary">
+                                <a style="color:white" id="15" href="" target="_blank">
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "15" })
+                                    <span class="ion-ios-arrow-round-forward"></span>
+                                </a>
+                            </p>
+
+
+                        </div>
+                    </div>
                 </div>
+
+                <div class="item">
+                    @* id: 10 *@
+                    <div class="slide-box fondoOscuro">
+                        <img src="/images/Lugares/Rebasa1.jpg" alt="Rebasa" style="width:100%; height:100%">
+                        <img src="/images/Lugares/Rebasa2.jpg" alt="Rebasa" style="width:50%; height:50%">
+                        <div class="carousel-caption fondoContenido">
+                            <h3 class="h3">Unidad de Salud Villa Rebasa</h3>
+                            <p class="p3">Direccion: Balcarce 1915, Ramos Mejia</p>
+                            <p class="p3">Telefono: (011) 4657-5017</p>
+                            <p class="btn btn-primary"><a style="color:white" href="http://172.46.1.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
+                            <p class="btn btn-primary">
+                                <a style="color:white" id="10" href="" target="_blank">
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "10" })
+                                    <span class="ion-ios-arrow-round-forward"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="item">
+                    @* id: 11 *@
+                    <div class="slide-box fondoOscuro">
+                        <img src="/images/Lugares/Eizaguirre.jpg" alt="Eizaguirre" style="width:60%;height:60%">
+                        <img src="/images/Lugares/Eizaguirre2.jpg" alt="Eizaguirre" style="width:100%;height:100%">
+                        <div class="carousel-caption fondoContenido">
+                            <h3 class="h3">Unidad Sanitaria N 7 Eizaguirre de Villa Celina</h3>
+                            <p class="p3">Direccion: Gonzalez Chavez y Juarez Celman S/N , Villa Celina</p>
+                            <p class="p3">Telefono: (011) 4622-3117</p>
+                            <p class="btn btn-primary"><a style="color:white" href="http://172.48.1.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
+                            <p class="btn btn-primary">
+                                <a style="color:white" id="11" href="" target="_blank">
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "11" })
+                                    <span class="ion-ios-arrow-round-forward"></span>
+                                </a>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    @* id: 17 *@
+                    <div class="slide-box fondoOscuro">
+                        <img src="/images/Lugares/Germani.jpg" alt="Hospital Germani" style="width:92%;height:92%">
+                        <img src="/images/Lugares/Germani2.jpg" alt="Hospital Germani" style="width:99%;height:99%">
+                        <div class="carousel-caption fondoContenido">
+                            <h3 class="h3">Hospital Materno Infantil Teresa Luisa Germani</h3>
+                            <p class="p3">Direccion: Av. Luro 6561, Laferrere</p>
+                            <p class="p3">Telefono: (0221) 849-4757</p>
+                            <p class="btn btn-primary"><a style="color:white" href="http://172.28.1.220/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
+                            <p class="btn btn-primary">
+                                <a style="color:white" id="17" href="" target="_blank">
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "17" })
+                                    <span class="ion-ios-arrow-round-forward"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="item">
+                    @* id: 9 *@
+                    <div class="slide-box fondoOscuro">
+                        <img src="/images/Lugares/Giovinazzo.jpg" alt="Giovinazzo" style="width:100%;height:100%">
+                        <img src="/images/Lugares/Giovinazzo2.jpg" alt="Giovinazzo" style="width:95%;height:95%">
+                        <div class="carousel-caption fondoContenido">
+                            <h3 class="h3">Centro de Salud Dr. Giovinazzo</h3>
+                            <p class="p3">Direccion: Cnel. Juan Francisco Seguí 6130, Isidro Casanova</p>
+                            <p class="p3">Telefono: (011) 4486-6818</p>
+                            <p class="btn btn-primary"><a style="color:white" href="http://172.26.1.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
+                            <p class="btn btn-primary">
+                                <a style="color:white" id="9" href="" target="_blank">
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "9" })
+                                    <span class="ion-ios-arrow-round-forward"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    @* id: 3 *@
+                    <div class="slide-box fondoOscuro">
+                        <img src="/images/Lugares/Niños.jpg" alt="Niños" style="width:100%;height:100%">
+                        <img src="/images/Lugares/Niños2.jpg" alt="Niños" style="width:100%;height:100%">
+                        <div class="carousel-caption fondoContenido">
+                            <h3 class="h3">Hospital del Niños de San Justo</h3>
+                            <p class="p3">Direccion: Dr. Ramón Carrillo 4175, San Justo</p>
+                            <p class="p3">Telefono: (011) 4486-6818</p>
+                            <p class="btn btn-primary"><a style="color:white" href="http://172.29.1.100/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
+                            <p class="btn btn-primary">
+                                <a style="color:white" id="3" href="" target="_blank">
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "3" })
+                                    <span class="ion-ios-arrow-round-forward"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    @* id: 4 *@
+                    <div class="slide-box fondoOscuro">
+                        <img src="/images/Lugares/Policlinico.jpg" alt="Policlinico" style="width:50%;height:50%">
+                        <img src="/images/Lugares/Policlinico2.jpg" alt="Policlinico" style="width:100%;height:100%">
+                        <div class="carousel-caption fondoContenido">
+                            <h3 class="h3">Policlínico Central San Justo</h3>
+                            <p class="p3">Direccion: Almafuerte 3016, San Justo</p>
+                            <p class="p3">Telefono: (011) 4651-0165</p>
+                            <p class="btn btn-primary"><a style="color:white" href="http://192.168.34.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
+                            <p class="btn btn-primary">
+                                <a style="color:white" id="4" href="" target="_blank">
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "4" })
+                                    <span class="ion-ios-arrow-round-forward"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    @* id: 8 *@
+                <div class="slide-box fondoOscuro">
+                    <img src="/images/Lugares/Sakamoto.jpg" alt="Sakamoto" style="width:50%;height:50%">
+                    <img src="/images/Lugares/Sakamoto2.jpg" alt="Sakamoto" style="width:40%;height:40%">
+                    <img src="/images/Lugares/Sakamoto3.jpg" alt="Sakamoto" style="width:25%;height:25%">
+                    <div class="carousel-caption fondoContenido">
+                        <h3 class="h3">Centro de Salud Dr. Sakamoto</h3>
+                        <p class="p3">Direccion: Nicolás Dávila 2110, Rafael Castillo</p>
+                        <p class="p3">Telefono: (011) 4690-3136</p>
+                        <p class="btn btn-primary"><a style="color:white" href="http://172.45.1.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
+                        <p class="btn btn-primary">
+                            <a style="color:white" id="8" href="" target="_blank">
+                                @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "8" })
+                                <span class="ion-ios-arrow-round-forward"></span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                @* id: 14 *@
+                <div class="slide-box fondoOscuro">
+                    <img src="/images/Lugares/SaludMental3.jpg" alt="SaludMental" style="width:65%;height:60%">
+                    <img src="/images/Lugares/SaludMental2.jpg" alt="SaludMental" style="width:50%;height:50%">
+                    <div class="carousel-caption fondoContenido">
+                        <h3 class="h3">Centro Salud Mental</h3>
+                        <p class="p3">Direccion: Thames 3669, San Justo</p>
+                        <p class="p3">Telefono: (011) 4651-5848</p>
+                        <p class="btn btn-primary"><a style="color:white" href="http://192.168.70.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
+                        <p class="btn btn-primary">
+                            <a style="color:white" id="14" href="" target="_blank">
+                                @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "14" })
+                                <span class="ion-ios-arrow-round-forward"></span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Botones izquierda y derecha del carousel*@
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" style="color:darkturquoise"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" style="color:darkturquoise"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+</div>
+
+</body>
+</html>
