@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Klinicos_BModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Klinicos_BModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Atenciones">
           <Key>
             <PropertyRef Name="id" />
@@ -255,6 +255,42 @@
           <Property Name="fechaCrea" Type="datetime" Nullable="false" />
           <Property Name="modoAtencion" Type="nvarchar" MaxLength="4" />
         </EntityType>
+        <EntityType Name="Reportes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="grupo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="defaultHtml" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="defaultStoreProcedure" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="roles" Type="nvarchar(max)" />
+          <Property Name="pageOrientation" Type="nvarchar(max)" />
+          <Property Name="pageSize" Type="nvarchar(max)" />
+          <Property Name="pageMarginsLeft" Type="nvarchar(max)" />
+          <Property Name="pageMarginsBottom" Type="nvarchar(max)" />
+          <Property Name="pageMarginsRight" Type="nvarchar(max)" />
+          <Property Name="pageMarginsTop" Type="nvarchar(max)" />
+          <Property Name="divShown" Type="nvarchar(max)" />
+          <Property Name="validateRules" Type="nvarchar(max)" />
+          <Property Name="tipoSector" Type="nvarchar(max)" />
+          <Property Name="tipoEspecialidad" Type="nvarchar(max)" />
+          <Property Name="fomatosSalida" Type="nvarchar(max)" />
+          <Property Name="usuarioCrea" Type="nvarchar" MaxLength="50" />
+          <Property Name="fechaCrea" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportesEspecialidades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idReporte" Type="int" Nullable="false" />
+          <Property Name="idEspecialidad" Type="int" Nullable="false" />
+          <Property Name="html" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="storeProcedure" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="usuarioCrea" Type="nvarchar" MaxLength="50" />
+          <Property Name="fechaCrea" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Sectores">
           <Key>
             <PropertyRef Name="id" />
@@ -270,6 +306,48 @@
           <Property Name="usuarioModi" Type="nvarchar" MaxLength="50" />
           <Property Name="fechaModi" Type="datetime" Nullable="false" />
           <Property Name="idSectorPadre" Type="int" />
+        </EntityType>
+        <EntityType Name="ConfiguracionAgenda">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="duracionTurno" Type="int" Nullable="false" />
+          <Property Name="horaDesde" Type="time" Precision="7" Nullable="false" />
+          <Property Name="horaHasta" Type="time" Precision="7" Nullable="false" />
+          <Property Name="fechaDesde" Type="datetime" Nullable="false" />
+          <Property Name="fechaHasta" Type="datetime" Nullable="false" />
+          <Property Name="publicarWeb" Type="bit" Nullable="false" />
+          <Property Name="esEspontanea" Type="bit" Nullable="false" />
+          <Property Name="idEspecialidad" Type="int" Nullable="false" />
+          <Property Name="idSector" Type="int" Nullable="false" />
+          <Property Name="diasAtencion" Type="nvarchar" MaxLength="13" />
+          <Property Name="usuarioCrea" Type="nvarchar" MaxLength="50" />
+          <Property Name="fechaCrea" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="usuarioModi" Type="nvarchar" MaxLength="50" />
+          <Property Name="fechaModi" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="vigente" Type="bit" Nullable="false" />
+          <Property Name="idProfesional" Type="int" />
+          <Property Name="idPuestoTrabajo" Type="int" />
+          <Property Name="tipo" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="cantDiasAnticipacion" Type="int" />
+          <Property Name="cantTurnosReservados" Type="int" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="colorIndex" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PlanillaDiaria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Observacion" Type="nvarchar" MaxLength="255" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="nvarchar" MaxLength="50" />
+          <Property Name="HoraDesde" Type="time" Precision="7" Nullable="false" />
+          <Property Name="HoraHasta" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EstadoRefId" Type="int" Nullable="false" />
+          <Property Name="ConfiguracionAgendaRefId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Turno">
           <Key>
@@ -356,6 +434,14 @@
           <Property Name="idGenero" Type="int" />
           <Property Name="idDniFrente" Type="uniqueidentifier" />
           <Property Name="idDniDorso" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="ProfesionalesEspecialidades">
+          <Key>
+            <PropertyRef Name="idProfesional" />
+            <PropertyRef Name="idEspecialidad" />
+          </Key>
+          <Property Name="idProfesional" Type="int" Nullable="false" />
+          <Property Name="idEspecialidad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -621,6 +707,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad">
+          <End Role="Especialidades" Type="Self.Especialidades" Multiplicity="1" />
+          <End Role="ReportesEspecialidades" Type="Self.ReportesEspecialidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ReportesEspecialidades">
+              <PropertyRef Name="idEspecialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte">
+          <End Role="Reportes" Type="Self.Reportes" Multiplicity="1" />
+          <End Role="ReportesEspecialidades" Type="Self.ReportesEspecialidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reportes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ReportesEspecialidades">
+              <PropertyRef Name="idReporte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre">
           <End Role="Sectores" Type="Self.Sectores" Multiplicity="0..1" />
           <End Role="Sectores1" Type="Self.Sectores" Multiplicity="*" />
@@ -630,6 +740,42 @@
             </Principal>
             <Dependent Role="Sectores1">
               <PropertyRef Name="idSectorPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GestionTurnos_ConfiguracionAgenda_GeneralLocal_Sectores_idSector">
+          <End Role="Sectores" Type="Self.Sectores" Multiplicity="1" />
+          <End Role="ConfiguracionAgenda" Type="Self.ConfiguracionAgenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sectores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ConfiguracionAgenda">
+              <PropertyRef Name="idSector" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GestionTurnos_PlanillaDiaria_GestionTurnos_ConfiguracionAgenda_ConfiguracionAgendaRefId">
+          <End Role="ConfiguracionAgenda" Type="Self.ConfiguracionAgenda" Multiplicity="1" />
+          <End Role="PlanillaDiaria" Type="Self.PlanillaDiaria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConfiguracionAgenda">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlanillaDiaria">
+              <PropertyRef Name="ConfiguracionAgendaRefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GestionTurnos_Turno_GestionTurnos_PlanillaDiaria_PlanillaDiariaRefId">
+          <End Role="PlanillaDiaria" Type="Self.PlanillaDiaria" Multiplicity="1" />
+          <End Role="Turno" Type="Self.Turno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanillaDiaria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Turno">
+              <PropertyRef Name="PlanillaDiariaRefId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -733,11 +879,16 @@
           <EntitySet Name="Profesionales" EntityType="Self.Profesionales" Schema="General" store:Type="Tables" />
           <EntitySet Name="Vacunas" EntityType="Self.Vacunas" Schema="General" store:Type="Tables" />
           <EntitySet Name="ProfesionalesDisponibles" EntityType="Self.ProfesionalesDisponibles" Schema="GeneralLocal" store:Type="Tables" />
+          <EntitySet Name="Reportes" EntityType="Self.Reportes" Schema="GeneralLocal" store:Type="Tables" />
+          <EntitySet Name="ReportesEspecialidades" EntityType="Self.ReportesEspecialidades" Schema="GeneralLocal" store:Type="Tables" />
           <EntitySet Name="Sectores" EntityType="Self.Sectores" Schema="GeneralLocal" store:Type="Tables" />
+          <EntitySet Name="ConfiguracionAgenda" EntityType="Self.ConfiguracionAgenda" Schema="GestionTurnos" store:Type="Tables" />
+          <EntitySet Name="PlanillaDiaria" EntityType="Self.PlanillaDiaria" Schema="GestionTurnos" store:Type="Tables" />
           <EntitySet Name="Turno" EntityType="Self.Turno" Schema="GestionTurnos" store:Type="Tables" />
           <EntitySet Name="TurnosReserva" EntityType="Self.TurnosReserva" Schema="GestionTurnos" store:Type="Tables" />
           <EntitySet Name="TurnoTurnoEstado" EntityType="Self.TurnoTurnoEstado" Schema="GestionTurnos" store:Type="Tables" />
           <EntitySet Name="Paciente" EntityType="Self.Paciente" Schema="Persona" store:Type="Tables" />
+          <EntitySet Name="ProfesionalesEspecialidades" EntityType="Self.ProfesionalesEspecialidades" Schema="Persona" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="Usuario" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="Usuario" store:Type="Tables" />
           <EntitySet Name="UsuariosSectores" EntityType="Self.UsuariosSectores" Schema="Usuario" store:Type="Tables" />
@@ -813,9 +964,29 @@
             <End Role="Paciente" EntitySet="Paciente" />
             <End Role="ProblemasSalud" EntitySet="ProblemasSalud" />
           </AssociationSet>
+          <AssociationSet Name="FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad" Association="Self.FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="ReportesEspecialidades" EntitySet="ReportesEspecialidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte" Association="Self.FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte">
+            <End Role="Reportes" EntitySet="Reportes" />
+            <End Role="ReportesEspecialidades" EntitySet="ReportesEspecialidades" />
+          </AssociationSet>
           <AssociationSet Name="FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre" Association="Self.FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre">
             <End Role="Sectores" EntitySet="Sectores" />
             <End Role="Sectores1" EntitySet="Sectores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GestionTurnos_ConfiguracionAgenda_GeneralLocal_Sectores_idSector" Association="Self.FK_GestionTurnos_ConfiguracionAgenda_GeneralLocal_Sectores_idSector">
+            <End Role="Sectores" EntitySet="Sectores" />
+            <End Role="ConfiguracionAgenda" EntitySet="ConfiguracionAgenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GestionTurnos_PlanillaDiaria_GestionTurnos_ConfiguracionAgenda_ConfiguracionAgendaRefId" Association="Self.FK_GestionTurnos_PlanillaDiaria_GestionTurnos_ConfiguracionAgenda_ConfiguracionAgendaRefId">
+            <End Role="ConfiguracionAgenda" EntitySet="ConfiguracionAgenda" />
+            <End Role="PlanillaDiaria" EntitySet="PlanillaDiaria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GestionTurnos_Turno_GestionTurnos_PlanillaDiaria_PlanillaDiariaRefId" Association="Self.FK_GestionTurnos_Turno_GestionTurnos_PlanillaDiaria_PlanillaDiariaRefId">
+            <End Role="PlanillaDiaria" EntitySet="PlanillaDiaria" />
+            <End Role="Turno" EntitySet="Turno" />
           </AssociationSet>
           <AssociationSet Name="FK_GestionTurnos_Turno_GestionTurnos_TurnoTurnoEstado_UltimoEstadoRefId" Association="Self.FK_GestionTurnos_Turno_GestionTurnos_TurnoTurnoEstado_UltimoEstadoRefId">
             <End Role="TurnoTurnoEstado" EntitySet="TurnoTurnoEstado" />
@@ -842,8 +1013,7 @@
             <End Role="UsuariosSectores" EntitySet="UsuariosSectores" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Klinicos_BModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1044,6 +1214,7 @@
           <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="AtencionesEstados" Relationship="Self.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen" FromRole="Especialidades" ToRole="AtencionesEstados" />
+          <NavigationProperty Name="ReportesEspecialidades" Relationship="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad" FromRole="Especialidades" ToRole="ReportesEspecialidades" />
         </EntityType>
         <EntityType Name="Establecimientos">
           <Key>
@@ -1148,6 +1319,7 @@
           <NavigationProperty Name="Sectores1" Relationship="Self.FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre" FromRole="Sectores" ToRole="Sectores1" />
           <NavigationProperty Name="Sectores2" Relationship="Self.FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre" FromRole="Sectores1" ToRole="Sectores" />
           <NavigationProperty Name="UsuariosSectores" Relationship="Self.FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector" FromRole="Sectores" ToRole="UsuariosSectores" />
+          <NavigationProperty Name="ConfiguracionAgenda" Relationship="Klinicos_BModel.FK_GestionTurnos_ConfiguracionAgenda_GeneralLocal_Sectores_idSector" FromRole="Sectores" ToRole="ConfiguracionAgenda" />
         </EntityType>
         <EntityType Name="Turno">
           <Key>
@@ -1163,6 +1335,7 @@
           <NavigationProperty Name="TurnoTurnoEstado" Relationship="Self.FK_GestionTurnos_Turno_GestionTurnos_TurnoTurnoEstado_UltimoEstadoRefId" FromRole="Turno" ToRole="TurnoTurnoEstado" />
           <NavigationProperty Name="TurnosReserva" Relationship="Self.FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno" FromRole="Turno" ToRole="TurnosReserva" />
           <NavigationProperty Name="TurnoTurnoEstado1" Relationship="Self.FK_GestionTurnos_TurnoTurnoEstado_GestionTurnos_Turno_Turno_Id" FromRole="Turno" ToRole="TurnoTurnoEstado" />
+          <NavigationProperty Name="PlanillaDiaria" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_GestionTurnos_PlanillaDiaria_PlanillaDiariaRefId" FromRole="Turno" ToRole="PlanillaDiaria" />
         </EntityType>
         <EntityType Name="TurnosReserva">
           <Key>
@@ -1733,6 +1906,31 @@
             <Parameter Name="idSector" Mode="In" Type="Int32" />
             <Parameter Name="idEstablecimiento" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="ProfesionalesEspecialidades" EntityType="Klinicos_BModel.ProfesionalesEspecialidades" />
+          <EntitySet Name="ConfiguracionAgenda" EntityType="Klinicos_BModel.ConfiguracionAgenda" />
+          <EntitySet Name="PlanillaDiaria" EntityType="Klinicos_BModel.PlanillaDiaria" />
+          <AssociationSet Name="FK_GestionTurnos_ConfiguracionAgenda_GeneralLocal_Sectores_idSector" Association="Klinicos_BModel.FK_GestionTurnos_ConfiguracionAgenda_GeneralLocal_Sectores_idSector">
+            <End Role="Sectores" EntitySet="Sectores" />
+            <End Role="ConfiguracionAgenda" EntitySet="ConfiguracionAgenda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GestionTurnos_PlanillaDiaria_GestionTurnos_ConfiguracionAgenda_ConfiguracionAgendaRefId" Association="Klinicos_BModel.FK_GestionTurnos_PlanillaDiaria_GestionTurnos_ConfiguracionAgenda_ConfiguracionAgendaRefId">
+            <End Role="ConfiguracionAgenda" EntitySet="ConfiguracionAgenda" />
+            <End Role="PlanillaDiaria" EntitySet="PlanillaDiaria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GestionTurnos_Turno_GestionTurnos_PlanillaDiaria_PlanillaDiariaRefId" Association="Klinicos_BModel.FK_GestionTurnos_Turno_GestionTurnos_PlanillaDiaria_PlanillaDiariaRefId">
+            <End Role="PlanillaDiaria" EntitySet="PlanillaDiaria" />
+            <End Role="Turno" EntitySet="Turno" />
+          </AssociationSet>
+          <EntitySet Name="Reportes" EntityType="Klinicos_BModel.Reportes" />
+          <EntitySet Name="ReportesEspecialidades" EntityType="Klinicos_BModel.ReportesEspecialidades" />
+          <AssociationSet Name="FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad" Association="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="ReportesEspecialidades" EntitySet="ReportesEspecialidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte" Association="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte">
+            <End Role="Reportes" EntitySet="Reportes" />
+            <End Role="ReportesEspecialidades" EntitySet="ReportesEspecialidades" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="SP_OBTENER_SEMANAL_ATENCIONES_Result">
           <Property Type="Int32" Name="idprof" Nullable="true" />
@@ -1744,6 +1942,159 @@
           <Property Type="Int32" Name="idProfesional" Nullable="false" />
           <Property Type="Int32" Name="cantidad" Nullable="true" />
         </ComplexType>
+        <EntityType Name="ProfesionalesEspecialidades">
+          <Key>
+            <PropertyRef Name="idProfesional" />
+            <PropertyRef Name="idEspecialidad" />
+          </Key>
+          <Property Name="idProfesional" Type="Int32" Nullable="false" />
+          <Property Name="idEspecialidad" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConfiguracionAgenda">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="duracionTurno" Type="Int32" Nullable="false" />
+          <Property Name="horaDesde" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="horaHasta" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="fechaDesde" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaHasta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="publicarWeb" Type="Boolean" Nullable="false" />
+          <Property Name="esEspontanea" Type="Boolean" Nullable="false" />
+          <Property Name="idEspecialidad" Type="Int32" Nullable="false" />
+          <Property Name="idSector" Type="Int32" Nullable="false" />
+          <Property Name="diasAtencion" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="vigente" Type="Boolean" Nullable="false" />
+          <Property Name="idProfesional" Type="Int32" />
+          <Property Name="idPuestoTrabajo" Type="Int32" />
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="cantDiasAnticipacion" Type="Int32" />
+          <Property Name="cantTurnosReservados" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="colorIndex" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sectores" Relationship="Klinicos_BModel.FK_GestionTurnos_ConfiguracionAgenda_GeneralLocal_Sectores_idSector" FromRole="ConfiguracionAgenda" ToRole="Sectores" />
+          <NavigationProperty Name="PlanillaDiaria" Relationship="Klinicos_BModel.FK_GestionTurnos_PlanillaDiaria_GestionTurnos_ConfiguracionAgenda_ConfiguracionAgendaRefId" FromRole="ConfiguracionAgenda" ToRole="PlanillaDiaria" />
+        </EntityType>
+        <EntityType Name="PlanillaDiaria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Observacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HoraDesde" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="HoraHasta" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EstadoRefId" Type="Int32" Nullable="false" />
+          <Property Name="ConfiguracionAgendaRefId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ConfiguracionAgenda" Relationship="Klinicos_BModel.FK_GestionTurnos_PlanillaDiaria_GestionTurnos_ConfiguracionAgenda_ConfiguracionAgendaRefId" FromRole="PlanillaDiaria" ToRole="ConfiguracionAgenda" />
+          <NavigationProperty Name="Turno" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_GestionTurnos_PlanillaDiaria_PlanillaDiariaRefId" FromRole="PlanillaDiaria" ToRole="Turno" />
+        </EntityType>
+        <Association Name="FK_GestionTurnos_ConfiguracionAgenda_GeneralLocal_Sectores_idSector">
+          <End Type="Klinicos_BModel.Sectores" Role="Sectores" Multiplicity="1" />
+          <End Type="Klinicos_BModel.ConfiguracionAgenda" Role="ConfiguracionAgenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sectores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ConfiguracionAgenda">
+              <PropertyRef Name="idSector" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GestionTurnos_PlanillaDiaria_GestionTurnos_ConfiguracionAgenda_ConfiguracionAgendaRefId">
+          <End Type="Klinicos_BModel.ConfiguracionAgenda" Role="ConfiguracionAgenda" Multiplicity="1" />
+          <End Type="Klinicos_BModel.PlanillaDiaria" Role="PlanillaDiaria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConfiguracionAgenda">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PlanillaDiaria">
+              <PropertyRef Name="ConfiguracionAgendaRefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GestionTurnos_Turno_GestionTurnos_PlanillaDiaria_PlanillaDiariaRefId">
+          <End Type="Klinicos_BModel.PlanillaDiaria" Role="PlanillaDiaria" Multiplicity="1" />
+          <End Type="Klinicos_BModel.Turno" Role="Turno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanillaDiaria">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Turno">
+              <PropertyRef Name="PlanillaDiariaRefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Reportes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="grupo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="defaultHtml" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="defaultStoreProcedure" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="roles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pageOrientation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pageSize" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pageMarginsLeft" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pageMarginsBottom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pageMarginsRight" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pageMarginsTop" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="divShown" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="validateRules" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tipoSector" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tipoEspecialidad" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fomatosSalida" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ReportesEspecialidades" Relationship="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte" FromRole="Reportes" ToRole="ReportesEspecialidades" />
+        </EntityType>
+        <EntityType Name="ReportesEspecialidades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idReporte" Type="Int32" Nullable="false" />
+          <Property Name="idEspecialidad" Type="Int32" Nullable="false" />
+          <Property Name="html" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="storeProcedure" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Especialidades" Relationship="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad" FromRole="ReportesEspecialidades" ToRole="Especialidades" />
+          <NavigationProperty Name="Reportes" Relationship="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte" FromRole="ReportesEspecialidades" ToRole="Reportes" />
+        </EntityType>
+        <Association Name="FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad">
+          <End Type="Klinicos_BModel.Especialidades" Role="Especialidades" Multiplicity="1" />
+          <End Type="Klinicos_BModel.ReportesEspecialidades" Role="ReportesEspecialidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ReportesEspecialidades">
+              <PropertyRef Name="idEspecialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte">
+          <End Type="Klinicos_BModel.Reportes" Role="Reportes" Multiplicity="1" />
+          <End Type="Klinicos_BModel.ReportesEspecialidades" Role="ReportesEspecialidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reportes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ReportesEspecialidades">
+              <PropertyRef Name="idReporte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2191,6 +2542,96 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="ProfesionalesEspecialidades">
+            <EntityTypeMapping TypeName="Klinicos_BModel.ProfesionalesEspecialidades">
+              <MappingFragment StoreEntitySet="ProfesionalesEspecialidades">
+                <ScalarProperty Name="idEspecialidad" ColumnName="idEspecialidad" />
+                <ScalarProperty Name="idProfesional" ColumnName="idProfesional" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConfiguracionAgenda">
+            <EntityTypeMapping TypeName="Klinicos_BModel.ConfiguracionAgenda">
+              <MappingFragment StoreEntitySet="ConfiguracionAgenda">
+                <ScalarProperty Name="colorIndex" ColumnName="colorIndex" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="cantTurnosReservados" ColumnName="cantTurnosReservados" />
+                <ScalarProperty Name="cantDiasAnticipacion" ColumnName="cantDiasAnticipacion" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="idPuestoTrabajo" ColumnName="idPuestoTrabajo" />
+                <ScalarProperty Name="idProfesional" ColumnName="idProfesional" />
+                <ScalarProperty Name="vigente" ColumnName="vigente" />
+                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
+                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
+                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
+                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="diasAtencion" ColumnName="diasAtencion" />
+                <ScalarProperty Name="idSector" ColumnName="idSector" />
+                <ScalarProperty Name="idEspecialidad" ColumnName="idEspecialidad" />
+                <ScalarProperty Name="esEspontanea" ColumnName="esEspontanea" />
+                <ScalarProperty Name="publicarWeb" ColumnName="publicarWeb" />
+                <ScalarProperty Name="fechaHasta" ColumnName="fechaHasta" />
+                <ScalarProperty Name="fechaDesde" ColumnName="fechaDesde" />
+                <ScalarProperty Name="horaHasta" ColumnName="horaHasta" />
+                <ScalarProperty Name="horaDesde" ColumnName="horaDesde" />
+                <ScalarProperty Name="duracionTurno" ColumnName="duracionTurno" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanillaDiaria">
+            <EntityTypeMapping TypeName="Klinicos_BModel.PlanillaDiaria">
+              <MappingFragment StoreEntitySet="PlanillaDiaria">
+                <ScalarProperty Name="ConfiguracionAgendaRefId" ColumnName="ConfiguracionAgendaRefId" />
+                <ScalarProperty Name="EstadoRefId" ColumnName="EstadoRefId" />
+                <ScalarProperty Name="HoraHasta" ColumnName="HoraHasta" />
+                <ScalarProperty Name="HoraDesde" ColumnName="HoraDesde" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reportes">
+            <EntityTypeMapping TypeName="Klinicos_BModel.Reportes">
+              <MappingFragment StoreEntitySet="Reportes">
+                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
+                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="fomatosSalida" ColumnName="fomatosSalida" />
+                <ScalarProperty Name="tipoEspecialidad" ColumnName="tipoEspecialidad" />
+                <ScalarProperty Name="tipoSector" ColumnName="tipoSector" />
+                <ScalarProperty Name="validateRules" ColumnName="validateRules" />
+                <ScalarProperty Name="divShown" ColumnName="divShown" />
+                <ScalarProperty Name="pageMarginsTop" ColumnName="pageMarginsTop" />
+                <ScalarProperty Name="pageMarginsRight" ColumnName="pageMarginsRight" />
+                <ScalarProperty Name="pageMarginsBottom" ColumnName="pageMarginsBottom" />
+                <ScalarProperty Name="pageMarginsLeft" ColumnName="pageMarginsLeft" />
+                <ScalarProperty Name="pageSize" ColumnName="pageSize" />
+                <ScalarProperty Name="pageOrientation" ColumnName="pageOrientation" />
+                <ScalarProperty Name="roles" ColumnName="roles" />
+                <ScalarProperty Name="defaultStoreProcedure" ColumnName="defaultStoreProcedure" />
+                <ScalarProperty Name="defaultHtml" ColumnName="defaultHtml" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="grupo" ColumnName="grupo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportesEspecialidades">
+            <EntityTypeMapping TypeName="Klinicos_BModel.ReportesEspecialidades">
+              <MappingFragment StoreEntitySet="ReportesEspecialidades">
+                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
+                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="storeProcedure" ColumnName="storeProcedure" />
+                <ScalarProperty Name="html" ColumnName="html" />
+                <ScalarProperty Name="idEspecialidad" ColumnName="idEspecialidad" />
+                <ScalarProperty Name="idReporte" ColumnName="idReporte" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

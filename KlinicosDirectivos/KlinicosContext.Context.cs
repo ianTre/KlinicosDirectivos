@@ -30,12 +30,6 @@ namespace KlinicosDirectivos
         public virtual DbSet<Atenciones> Atenciones { get; set; }
         public virtual DbSet<AtencionesEstados> AtencionesEstados { get; set; }
         public virtual DbSet<AtencionEstados> AtencionEstados { get; set; }
-
-        internal object SP_OBTENER_ESTABLECIMIENTOS(string v1, string v2, int idEstablecimiento, int v3)
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual DbSet<Evoluciones> Evoluciones { get; set; }
         public virtual DbSet<EvolucionesNOTA> EvolucionesNOTA { get; set; }
         public virtual DbSet<EvolucionesSM> EvolucionesSM { get; set; }
@@ -56,6 +50,11 @@ namespace KlinicosDirectivos
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<UsuariosSectores> UsuariosSectores { get; set; }
+        public virtual DbSet<ProfesionalesEspecialidades> ProfesionalesEspecialidades { get; set; }
+        public virtual DbSet<ConfiguracionAgenda> ConfiguracionAgenda { get; set; }
+        public virtual DbSet<PlanillaDiaria> PlanillaDiaria { get; set; }
+        public virtual DbSet<Reportes> Reportes { get; set; }
+        public virtual DbSet<ReportesEspecialidades> ReportesEspecialidades { get; set; }
     
         public virtual ObjectResult<SP_OBTENER_SEMANAL_ATENCIONES_Result> SP_OBTENER_SEMANAL_ATENCIONES(string mes, string anio, Nullable<int> idSector, Nullable<int> idEstablecimiento)
         {

@@ -14,7 +14,7 @@
         <EntityTypeShape EntityType="Klinicos_BModel.EvolucionesSOAP" Width="1.5" PointX="12.75" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Klinicos_BModel.Observaciones" Width="1.5" PointX="15.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Klinicos_BModel.ProblemasSalud" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Especialidades" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Especialidades" Width="2.375" PointX="2.125" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Klinicos_BModel.Establecimientos" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Klinicos_BModel.Practicas" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Klinicos_BModel.Profesionales" Width="1.5" PointX="3" PointY="20.875" IsExpanded="true" />
@@ -53,6 +53,18 @@
         <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_TurnoTurnoEstado_GestionTurnos_Turno_Turno_Id" ManuallyRouted="false" />
         <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_Persona_Paciente_idPaciente" ManuallyRouted="false" />
         <AssociationConnector Association="Klinicos_BModel.FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Klinicos_BModel.ProfesionalesEspecialidades" Width="1.5" PointX="14.375" PointY="3.75" />
+        <EntityTypeShape EntityType="Klinicos_BModel.ConfiguracionAgenda" Width="1.5" PointX="8" PointY="18.625" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PlanillaDiaria" Width="1.5" PointX="10.25" PointY="20" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_ConfiguracionAgenda_GeneralLocal_Sectores_idSector" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_PlanillaDiaria_GestionTurnos_ConfiguracionAgenda_ConfiguracionAgendaRefId" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_Turno_GestionTurnos_PlanillaDiaria_PlanillaDiariaRefId" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Reportes" Width="1.5" PointX="3" PointY="34" />
+        <EntityTypeShape EntityType="Klinicos_BModel.ReportesEspecialidades" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
