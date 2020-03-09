@@ -39,7 +39,7 @@ namespace KlinicosDirectivos.Controllers
             var turnosEspontaneos = entidades.AtencionesEstados.Where(x => x.idProfesionalDestino == idProfesional && (x.Atenciones.idTurno.Equals(null) || x.Atenciones.idTurno == 0)).Count();
 
             var Ultimasatenciones = entidades.AtencionesEstados.Where(x => x.idProfesionalDestino == idProfesional).OrderByDescending(x => x.llamadosUltimaFechayHora).FirstOrDefault();
-            var ultimoTurno = turnosReservados.OrderByDescending(x => x.Turno.FechaYHora).Select(x => x.Turno).FirstOrDefault();
+          //  var ultimoTurno = turnosReservados.OrderByDescending(x => x.Turno.FechaYHora).Select(x => x.Turno).FirstOrDefault();
 
 
             var atencionesXProfesional = entidades.AtencionesEstados.Where(x => x.idProfesionalDestino == idProfesional);

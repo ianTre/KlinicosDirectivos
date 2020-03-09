@@ -1,8 +1,157 @@
 ﻿@model KlinicosDirectivos.ViewModels.ProfesionalDesempeño
-
 @{
     ViewBag.Title = "DetalleProfesional";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
 
-<h2>DetalleProfesional</h2>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" ; style="height:40%">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    @*url('https://fonts.googleapis.com/css?family=Sacramento');
+        url('https://fonts.googleapis.com/css?family=PT+Serif:400');*@
+
+</head>
+</html>
+
+
+@*http://localhost:5091/Profesional/DetalleProfesional?idProfesional=32*@
+
+<style>
+
+    .card-header {
+        color: white;
+        background-image: url(https://cdn.hipwallpaper.com/i/51/44/rlZCPD.jpg);
+        background-position: bottom;
+        font-size: 50px;
+        width: 1500px;
+    }
+
+
+    .content__bio {
+        display: flex;
+        align-items: center;
+        flex-flow: column nowrap;
+        justify-content: center;
+        margin: 0;
+        background-image: url(https://i.pinimg.com/originals/22/df/03/22df0390c03d80cab2be412dcbd93b75.jpg);
+        background-position: bottom;
+    }
+
+
+
+    .container__content {
+        align-items: stretch;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        justify-items: stretch;
+        height: 500px;
+    }
+
+    .content__profile {
+        background-image: url(https://i1.wp.com/inforprintsantander.es/wp-content/uploads/2017/07/FONDO-OSCURO-CABECERAS.jpg?ssl=1);
+        background-position: center;
+        background-size: cover;
+        color: white;
+    }
+
+    .profile {
+        text-align: center;
+    }
+
+    .content__profile img {
+        margin-top: 50px;
+        height: 20rem;
+        padding: .10rem;
+        width: 20rem;
+    }
+
+    .content__profile h1 {
+        font: 3rem Sacramento;
+        margin-top: .5em;
+    }
+
+
+
+    .content__profile p {
+        font-size: 1.1rem;
+        margin: .25rem;
+    }
+
+    .content__bio {
+        background-image: url(https://i1.wp.com/inforprintsantander.es/wp-content/uploads/2017/07/FONDO-OSCURO-CABECERAS.jpg?ssl=1);
+        background-position: bottom;
+        text-align: center;
+        color: white;
+        width: 1000px;
+    }
+
+        .content__bio hr {
+            width: 50%;
+        }
+</style>
+
+
+@*<div class="container-fluid" >
+        <div class="row">
+            <h2>DetalleProfesional</h2>
+        </div>
+    </div>*@
+
+<div class="container-fluid">
+    
+    <div class="row">
+        <div class="col-lg-offset-1">
+            <div class="card-header">
+                <h2 style="margin-top:10px">
+                    Usuario
+                </h2>
+                <h4>
+                    Nombre y Apellido:
+                </h4>
+            </div>
+            <div class="container__content">
+                <div class="content__profile">
+                    <img src="https://www.avante.es/wp-content/uploads/2018/03/471a1ad342659289433e05a611d206f8.png" alt="Usuario">
+                    <div class="profile">
+                        <h1></h1>
+                        <div class="content__border"></div>
+                        <h3>DNI:</h3>
+                        <h3>Especialidad:</h3>
+                        <h3>Matricula:</h3>
+                        <h3>Ultima Conexion:</h3>
+                    </div>
+                </div>
+                <div class="content__bio">
+
+                    <h2>
+                        Cantidad de Turnos reservados:
+                    </h2>
+                    <h2>
+                        Cantidad de Turnos ingresados:
+                    </h2>
+                    <h2>
+                        Cantidad de Turnos espontaneos:
+                    </h2>
+                    <h2>
+                        Total ingresos:
+
+                    </h2>
+                    <h2>
+                        Total atendidos:
+                    </h2>
+                    <h2>
+                        Dias Atencion:
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

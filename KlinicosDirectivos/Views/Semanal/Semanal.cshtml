@@ -63,6 +63,29 @@
         position: center;
         margin-top:1%;
     }
+    .boton {
+        background: #00b7f8;
+        border-bottom: 5px solid #0045a6;
+        border-radius: 12px;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        font-family: 'Raleway', Arial, Helvetica;
+        font-size: 20px;
+        text-align: center;
+        transition: all 0.2s ease 0s;
+        width: 120px;
+    }
+
+        .boton:hover {
+            background: #0096f7;
+        }
+
+        .boton:active {
+            box-shadow: 2px 2px 2px #777, 0px 0px 35px 0px #00b7f8;
+            border-bottom: 1px solid #0045A6;
+            text-shadow: 0px 0px 5px #fff, 0px 0px 5px #fff;
+        }
 </style>
 
 <div class="container-fluid">
@@ -88,4 +111,7 @@
             </div>
         </div>
     </div>
+</div>
+<div>
+    <input class="boton" value="Volver" onclick="history.go(-1)" />
 </div>

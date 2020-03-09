@@ -23,6 +23,10 @@ namespace KlinicosDirectivos
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/plugins/dataTables").Include(
+                   "~/Scripts/plugins/dataTables/datatables.js",
+                  "~/Scripts/plugins/dataTables/datatables.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
@@ -100,6 +104,12 @@ namespace KlinicosDirectivos
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/style.css"));
+
+            bundles.Add(new StyleBundle("~/Content/plugins/DataTables").Include(
+                     "~/Content/plugins/DataTables/datatables.css",
+                     "~/Content/plugins/DataTables/datatables.min.css"));
+
+
         }
     }
 }
