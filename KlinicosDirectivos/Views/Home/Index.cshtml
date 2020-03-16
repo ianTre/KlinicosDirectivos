@@ -14,6 +14,10 @@
 <body>
 
     <style>
+        a.classname {
+            color: white;
+        }
+
         .item {
             width: 100%;
             height: 550px;
@@ -30,8 +34,9 @@
         }
 
         .h3 {
-            color: white;
+            color:aquamarine;
             border-color: black;
+            -webkit-text-stroke: 1px black;
             font-size: 35px;
         }
 
@@ -85,9 +90,9 @@
                             <p class="p3">Direccion: Perú 2433, San Justo</p>
                             <p class="p3">Telefono: (011) 4651-2986</p>
                             <p class="btn btn-primary"><a style="color:white" href="http://192.168.71.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
-                            <p class="btn btn-primary">
+                            <p class="btn btn-primary" style="color:white">
                                 <a style="color:white" id="15" href="" target="_blank">
-                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "15" })
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "15" } , new { @class = "classname" })
                                     <span class="ion-ios-arrow-round-forward"></span>
                                 </a>
                             </p>
@@ -109,7 +114,7 @@
                             <p class="btn btn-primary"><a style="color:white" href="http://172.46.1.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
                             <p class="btn btn-primary">
                                 <a style="color:white" id="10" href="" target="_blank">
-                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "10" })
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "10" }, new { @class = "classname" })
                                     <span class="ion-ios-arrow-round-forward"></span>
                                 </a>
                             </p>
@@ -131,7 +136,7 @@
                             <p class="btn btn-primary"><a style="color:white" href="http://172.48.1.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
                             <p class="btn btn-primary">
                                 <a style="color:white" id="11" href="" target="_blank">
-                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "11" })
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "11" }, new { @class = "classname" })
                                     <span class="ion-ios-arrow-round-forward"></span>
                                 </a>
                             </p>
@@ -152,7 +157,7 @@
                             <p class="btn btn-primary"><a style="color:white" href="http://172.28.1.220/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
                             <p class="btn btn-primary">
                                 <a style="color:white" id="17" href="" target="_blank">
-                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "17" })
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "17" }, new { @class = "classname" })
                                     <span class="ion-ios-arrow-round-forward"></span>
                                 </a>
                             </p>
@@ -173,7 +178,7 @@
                             <p class="btn btn-primary"><a style="color:white" href="http://172.26.1.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
                             <p class="btn btn-primary">
                                 <a style="color:white" id="9" href="" target="_blank">
-                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "9" })
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "9" }, new { @class = "classname" })
                                     <span class="ion-ios-arrow-round-forward"></span>
                                 </a>
                             </p>
@@ -193,7 +198,7 @@
                             <p class="btn btn-primary"><a style="color:white" href="http://172.29.1.100/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
                             <p class="btn btn-primary">
                                 <a style="color:white" id="3" href="" target="_blank">
-                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "3" })
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "3" }, new { @class = "classname" })
                                     <span class="ion-ios-arrow-round-forward"></span>
                                 </a>
                             </p>
@@ -213,7 +218,7 @@
                             <p class="btn btn-primary"><a style="color:white" href="http://192.168.34.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
                             <p class="btn btn-primary">
                                 <a style="color:white" id="4" href="" target="_blank">
-                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "4" })
+                                    @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "4" }, new { @class = "classname" })
                                     <span class="ion-ios-arrow-round-forward"></span>
                                 </a>
                             </p>
@@ -233,7 +238,7 @@
                         <p class="btn btn-primary"><a style="color:white" href="http://172.45.1.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
                         <p class="btn btn-primary">
                             <a style="color:white" id="8" href="" target="_blank">
-                                @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "8" })
+                                @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "8" }, new { @class = "classname" })
                                 <span class="ion-ios-arrow-round-forward"></span>
                             </a>
                         </p>
@@ -253,7 +258,7 @@
                         <p class="btn btn-primary"><a style="color:white" href="http://192.168.70.10/Login?ReturnUrl=%2F" target="_blank">Acceder al Sistema<span class="ion-ios-arrow-round-forward"></span></a></p>
                         <p class="btn btn-primary">
                             <a style="color:white" id="14" href="" target="_blank">
-                                @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "14" })
+                                @Html.ActionLink("Obtener Reportes", "Establecimiento", new { id = "14" }, new { @class = "classname" })
                                 <span class="ion-ios-arrow-round-forward"></span>
                             </a>
                         </p>

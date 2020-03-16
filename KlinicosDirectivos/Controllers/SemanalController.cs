@@ -23,7 +23,19 @@ namespace KlinicosDirectivos.Controllers
 
             ViewBag.Sectores = sectores;
             ViewBag.Establecimiento = lugar;
-            return View("Inicio");
+
+            List<ProfesionalVM> listProfesionalesVM = new List<ProfesionalVM>();
+            IEnumerable<Profesionales> listProfesionales = entidades.ProfesionalesDisponibles.Join(entidades.Profesionales, pd => pd.id, p => p.id, (pd, p) =>   p );
+            var EspecialidadesXProfesional = entidades.ProfesionalesEspecialidades.Join(entidades.Especialidades, pe => pe.idEspecialidad, e => e.id, (pe, e) => new { idProfesional = pe.idProfesional, especialidad = e });
+
+            foreach (Profesionales profesional in listProfesionales)
+            {
+                List<Especialidades> listaEspecialidades = EspecialidadesXProfesional.Where(x => x.idProfesional == profesional.id).Select(exp => (Especialidades)exp.especialidad ).ToList();
+                ProfesionalVM profesionalVM = new ProfesionalVM(profesional, listaEspecialidades);
+                listProfesionalesVM.Add(profesionalVM);
+            }
+
+            return View("Inicio", listProfesionalesVM);
         }
 
         public ActionResult SemanalSector(int idSector)

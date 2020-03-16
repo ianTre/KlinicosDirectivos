@@ -1,4 +1,4 @@
-﻿
+﻿@model  IEnumerable<KlinicosDirectivos.ViewModels.ProfesionalVM>
 @{
     ViewBag.Title = "Inicio";
 }
@@ -18,6 +18,25 @@
 </head>
 
 <style>
+    .botonNuevo {
+        padding: 15px;
+        background: #00b7f8;
+        border-bottom: 5px solid #0045a6;
+        border-radius: 12px;
+        color: #fff;
+        cursor: pointer;
+        font-family: 'Raleway', Arial, Helvetica;
+        font-size: 20px;
+        text-align: center;
+        transition: all 0.2s ease 0s;
+    }
+
+        .botonNuevo:hover {
+            box-shadow: 2px 2px 2px #777, 0px 0px 35px 0px #00b7f8;
+            border-bottom: 1px solid #0045A6;
+            text-shadow: 0px 0px 5px #fff, 0px 0px 5px #fff;
+            color: cornflowerblue;
+        }
 
     .lista {
         border-radius: 69px 69px 69px 69px;
@@ -52,39 +71,140 @@
         color: white;
     }
 
-    .boton{
-  background: #00b7f8;
-  border-bottom: 5px solid #0045a6;
-  border-radius: 12px;
- 
-  color: #fff;
-  cursor: pointer;
-  display: block;  
-  font-family: 'Raleway', Arial, Helvetica;
-  font-size:20px;
-  text-align: center;
-  transition: all 0.2s ease 0s;
-  width: 120px;
-}
-.boton:hover{
-	background: #0096f7;
-}
-.boton:active {
-	box-shadow: 2px 2px 2px #777, 0px 0px 35px 0px #00b7f8;
-	border-bottom:1px solid #0045A6;
-  text-shadow:  0px 0px 5px #fff, 0px 0px 5px #fff;
+    .boton {
+        background: #00b7f8;
+        border-bottom: 5px solid #0045a6;
+        border-radius: 12px;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        font-family: 'Raleway', Arial, Helvetica;
+        font-size: 20px;
+        text-align: center;
+        transition: all 0.2s ease 0s;
+        width: 120px;
+    }
 
-}
+        .boton:hover {
+            background: #0096f7;
+        }
+
+        .boton:active {
+            box-shadow: 2px 2px 2px #777, 0px 0px 35px 0px #00b7f8;
+            border-bottom: 1px solid #0045A6;
+            text-shadow: 0px 0px 5px #fff, 0px 0px 5px #fff;
+        }
+
+
+    .search_categories {
+        padding:15px;
+        background: #00b7f8;
+        border-bottom: 5px solid #0045a6;
+        border-radius: 12px;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        font-family: 'Raleway', Arial, Helvetica;
+        font-size: 20px;
+        text-align: center;
+        transition: all 0.2s ease 0s;
+        width: 250px;
+    }
+
+        .search_categories .select {
+            width: 120%;
+            background: url('arrow.png') no-repeat;
+            background-position: 80% center;
+        }
+
+            .search_categories .select select {
+                background: transparent;
+                line-height: 1;
+                border: 0;
+                padding: 0;
+                border-radius: 0;
+                width: 120%;
+                position: relative;
+                z-index: 10;
+                font-size: 1em;
+            }
+
+  
+
+    /*
+ * DataTables framework
+ */
+    div.dataTables_wrapper {
+        background-color: cornflowerblue;
+        border: white 1px solid;
+    }
+
+    div.dataTables_length {
+        float: left;
+    }
+
+    div.dataTables_filter {
+        float: right;
+    }
+
+    div.dataTables_info {
+        padding: 9px 6px 6px 6px;
+        float: left;
+    }
+
+    div.dataTables_paginate {
+        float: right;
+    }
+
+    div.dataTables_length,
+    div.dataTables_filter,
+    div.dataTables_paginate {
+        padding: 6px;
+    }
+
+    /* Self clearing - http://www.webtoolkit.info/css-clearfix.html */
+    .dataTables_wrapper:after {
+        content: ".";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        line-height: 0;
+        height: 0;
+    }
+
+    html[xmlns] .dataTables_wrapper {
+        display: block;
+    }
+
+    * html .dataTables_wrapper {
+        height: 1%;
+    }
+
+    .knockout {
+        background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRMMuIHp59SNH5qNiwNrF-5dASJ53YPDMucUk3DiMcw4jkbbQcT) -80px -80px;
+        color: red;
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        font-weight: bold;
+        font-size: 35px;
+        font-family: arial, helvetica;
+        width: 100%;
+        text-align: center;
+    }
+
+    body {
+        background: #444;
+    }
+
+
 </style>
 
 @*Aca va el nombre del establecimiento*@
-<div class="container-fluid" >
+<div class="container-fluid">
     <div class="row" style="color:white">
-        <div class="col-lg-offset-3">
-            <h2>
-                El establecimiento seleccionado es:
+        <div class="knockout">
+                El establecimiento seleccionado es
                 @Html.Name((string)ViewBag.establecimiento)
-            </h2>
         </div>
     </div>
 </div>
@@ -92,15 +212,14 @@
 
 <div class="container-fluid" style="margin-top:2%">
     <div class="row slider-text align-items-center">
-        <div class="col-lg-offset-2">
-            @Html.DropDownList("idSector", (IEnumerable<SelectListItem>)ViewBag.Sectores, "Seleccionar Sector", new { @class = "lista", id = "filtro-sector" })
+        <div class="col-lg-offset-4">
+            @Html.DropDownList("idSector", (IEnumerable<SelectListItem>)ViewBag.Sectores, "Seleccionar Sector", new { @class = "search_categories", id = "filtro-sector" })
 
         </div>
         @* Boton de Obtener Semanal *@
         <div class="col-lg-offset-1">
-            <button class="boton-lista btn-lg py-3 px-4" style="grid-column-end:span 3" href="/Semanal/reporte">
-                @Html.ActionLink("Obtener Semanal", "SemanalSector", new { idSector = "1" }, new { id = "accionSector" })
-            </button>
+
+                @Html.ActionLink("Obtener Semanal", "SemanalSector", new { idSector = "1" }, new {@class = "botonNuevo", id = "accionSector" })
         </div>
     </div>
 
@@ -112,124 +231,24 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>DNI</th>
-                        <th>Sexo</th>
                         <th>Especialidad</th>
                         <th>Detalle</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>63</td>
-                        <td>2011/07/25</td>
-                        <td>$170,750</td>
-                    </tr>
-                    <tr>
-                        <td>Ashton Cox</td>
-                        <td>Junior Technical Author</td>
-                        <td>San Francisco</td>
-                        <td>66</td>
-                        <td>2009/01/12</td>
-                        <td>$86,000</td>
-                    </tr>
-                    <tr>
-                        <td>Cedric Kelly</td>
-                        <td>Senior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2012/03/29</td>
-                        <td>$433,060</td>
-                    </tr>
-                    <tr>
-                        <td>Airi Satou</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>33</td>
-                        <td>2008/11/28</td>
-                        <td>$162,700</td>
-                    </tr>
-                    <tr>
-                        <td>Brielle Williamson</td>
-                        <td>Integration Specialist</td>
-                        <td>New York</td>
-                        <td>61</td>
-                        <td>2012/12/02</td>
-                        <td>$372,000</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012/08/06</td>
-                        <td>$137,500</td>
-                    </tr>
-                    <tr>
-                        <td>Rhona Davidson</td>
-                        <td>Integration Specialist</td>
-                        <td>Tokyo</td>
-                        <td>55</td>
-                        <td>2010/10/14</td>
-                        <td>$327,900</td>
-                    </tr>
-                    <tr>
-                        <td>Colleen Hurst</td>
-                        <td>Javascript Developer</td>
-                        <td>San Francisco</td>
-                        <td>39</td>
-                        <td>2009/09/15</td>
-                        <td>$205,500</td>
-                    </tr>
-                    <tr>
-                        <td>Sonya Frost</td>
-                        <td>Software Engineer</td>
-                        <td>Edinburgh</td>
-                        <td>23</td>
-                        <td>2008/12/13</td>
-                        <td>$103,600</td>
-                    </tr>
-                    <tr>
-                        <td>Jena Gaines</td>
-                        <td>Office Manager</td>
-                        <td>London</td>
-                        <td>30</td>
-                        <td>2008/12/19</td>
-                        <td>$90,560</td>
-                    </tr>
-                    <tr>
-                        <td>Quinn Flynn</td>
-                        <td>Support Lead</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2013/03/03</td>
-                        <td>$342,000</td>
-                    </tr>
-                    <tr>
-                        <td>Charde Marshall</td>
-                        <td>Regional Director</td>
-                        <td>San Francisco</td>
-                        <td>36</td>
-                        <td>2008/10/16</td>
-                        <td>$470,600</td>
-                    </tr>
-                    <tr>
-                        <td>Donna Snider</td>
-                        <td>Customer Support</td>
-                        <td>New York</td>
-                        <td>27</td>
-                        <td>2011/01/25</td>
-                        <td>$112,000</td>
-                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Nombre</td>
+                            <td>@item.Apellido</td>
+                            <td>@item.DNI</td>
+                            <td>@item.Especialidades</td>
+                            <td> @Html.ActionLink("Detalle", "DetalleProfesional", "Profesional", new { idProfesional = item.Id }, new { name = "boton" }) </td>
+
+                        </tr>
+                    }
+
                 </tbody>
             </table>
         </div>
@@ -251,23 +270,23 @@
 
         var elementoA = document.getElementById("accionSector");
         elementoA.onclick = function () {
-            var vinculo = elementoA.href;
-            var guillePuto = vinculo.lastIndexOf("=");
-            var nuevoVinculo = vinculo.substring(0, guillePuto);
-            nuevoVinculo += "=";
-            nuevoVinculo += obtenerId();
-            elementoA.href = nuevoVinculo;
+                            var vinculo = elementoA.href;
+                            var guillePuto = vinculo.lastIndexOf("=");
+                            var nuevoVinculo = vinculo.substring(0, guillePuto);
+                            nuevoVinculo += "=";
+                            nuevoVinculo += obtenerId();
+                            elementoA.href = nuevoVinculo;
 
-        };
+                        };
 
-        function obtenerId() {
-            var nuevoComboBox = document.getElementById("filtro-sector");
-            var indice = nuevoComboBox.options.selectedIndex;
-            var option = nuevoComboBox.options[indice];
+                        function obtenerId() {
+                            var nuevoComboBox = document.getElementById("filtro-sector");
+                            var indice = nuevoComboBox.options.selectedIndex;
+                            var option = nuevoComboBox.options[indice];
 
-            return option.value.toString();
+                            return option.value.toString();
 
-        }
+                        }
 
         //$(document).ready(function () {
         //    var table = $('#example').DataTable();
@@ -275,47 +294,26 @@
 
         $(document).ready(function () {
             $('#example').DataTable({
-                "language": {
-                    "lengthMenu": "Mostrando _MENU_ profesionales por pagina",
+                                "language": {
+                                    "lengthMenu": "Muestra _MENU_ profesionales por pagina",
                     "zeroRecords": "No se encontraron profesionales",
                     "info": "Mostrando pagina _PAGE_ de _PAGES_",
                     "infoEmpty": "Sin resultados",
-                    "infoFiltered": "(filtrado de _MAX_ profesionales)"
-                }
+                     "infoFiltered": "(filtrado de _MAX_ profesionales)",
+                                    "search": "Buscar:",
+                                    "paginate": {
+                                        "first": "Primero",
+                                        "last": "Ultimo",
+                                        "next": "Siguiente",
+                                        "previous": "Anterior"
+                                    },
+                }          
             });
+            document.getElementById('example_length').style.color = 'black';
+            document.getElementById('example_info').style.color = 'black';
+            document.getElementById('example_filter').style.color = 'black';
+     
         });
-
-
-
-
-       //Comentario DATATABLE DEL ANDRE
-
-         @*<script type="text/javascript">
-        $(document).ready(function () {
-            $('.dataTable').DataTable({
-                "responsive": true,
-                "pageLength": 25,
-                "language": {
-                    "sLengthMenu": "Mostrar _MENU_ profesionales por página",
-                    "sZeroRecords": "No se encontraron profesionales",
-                    "sEmptyTable": "Ningún profesional disponible",
-                    "sInfo": "Mostrando del _START_ al _END_ de un total de _TOTAL_ profesionales",
-                    "sInfoEmpty": "Mostrando del 0 al 0 de un total de 0 profesionales",
-                    "sInfoFiltered": "(filtrado de un total de _MAX_ profesionales)",
-                    "url": "@Url.Content("~/Scripts/plugins/i18next/Spanish.json")"
-                },
-                dom: '<"html5buttons"B>lrTfgitp',
-                buttons: [
-                    { extend: 'excel', title: 'ExampleFile' },
-                ],
-                "columnDefs": [
-                    { targets: 0, responsivePriority: 1, orderable: false },
-                    { targets: 1, responsivePriority: 2 },
-                    { targets: 9, responsivePriority: 3, orderable: false, searchable: false },
-                ]
-                    });
-                });
-        </script>*@
 
 
     </script>

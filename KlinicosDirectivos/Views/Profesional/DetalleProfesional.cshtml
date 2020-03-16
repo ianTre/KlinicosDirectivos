@@ -6,16 +6,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <meta name="viewport" content="width=device-width, initial-scale=1" ; style="height:40%">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    @*url('https://fonts.googleapis.com/css?family=Sacramento');
-        url('https://fonts.googleapis.com/css?family=PT+Serif:400');*@
+
 
 </head>
 </html>
@@ -36,7 +31,7 @@
 
     .content__bio {
         display: flex;
-        align-items: center;
+        text-align: left;
         flex-flow: column nowrap;
         justify-content: center;
         margin: 0;
@@ -87,7 +82,7 @@
     .content__bio {
         background-image: url(https://i1.wp.com/inforprintsantander.es/wp-content/uploads/2017/07/FONDO-OSCURO-CABECERAS.jpg?ssl=1);
         background-position: bottom;
-        text-align: center;
+        text-align:left;
         color: white;
         width: 1000px;
     }
@@ -95,6 +90,31 @@
         .content__bio hr {
             width: 50%;
         }
+
+    .boton {
+        background: #00b7f8;
+        border-bottom: 5px solid #0045a6;
+        border-radius: 12px;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        font-family: 'Raleway', Arial, Helvetica;
+        font-size: 20px;
+        text-align: center;
+        transition: all 0.2s ease 0s;
+        width: 120px;
+    }
+
+        .boton:hover {
+            background: #0096f7;
+        }
+
+        .boton:active {
+            box-shadow: 2px 2px 2px #777, 0px 0px 35px 0px #00b7f8;
+            border-bottom: 1px solid #0045A6;
+            text-shadow: 0px 0px 5px #fff, 0px 0px 5px #fff;
+        }
+ 
 </style>
 
 
@@ -110,48 +130,75 @@
         <div class="col-lg-offset-1">
             <div class="card-header">
                 <h2 style="margin-top:10px">
-                    Usuario
+                    Nombre de usuario: Usuario.Medico
                 </h2>
                 <h4>
-                    Nombre y Apellido:
+                    Nombre y Apellido: El Usuario Medico
                 </h4>
             </div>
             <div class="container__content">
                 <div class="content__profile">
                     <img src="https://www.avante.es/wp-content/uploads/2018/03/471a1ad342659289433e05a611d206f8.png" alt="Usuario">
                     <div class="profile">
-                        <h1></h1>
-                        <div class="content__border"></div>
-                        <h3>DNI:</h3>
-                        <h3>Especialidad:</h3>
-                        <h3>Matricula:</h3>
-                        <h3>Ultima Conexion:</h3>
+                        
+                        <div class="content__border" style="margin-top:50px"></div>
+                        
+                        <h4>DNI: 12345678</h4>
+                        <h4>Especialidad: Ciruja</h4>
+                        <h4>Matricula: 123456</h4>
+                        <h4>Ultima Conexion: 10/03/2020 09:00</h4>
                     </div>
                 </div>
-                <div class="content__bio">
+                <div class="content__bio" style="text-align: left">
 
-                    <h2>
-                        Cantidad de Turnos reservados:
-                    </h2>
-                    <h2>
-                        Cantidad de Turnos ingresados:
-                    </h2>
-                    <h2>
-                        Cantidad de Turnos espontaneos:
-                    </h2>
-                    <h2>
-                        Total ingresos:
+                    <h3>
+                        Cantidad de Turnos reservados: 50 turnos.
+                    </h3>
+                    <h3>
+                        Cantidad de Turnos ingresados: 100 turnos.
+                    </h3>
+                    <h3>
+                        Cantidad de Turnos espontaneos: 150 turnos.
+                    </h3>
+                    <h3>
+                        Total ingresos: 200 ingresos.
 
-                    </h2>
-                    <h2>
-                        Total atendidos:
-                    </h2>
-                    <h2>
-                        Dias Atencion:
-                    </h2>
+                    </h3>
+                    <h3>
+                        Total atendidos: 350 atenciones.
+                    </h3>
+                    <h3>
+                        Dias de atencion:
+                    </h3>
+                    <h3>
+                        <input type="checkbox" checked="checked">
+                  
+                        Lunes
+                        <input type="checkbox" checked="checked">
+            
+                        Martes
+                        <input type="checkbox" checked="checked">
+       
+                        Miercoles
+                        <input type="checkbox" checked="checked">
+ 
+                        Jueves
+                        <input type="checkbox" checked="checked">
+
+                        Viernes
+                        <input type="checkbox" checked="checked">
+   
+                        Sabado
+                        <input type="checkbox" checked="checked">
+                        Domingo
+
+                    </h3>
                 </div>
             </div>
         </div>
 
     </div>
+</div>
+<div>
+    <input class="boton" value="Volver" onclick="history.go(-1)" />
 </div>

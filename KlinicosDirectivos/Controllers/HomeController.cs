@@ -21,6 +21,7 @@ namespace KlinicosDirectivos.Controllers
                 establecimientos.Add(new SelectListItem() { Text = establecimiento.nombre, Value = establecimiento.id.ToString() });
             }
 
+
             ViewBag.Establecimientos = establecimientos;
             return View("Index");
         }
