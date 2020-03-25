@@ -129,15 +129,26 @@ namespace KlinicosDirectivos.Controllers
                 //}
             }
         }
-        
 
 
 
 
+        private Klinicos_BEntities CrearEntity()
+        {
+            try
+            {
+                int idEstablecimiento = (int)Session["Establecimiento"];
+                return Repositorio.CrearEntityFramework(idEstablecimiento);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
 
 
-public DataSet getRegistroDiarioDataSet(string storeProcedure, DateTime? fecha, DateTime? fechaHasta, string mes, string anio, string mesHasta, string anioHasta, int? idSector, int? idEspecialidad, int? idProfesional, string tipoEspecialidad , int idEstablecimiento)
+        public DataSet getRegistroDiarioDataSet(string storeProcedure, DateTime? fecha, DateTime? fechaHasta, string mes, string anio, string mesHasta, string anioHasta, int? idSector, int? idEspecialidad, int? idProfesional, string tipoEspecialidad , int idEstablecimiento)
 {
 
     SqlConnection con = new SqlConnection(@"data source = 127.0.0.1; initial catalog = KLINICOS; persist security info = True; user id = sa; password = sql2018 *; MultipleActiveResultSets = True; App = EntityFramework");

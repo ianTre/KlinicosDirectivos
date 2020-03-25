@@ -13,7 +13,8 @@ namespace KlinicosDirectivos.Controllers
         // GET: Semanal
         public ActionResult Index(string lugar)
         {
-            Klinicos_BEntities entidades = new Klinicos_BEntities();
+            
+            Klinicos_BEntities entidades = CrearEntity(); 
             List<Sectores> listaSectores = entidades.Sectores.ToList();
             List<SelectListItem> sectores = new List<SelectListItem>();
             foreach (var sector in listaSectores)
@@ -37,6 +38,8 @@ namespace KlinicosDirectivos.Controllers
 
             return View("Inicio", listProfesionalesVM);
         }
+
+        
 
         public ActionResult SemanalSector(int idSector)
         {
@@ -98,6 +101,21 @@ namespace KlinicosDirectivos.Controllers
             int cantidad;
             cantidad = entities.Evoluciones.Where(x => x.idProfesional == idProfesional).Count();
             return cantidad;
+        }
+
+
+
+        private Klinicos_BEntities CrearEntity()
+        {
+            try
+            {
+                int idEstablecimiento = (int)Session["Establecimiento"];
+                return Repositorio.CrearEntityFramework(idEstablecimiento);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
