@@ -14,7 +14,7 @@ namespace KlinicosDirectivos.Controllers
         public ActionResult Index(string lugar)
         {
             
-            Klinicos_BEntities entidades = CrearEntity(); 
+            Klinicos_BEntities entidades = Repositorio.CrearEntityFramework(); 
             List<Sectores> listaSectores = entidades.Sectores.ToList();
             List<SelectListItem> sectores = new List<SelectListItem>();
             foreach (var sector in listaSectores)
@@ -105,18 +105,7 @@ namespace KlinicosDirectivos.Controllers
 
 
 
-        private Klinicos_BEntities CrearEntity()
-        {
-            try
-            {
-                int idEstablecimiento = (int)Session["Establecimiento"];
-                return Repositorio.CrearEntityFramework(idEstablecimiento);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+        
     }
 }
 

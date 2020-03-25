@@ -133,18 +133,7 @@ namespace KlinicosDirectivos.Controllers
 
 
 
-        private Klinicos_BEntities CrearEntity()
-        {
-            try
-            {
-                int idEstablecimiento = (int)Session["Establecimiento"];
-                return Repositorio.CrearEntityFramework(idEstablecimiento);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+       
 
 
 

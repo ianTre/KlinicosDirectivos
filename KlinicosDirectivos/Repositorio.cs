@@ -36,7 +36,7 @@ namespace KlinicosDirectivos
 
 
 
-                
+
                 sqlCnxStringBuilder.DataSource = ObtenerIp(idEstablecimiento);
 
 
@@ -76,68 +76,71 @@ namespace KlinicosDirectivos
 
         private static string ObtenerIp(int id)
         {
-            string ip;    
-                switch (id)
-                {
+            string ip;
+            switch (id)
+            {
                 //Cemefir: 192.168.71.10
                 case 15:
-                        ip = "192.168.71.10";
-                        break;
+                    ip = "192.168.71.10";
+                    break;
 
                 //Rebasa: 172.46.1.10
                 case 10:
-                        ip = "172.46.1.10";
-                        break;
+                    ip = "172.46.1.10";
+                    break;
 
                 //Eizaguirre: 172.48.1.10
                 case 11:
-                        ip = "172.48.1.10";
-                        break;
+                    ip = "172.48.1.10";
+                    break;
 
                 //Germani: 172.28.1.220
                 case 17:
-                        ip = "172.28.1.220";
-                        break;
+                    ip = "172.28.1.220";
+                    break;
 
                 //Giovinazzo: 172.26.1.10
                 case 9:
-                        ip = "172.26.1.10";
-                        break;
+                    ip = "172.26.1.10";
+                    break;
 
                 //Niños: 172.29.1.100
                 case 3:
-                        ip = "172.29.1.100";
-                        break;
+                    ip = "172.29.1.100";
+                    break;
 
                 //Policlinico: 192.168.34.10
                 case 4:
-                        ip = "192.168.34.10";
-                        break;
+                    ip = "192.168.34.10";
+                    break;
 
                 //Sakamoto: 172.45.1.10
                 case 8:
-                        ip = "172.45.1.10";
-                        break;
+                    ip = "172.45.1.10";
+                    break;
 
                 //Salud     : 192.168.70.10
                 case 14:
-                        ip = "192.168.70.10";
+                    ip = "192.168.70.10";
                     break;
 
-                default : ip = "172.16.127.5";
-                        break;
-                }
+                default:
+                    ip = "172.16.127.5";
+                    break;
+            }
 
             return ip;
         }
 
 
-        public static Klinicos_BEntities CrearEntityFramework(int idEstableciemiento)
+        public static Klinicos_BEntities CrearEntityFramework()
         {
             try
             {
-            Klinicos_BEntities entidad = new Klinicos_BEntities();
-                    
+                Klinicos_BEntities entidad = new Klinicos_BEntities();
+                HttpContext context = HttpContext.Current;
+                int idEstableciemiento = (int)context.Session["Establecimiento"]; ;
+
                 if (idEstableciemiento != 0)
                 {
                     entidad.ChangeDatabase(idEstableciemiento);
@@ -153,13 +156,18 @@ namespace KlinicosDirectivos
                     {
                         entidad.Atenciones.First();
                     }
-                }   
+                }
+                else
+                {
+                    throw new Exception("Session Expirada");
+                }
 
                 return entidad;
             }
             catch (Exception ex)
             {
-                throw ex;
+                Exception error = new Exception("Error al Conectarse a la Base de datos" + ex.Message);
+                throw error;
             }
         }
 

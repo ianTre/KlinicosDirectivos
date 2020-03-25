@@ -48,17 +48,6 @@ namespace KlinicosDirectivos.Controllers
             return RedirectToAction("Index", "Semanal", new { lugar = nombreEsta.nombre });
         }
 
-        private Klinicos_BEntities CrearEntity()
-        {
-            try
-            {
-                int idEstablecimiento = (int)Session["Establecimiento"];
-                return Repositorio.CrearEntityFramework(idEstablecimiento);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+     
     }
 }
