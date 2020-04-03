@@ -11,10 +11,10 @@ namespace KlinicosDirectivos.Controllers
     public class SemanalController : Controller
     {
         // GET: Semanal
-        public ActionResult Index(string lugar)
+        public ActionResult Index()
         {
-            
-            Klinicos_BEntities entidades = Repositorio.CrearEntityFramework(); 
+
+            Klinicos_BEntities entidades = Repositorio.CrearEntityFramework();
             List<Sectores> listaSectores = entidades.Sectores.ToList();
             List<SelectListItem> sectores = new List<SelectListItem>();
             foreach (var sector in listaSectores)
@@ -22,16 +22,32 @@ namespace KlinicosDirectivos.Controllers
                 sectores.Add(new SelectListItem() { Text = sector.nombre, Value = sector.id.ToString() });
             }
 
+
+
+
+            var establecimientosTotales = entidades.Establecimientos.ToList();
+            Establecimientos nombreEsta = new Establecimientos();
+            string lugar = string.Empty;
+            int id = (int)Session["Establecimiento"];
+            foreach (var item in establecimientosTotales)
+            {
+                if (item.id == id)
+                {
+                    nombreEsta = item;
+                    lugar = nombreEsta.nombre;
+                }
+            }
+
             ViewBag.Sectores = sectores;
             ViewBag.Establecimiento = lugar;
 
             List<ProfesionalVM> listProfesionalesVM = new List<ProfesionalVM>();
-            IEnumerable<Profesionales> listProfesionales = entidades.ProfesionalesDisponibles.Join(entidades.Profesionales, pd => pd.id, p => p.id, (pd, p) =>   p );
+            IEnumerable<Profesionales> listProfesionales = entidades.ProfesionalesDisponibles.Join(entidades.Profesionales, pd => pd.id, p => p.id, (pd, p) => p);
             var EspecialidadesXProfesional = entidades.ProfesionalesEspecialidades.Join(entidades.Especialidades, pe => pe.idEspecialidad, e => e.id, (pe, e) => new { idProfesional = pe.idProfesional, especialidad = e });
 
             foreach (Profesionales profesional in listProfesionales)
             {
-                List<Especialidades> listaEspecialidades = EspecialidadesXProfesional.Where(x => x.idProfesional == profesional.id).Select(exp => (Especialidades)exp.especialidad ).ToList();
+                List<Especialidades> listaEspecialidades = EspecialidadesXProfesional.Where(x => x.idProfesional == profesional.id).Select(exp => (Especialidades)exp.especialidad).ToList();
                 ProfesionalVM profesionalVM = new ProfesionalVM(profesional, listaEspecialidades);
                 listProfesionalesVM.Add(profesionalVM);
             }
@@ -39,13 +55,49 @@ namespace KlinicosDirectivos.Controllers
             return View("Inicio", listProfesionalesVM);
         }
 
-        
+
+        public ActionResult IndexFiltrado(int idSector)
+        {
+            try
+            {
+
+
+
+                Klinicos_BEntities entidades = Repositorio.CrearEntityFramework();
+
+                List<ProfesionalVM> listProfesionalesVM = new List<ProfesionalVM>();
+                IEnumerable<Profesionales> listProfesionales = entidades.ProfesionalesDisponibles.Join(entidades.Profesionales, pd => pd.id, p => p.id, (pd, p) => p);
+                var EspecialidadesXProfesional = entidades.ProfesionalesEspecialidades.Join(entidades.Especialidades, pe => pe.idEspecialidad, e => e.id, (pe, e) => new { idProfesional = pe.idProfesional, especialidad = e });
+
+                var listProfEnSector = entidades.UsuariosSectores.Where(x => x.Sectores.id == idSector).Select(x => x.Usuarios.idProfesional).ToList();
+
+                foreach (Profesionales profesional in listProfesionales)
+                {
+                    if (listProfEnSector.Contains(profesional.id))
+                    {
+                        List<Especialidades> listaEspecialidades = EspecialidadesXProfesional.Where(x => x.idProfesional == profesional.id).Select(exp => (Especialidades)exp.especialidad).ToList();
+                        ProfesionalVM profesionalVM = new ProfesionalVM(profesional, listaEspecialidades);
+                        listProfesionalesVM.Add(profesionalVM);
+                    }
+                }
+
+                return PartialView("_TablaProfesionales", listProfesionalesVM);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw ex;
+            }
+        }
+
+
 
         public ActionResult SemanalSector(int idSector)
         {
             DateTime fechaDesde = DateTime.Now.AddDays(-7);
             DateTime fechaHasta = DateTime.Now;
-            Klinicos_BEntities entities = new Klinicos_BEntities();
+            Klinicos_BEntities entities = Repositorio.CrearEntityFramework();
             //var AtencionesXProfesional = from profesional in entities.Profesionales
             //                             join ae in entities.AtencionesEstados
             //                             on new { profe = (int?)profesional.id , estable = Boolean.TrueString } equals new { profe = ae.idProfesionalDestino  , estable = ae.Evoluciones.Select(x => x.idSector).Contains(1).ToString() }
@@ -65,11 +117,11 @@ namespace KlinicosDirectivos.Controllers
             //    Console.WriteLine("El profesional {0} tiene {1} Atenciones", semanal.NomyAp(), semanal.cantidadAtenciones);
             //    semanal.cantidadEvoluciones = ObtenerEvolucionesPorProfesionales(semanal.idProfesional, fechaDesde, fechaHasta, entities);
             //}
+            int idEstableciemiento = (int)Session["Establecimiento"];
+            var atencionesXProfesional = entities.SP_OBTENER_SEMANAL_ATENCIONES("12", "2019", idSector, idEstableciemiento);
+            var evolucionesXProfesional = entities.SP_OBTENER_SEMANAL_EVOLUCIONES("12", "2019", idSector, idEstableciemiento);
+            List<Semanal> semanales = CastearASemanales(atencionesXProfesional.ToList(), evolucionesXProfesional.ToList());
 
-            var atencionesXProfesional = entities.SP_OBTENER_SEMANAL_ATENCIONES("12", "2019", idSector, 3);
-            var evolucionesXProfesional = entities.SP_OBTENER_SEMANAL_EVOLUCIONES("12", "2019", idSector, 3);
-            List<Semanal> semanales = CastearASemanales(atencionesXProfesional.ToList(),evolucionesXProfesional.ToList());
-            
             return View("Semanal", semanales.Take(10));
         }
 
@@ -84,11 +136,11 @@ namespace KlinicosDirectivos.Controllers
                 semanal.idProfesional = (int)atencion.idprof;
                 semanal.cantidadAtenciones = (int)atencion.cantAtenciones;
                 semanal.cantidadEvoluciones = 0;
-                if(listaEvoluciones.Exists(x => x.idProfesional == semanal.idProfesional))
+                if (listaEvoluciones.Exists(x => x.idProfesional == semanal.idProfesional))
                 {
                     var evolucion = listaEvoluciones.FirstOrDefault(x => x.idProfesional == semanal.idProfesional);
                     semanal.cantidadEvoluciones = (int)evolucion.cantidad;
-                    
+
                 }
                 listaSemanal.Add(semanal);
             }
@@ -105,7 +157,7 @@ namespace KlinicosDirectivos.Controllers
 
 
 
-        
+
     }
 }
 

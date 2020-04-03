@@ -159,10 +159,7 @@
     <Compile Include="AtencionesEstados.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="AtencionEstados.cs">
-      <DependentUpon>KlinicosContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ConfiguracionAgenda.cs">
+    <Compile Include="consultaPorEstablecimiento_Result.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
@@ -175,9 +172,6 @@
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Evoluciones.cs">
-      <DependentUpon>KlinicosContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EvolucionesNOTA.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EvolucionesSM.cs">
@@ -204,28 +198,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KlinicosContext.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Observaciones.cs">
-      <DependentUpon>KlinicosContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="Paciente.cs">
-      <DependentUpon>KlinicosContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PlanillaDiaria.cs">
-      <DependentUpon>KlinicosContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Practicas.cs">
-      <DependentUpon>KlinicosContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProblemasSalud.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Profesionales.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="ProfesionalesDisponibles.cs">
-      <DependentUpon>KlinicosContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProfesionalesEspecialidades.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -235,10 +214,23 @@
     <Compile Include="ReportesEspecialidades.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Roles.cs">
+    <Compile Include="Repositorio.cs" />
+    <Compile Include="Sectores.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sectores.cs">
+    <Compile Include="split_Result.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_OBTENER_ESPECIALIDADES_Result.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_OBTENER_PROFESIONALES_Result.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_OBTENER_SEMANAL_ATENCIONES_Result.cs">
@@ -247,13 +239,16 @@
     <Compile Include="SP_OBTENER_SEMANAL_EVOLUCIONES_Result.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_OBTENER_SEMANAL_Result.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Turno.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="TurnosReserva.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="TurnoTurnoEstado.cs">
+    <Compile Include="Turno_Historicos.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Usuarios.cs">
@@ -262,12 +257,9 @@
     <Compile Include="UsuariosSectores.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Vacunas.cs">
-      <DependentUpon>KlinicosContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\DetalleSemanalPartialVM.cs" />
     <Compile Include="ViewModels\Profesional.cs" />
-    <Compile Include="ViewModels\ProfesionalDesempeño.cs" />
+    <Compile Include="ViewModels\VMProfesionalDesempeño.cs" />
     <Compile Include="ViewModels\Semanal.cs" />
     <Compile Include="ViewModels\SemanalProfesional.cs" />
   </ItemGroup>
@@ -468,6 +460,7 @@
     <Content Include="Views\Semanal\Inicio.cshtml" />
     <Content Include="Views\Semanal\Semanal.cshtml" />
     <Content Include="Views\Profesional\DetalleProfesional.cshtml" />
+    <Content Include="Views\Shared\_TablaProfesionales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -139,18 +139,19 @@ namespace KlinicosDirectivos
             {
                 Klinicos_BEntities entidad = new Klinicos_BEntities();
                 HttpContext context = HttpContext.Current;
-                int idEstableciemiento = (int)context.Session["Establecimiento"]; ;
+                int idEstableciemiento = (int)context.Session["Establecimiento"];
 
                 if (idEstableciemiento != 0)
                 {
-                    entidad.ChangeDatabase(idEstableciemiento);
+                    entidad.ChangeDatabase(idEstableciemiento, userId: "sa", password: "sql2018*", integratedSecuity: false);
+                    
                     try
                     {
                         entidad.Atenciones.First();
                     }
                     catch (Exception ex)
                     {
-                        entidad.ChangeDatabase(idEstableciemiento, userId: "sa", password: "sql2018*", integratedSecuity: false);
+                        entidad.ChangeDatabase(idEstableciemiento);
                     }
                     finally
                     {

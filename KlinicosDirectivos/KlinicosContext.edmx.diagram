@@ -5,65 +5,90 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="fa2420b9979e45dcbd548ed883dab9da" Name="Diagram1">
-        <EntityTypeShape EntityType="Klinicos_BModel.Atenciones" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.AtencionesEstados" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.AtencionEstados" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Evoluciones" Width="1.5" PointX="10.5" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.EvolucionesNOTA" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.EvolucionesSM" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.EvolucionesSOAP" Width="1.5" PointX="12.75" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Observaciones" Width="1.5" PointX="15.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.ProblemasSalud" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Especialidades" Width="2.375" PointX="2.125" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Establecimientos" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Practicas" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Profesionales" Width="1.5" PointX="3" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Vacunas" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.ProfesionalesDisponibles" Width="1.5" PointX="12" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Sectores" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Turno" Width="1.5" PointX="5.75" PointY="26.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.TurnosReserva" Width="1.5" PointX="8" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.TurnoTurnoEstado" Width="1.5" PointX="3.5" PointY="26.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Paciente" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Roles" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Usuarios" Width="1.5" PointX="5.75" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Klinicos_BModel.UsuariosSectores" Width="1.5" PointX="8" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Atenciones_Persona_Paciente_idPaciente" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Observaciones_Atencion_Atenciones_idAtencion" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_Atencion_AtencionEstados_idAtencionEstado" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Observaciones_Atencion_AtencionesEstados_idAtencionesEstados" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_ProblemasSalud_idProblemaSalud" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_EvolucionesNOTA_Atencion_Evoluciones_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_EvolucionesNOTA_Atencion_Evoluciones_idEvolucionRelacionada" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Observaciones_Atencion_Evoluciones_idEvolucion" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Observaciones_Atencion_ProblemasSalud_idProblemaSalud" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Observaciones_Persona_Paciente_idPaciente" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_ProblemasSalud_Persona_Paciente_idPaciente" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_Turno_GestionTurnos_TurnoTurnoEstado_UltimoEstadoRefId" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_TurnoTurnoEstado_GestionTurnos_Turno_Turno_Id" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_Persona_Paciente_idPaciente" ManuallyRouted="false" />
-        <AssociationConnector Association="Klinicos_BModel.FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Klinicos_BModel.ProfesionalesEspecialidades" Width="1.5" PointX="12.125" PointY="7.75" />
-        <EntityTypeShape EntityType="Klinicos_BModel.ConfiguracionAgenda" Width="1.5" PointX="8" PointY="18.625" />
-        <EntityTypeShape EntityType="Klinicos_BModel.PlanillaDiaria" Width="1.5" PointX="10.25" PointY="20" />
-        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_ConfiguracionAgenda_GeneralLocal_Sectores_idSector" />
-        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_PlanillaDiaria_GestionTurnos_ConfiguracionAgenda_ConfiguracionAgendaRefId" />
-        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_Turno_GestionTurnos_PlanillaDiaria_PlanillaDiariaRefId" />
-        <EntityTypeShape EntityType="Klinicos_BModel.Reportes" Width="1.5" PointX="3" PointY="34" />
-        <EntityTypeShape EntityType="Klinicos_BModel.ReportesEspecialidades" Width="1.5" PointX="1" PointY="1" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Atenciones" Width="1.5" PointX="6" PointY="10.25" />
+        <EntityTypeShape EntityType="Klinicos_BModel.AtencionesEstados" Width="1.5" PointX="8.25" PointY="18.125" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Evoluciones" Width="1.5" PointX="13.5" PointY="19" />
+        <EntityTypeShape EntityType="Klinicos_BModel.EvolucionesSM" Width="1.5" PointX="15.75" PointY="17.75" />
+        <EntityTypeShape EntityType="Klinicos_BModel.EvolucionesSOAP" Width="1.5" PointX="15.75" PointY="21.625" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Especialidades" Width="1.5" PointX="0.75" PointY="15.375" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Establecimientos" Width="1.5" PointX="11.25" PointY="24" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Profesionales" Width="1.5" PointX="3" PointY="21.25" />
+        <EntityTypeShape EntityType="Klinicos_BModel.ProfesionalesDisponibles" Width="1.5" PointX="5.25" PointY="21.75" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Sectores" Width="1.5" PointX="5.25" PointY="27.125" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Turno" Width="1.5" PointX="5.25" PointY="18.25" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Turno_Historicos" Width="1.5" PointX="8.25" PointY="25.625" />
+        <EntityTypeShape EntityType="Klinicos_BModel.TurnosReserva" Width="1.5" PointX="10.5" PointY="16.875" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Paciente" Width="1.5" PointX="3.75" PointY="9.375" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Usuarios" Width="1.5" PointX="5.25" PointY="32.25" />
+        <EntityTypeShape EntityType="Klinicos_BModel.UsuariosSectores" Width="1.5" PointX="7.5" PointY="33.5" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Atenciones_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadDestino" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalDestino" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Evoluciones_General_Especialidades_idEspecialidad" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Evoluciones_General_Establecimientos_idEstablecimiento" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Evoluciones_General_Profesionales_idProfesional" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Usuario_Usuarios_General_Profesionales_idProfesional" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario" />
+        <AssociationConnector Association="Klinicos_BModel.ProfesionalesEspecialidades" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Reportes" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="Klinicos_BModel.ReportesEspecialidades" Width="1.5" PointX="9" PointY="12.875" />
         <AssociationConnector Association="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad" />
         <AssociationConnector Association="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte" />
-        </Diagram>
+        <EntityTypeShape EntityType="Klinicos_BModel.AntecedentesFamiliares" Width="1.5" PointX="15.75" PointY="15.25" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PacienteContactos" Width="1.5" PointX="3.75" PointY="33.625" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PacienteCorreosElectronicos" Width="1.5" PointX="3.75" PointY="30.5" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PacienteDomicilios" Width="1.5" PointX="3.75" PointY="7.75" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PacienteEstadosCiviles" Width="1.5" PointX="3.75" PointY="12.25" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PacienteHistoriaClinica" Width="1.5" PointX="8.25" PointY="0.75" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PacienteHistoriaClinicaNumeradores" Width="1.5" PointX="2.625" PointY="1.375" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PacienteNacionalidades" Width="1.5" PointX="0.75" PointY="18.25" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PacienteNivelesInstruccion" Width="1.5" PointX="0.75" PointY="14.25" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PacienteObrasSociales" Width="1.5" PointX="8.25" PointY="39.5" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PacienteSituacionesLaborales" Width="1.5" PointX="0.75" PointY="10.25" />
+        <EntityTypeShape EntityType="Klinicos_BModel.PacienteVacuna" Width="1.5" PointX="20.75" PointY="19.375" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Atenciones_Persona_PacienteDomicilios_idUltimoPacienteDomicilio" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Atenciones_Persona_PacienteEstadosCiviles_idUltimoPacienteEstadoCivil" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Atenciones_Persona_PacienteNacionalidades_idUltimoPacienteNacionalidad" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Atenciones_Persona_PacienteNivelesInstruccion_idUltimoPacienteNivelInstruccion" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Atencion_Atenciones_Persona_PacienteSituacionesLaborales_idUltimoPacienteSituacionLaboral" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_AntecedentesFamiliares_General_Establecimientos_idEstablecimiento" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteVacuna_General_Establecimientos_idEstablecimiento" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_AntecedentesFamiliares_General_Profesionales_idProfesional" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteVacuna_General_Profesionales_idProfesional" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_AntecedentesFamiliares_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_Paciente_Persona_PacienteContactos_idUltimoPacienteContacto" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_Paciente_Persona_PacienteCorreosElectronicos_idUltimoPacienteCorreoElectronico" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_Paciente_Persona_PacienteDomicilios_idUltimoPacienteDomicilio" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_Paciente_Persona_PacienteEstadosCiviles_idUltimoPacienteEstadoCivil" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_Paciente_Persona_PacienteNacionalidades_idUltimoPacienteNacionalidad" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_Paciente_Persona_PacienteNivelesInstruccion_idUltimoPacienteNivelInstruccion" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_Paciente_Persona_PacienteSituacionesLaborales_idUltimoPacienteSituacionLaboral" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteContactos_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteCorreosElectronicos_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteDomicilios_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteEstadosCiviles_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteHistoriaClinica_Persona_Paciente_id" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteNacionalidades_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteNivelesInstruccion_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteObrasSociales_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteSituacionesLaborales_Persona_Paciente_idPaciente" />
+        <AssociationConnector Association="Klinicos_BModel.FK_Persona_PacienteVacuna_Persona_Paciente_idPaciente" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

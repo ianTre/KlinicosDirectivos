@@ -31,21 +31,21 @@ namespace KlinicosDirectivos.Controllers
         public ActionResult establecimiento(int id)
         {
             Session["Establecimiento"] = id;
-            Klinicos_BEntities entities = new Klinicos_BEntities();
+            //Klinicos_BEntities entities = new Klinicos_BEntities();
 
-            var establecimientosTotales = entities.Establecimientos.ToList();
-            Establecimientos nombreEsta = new Establecimientos();
-            foreach (var item in establecimientosTotales)
-            {
-                if (item.id == id)
-                {
-                    nombreEsta = item;
-                }
-            }
+            //var establecimientosTotales = entities.Establecimientos.ToList();
+            //Establecimientos nombreEsta = new Establecimientos();
+            //foreach (var item in establecimientosTotales)
+            //{
+            //    if (item.id == id)
+            //    {
+            //        nombreEsta = item;
+            //    }
+            //}
 
 
 
-            return RedirectToAction("Index", "Semanal", new { lugar = nombreEsta.nombre });
+            return RedirectToAction("Index", "Semanal");
         }
 
      
