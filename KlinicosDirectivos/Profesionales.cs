@@ -20,10 +20,10 @@ namespace KlinicosDirectivos
             this.AtencionesEstados = new HashSet<AtencionesEstados>();
             this.AtencionesEstados1 = new HashSet<AtencionesEstados>();
             this.Evoluciones = new HashSet<Evoluciones>();
+            this.Especialidades = new HashSet<Especialidades>();
+            this.Usuarios = new HashSet<Usuarios>();
             this.Turno = new HashSet<Turno>();
             this.Turno_Historicos = new HashSet<Turno_Historicos>();
-            this.Usuarios = new HashSet<Usuarios>();
-            this.Especialidades = new HashSet<Especialidades>();
         }
     
         public int id { get; set; }
@@ -50,14 +50,14 @@ namespace KlinicosDirectivos
         public virtual ICollection<AtencionesEstados> AtencionesEstados1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Evoluciones> Evoluciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Especialidades> Especialidades { get; set; }
         public virtual ProfesionalesDisponibles ProfesionalesDisponibles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuarios> Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Turno> Turno { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Turno_Historicos> Turno_Historicos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuarios> Usuarios { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Especialidades> Especialidades { get; set; }
     }
 }

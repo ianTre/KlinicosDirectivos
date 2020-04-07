@@ -23,7 +23,7 @@ namespace KlinicosDirectivos
         public System.DateTime fechaModi { get; set; }
         public string roles { get; set; }
     
-        public virtual Sectores Sectores { get; set; }
         public virtual Usuarios Usuarios { get; set; }
+        public virtual Sectores Sectores { get; set; }
     }
 }

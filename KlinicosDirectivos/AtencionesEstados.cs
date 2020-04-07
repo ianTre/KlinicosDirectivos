@@ -43,11 +43,11 @@ namespace KlinicosDirectivos
         public Nullable<System.DateTime> fechaFinaliza { get; set; }
     
         public virtual Atenciones Atenciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Evoluciones> Evoluciones { get; set; }
         public virtual Especialidades Especialidades { get; set; }
         public virtual Especialidades Especialidades1 { get; set; }
         public virtual Profesionales Profesionales { get; set; }
         public virtual Profesionales Profesionales1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Evoluciones> Evoluciones { get; set; }
     }
 }

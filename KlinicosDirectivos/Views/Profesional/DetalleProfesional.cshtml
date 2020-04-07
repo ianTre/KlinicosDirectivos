@@ -130,10 +130,10 @@
         <div class="col-lg-offset-1">
             <div class="card-header">
                 <h2 style="margin-top:10px">
-                    Nombre de usuario: Usuario.Medico
+                    Nombre de usuario: @Model.nombreUsuario
                 </h2>
                 <h4>
-                    Nombre y Apellido: El Usuario Medico
+                    Nombre y Apellido: @Model.nombre , @Model.apellido
                 </h4>
             </div>
             <div class="container__content">
@@ -144,31 +144,28 @@
                         <div class="content__border" style="margin-top:50px"></div>
                         
                         <h4>DNI: @Model.dni</h4>
-                        <h4>Especialidad: Ciruja</h4>
-                        <h4>Matricula: 123456</h4>
-                        <h4>Ultima Conexion: 10/03/2020 09:00</h4>
+                        <h4>Especialidad: @Model.especialidad</h4>
+                        <h4>Matricula: @Model.matricula</h4>
+                        <h4>Ultima Conexion: @Model.ultimaConexion</h4>
                     </div>
                 </div>
                 <div class="content__bio" style="text-align: left">
 
                     <h3>
-                        Cantidad de Turnos reservados: 50 turnos.
+                        Cantidad de Turnos reservados: @Model.cantidadTurnosReservados  .
                     </h3>
                     <h3>
-                        Cantidad de Turnos ingresados: 100 turnos.
+                        Cantidad de Turnos espontaneos: @Model.cantidadTurnosEspontaneos .
                     </h3>
                     <h3>
-                        Cantidad de Turnos espontaneos: 150 turnos.
-                    </h3>
-                    <h3>
-                        Total ingresos: 200 ingresos.
+                        Total ingresos: @Model.totalIngresos .
 
                     </h3>
                     <h3>
-                        Total atendidos: 350 atenciones.
+                        Total atendidos: @Model.totalAtendidos  .
                     </h3>
                     <h3>
-                        Dias de atencion:
+                        Dias de atencion: @Model.diasAtencion
                     </h3>
                     <h3>
                         <input type="checkbox" checked="checked">

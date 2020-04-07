@@ -37,6 +37,5 @@ namespace KlinicosDirectivos
         public string edadAparenteUnidad { get; set; }
     
         public virtual Turno Turno { get; set; }
-        public virtual Paciente Paciente { get; set; }
     }
 }

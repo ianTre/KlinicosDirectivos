@@ -168,6 +168,9 @@
     <Compile Include="Especialidades.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="EspecialidadesDisponibles.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Establecimientos.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
@@ -197,9 +200,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>KlinicosContext.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Paciente.cs">
-      <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Profesionales.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>

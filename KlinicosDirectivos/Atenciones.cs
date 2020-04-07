@@ -44,7 +44,6 @@ namespace KlinicosDirectivos
         public Nullable<int> idEstablecimiento { get; set; }
         public string Discriminator { get; set; }
     
-        public virtual Paciente Paciente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AtencionesEstados> AtencionesEstados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -42,6 +42,7 @@ namespace KlinicosDirectivos
         public virtual ICollection<Evoluciones> Evoluciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profesionales> Profesionales { get; set; }
+        public virtual EspecialidadesDisponibles EspecialidadesDisponibles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReportesEspecialidades> ReportesEspecialidades { get; set; }
     }

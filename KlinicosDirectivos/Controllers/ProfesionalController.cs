@@ -22,15 +22,18 @@ namespace KlinicosDirectivos.Controllers
 
         public ActionResult DetalleProfesional(int idProfesional)
         {
-            DateTime desde = DateTime.Now;
-            DateTime hasta = DateTime.Now.AddDays(-7);
+            DateTime  hasta = DateTime.Now;
+            DateTime desde = DateTime.Now.AddDays(-7);
 
             Klinicos_BEntities entidades = Repositorio.CrearEntityFramework();
             Profesionales profesional = entidades.Profesionales.Where(x => x.id == idProfesional && x.vigente == true).FirstOrDefault();
-            List<Especialidades> especialidades = entidades.Especialidades
+            /*List<Especialidades> especialidades = entidades.Especialidades
                 .Join(entidades.ProfesionalesEspecialidades, e => e.id, pe => pe.idEspecialidad, (e, pe) => new { especialidad = e, profesional = pe.idProfesional })
                 .Where(x => x.profesional == idProfesional)
-                .Select(x => x.especialidad).ToList();
+                .Select(x => x.especialidad).ToList();*/
+
+            var especialidades = entidades.SP_ESPECIALIDADES_X_PROFESIONAL((int?)idProfesional).ToList();
+            
 
             Usuarios usuario = entidades.Usuarios.Where(x => x.idProfesional == idProfesional).FirstOrDefault();
             //var turnosIngresados = entidades.Turno.Join(entidades.Atenciones, t => t.Id, a => a.idTurno, (t, a) => new { atencion = a, idprofe = t.AtendidoPorRefId }).Where(x => x.idprofe == idProfesional).Count();
@@ -38,15 +41,15 @@ namespace KlinicosDirectivos.Controllers
             //var Ultimasatenciones = entidades.AtencionesEstados.Where(x => x.idProfesionalDestino == idProfesional).OrderByDescending(x => x.llamadosUltimaFechayHora).FirstOrDefault();
 
 
-            var turnosReservados = entidades.TurnosReserva.Where(x => x.Turno.AtendidoPorRefId == idProfesional && EntreFechas(x.Turno.FechaYHora, desde, hasta)).Count(); //Reservas de hoy en adelante
-            var turnosHistoricos = entidades.Turno_Historicos.Where(x => x.AtendidoPorRefId == idProfesional && EntreFechas(x.FechaYHora, desde, hasta)).Count(); // Reservas en el historico
+            var turnosReservados = entidades.TurnosReserva.Where(x => x.Turno.AtendidoPorRefId == idProfesional && (x.Turno.FechaYHora > desde && x.Turno.FechaYHora < hasta  )).Count(); //Reservas de hoy en adelante
+            var turnosHistoricos = entidades.Turno_Historicos.Where(x => x.AtendidoPorRefId == idProfesional && (x.FechaYHora > desde && x.FechaYHora < hasta)).Count(); // Reservas en el historico
             int cantidadTurnosReservados = turnosReservados + turnosHistoricos; // Usar esta variable en la vista
 
-            var cantidadturnosEspontaneos = entidades.AtencionesEstados.Where(x => x.idProfesionalDestino == idProfesional && (x.Atenciones.idTurno.Equals(null) || x.Atenciones.idTurno == 0)).Count();
+            var cantidadturnosEspontaneos = entidades.AtencionesEstados.Where(x => x.idProfesionalDestino == idProfesional && (x.Atenciones.idTurno.Equals(null) || x.Atenciones.idTurno == 0) && ( x.fechaCrea > desde && x.fechaCrea < hasta )).Count();
 
-            var ingresosXProfesional = entidades.AtencionesEstados.Where(x => x.idProfesionalDestino == idProfesional && EntreFechas(x.fechaCrea, desde, hasta));
+            var ingresosXProfesional = entidades.AtencionesEstados.Where(x => x.idProfesionalDestino == idProfesional && (x.fechaCrea > desde && x.fechaCrea< hasta));
 
-            var evolucionesXProfesional = entidades.Evoluciones.Where(x => x.idProfesional == idProfesional && EntreFechas(x.fechaCrea, desde, hasta));
+            var evolucionesXProfesional = entidades.Evoluciones.Where(x => x.idProfesional == idProfesional && (x.fechaCrea> desde && x.fechaCrea< hasta));
 
             VMProfesionalDesempeño viewModel = new VMProfesionalDesempeño(usuario , profesional , especialidades);
             viewModel.cantidadTurnosEspontaneos = cantidadturnosEspontaneos;

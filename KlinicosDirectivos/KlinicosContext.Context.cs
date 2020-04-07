@@ -33,18 +33,18 @@ namespace KlinicosDirectivos
         public virtual DbSet<EvolucionesSM> EvolucionesSM { get; set; }
         public virtual DbSet<EvolucionesSOAP> EvolucionesSOAP { get; set; }
         public virtual DbSet<Especialidades> Especialidades { get; set; }
-        public virtual DbSet<Establecimientos> Establecimientos { get; set; }
         public virtual DbSet<Profesionales> Profesionales { get; set; }
+        public virtual DbSet<EspecialidadesDisponibles> EspecialidadesDisponibles { get; set; }
         public virtual DbSet<ProfesionalesDisponibles> ProfesionalesDisponibles { get; set; }
+        public virtual DbSet<Reportes> Reportes { get; set; }
+        public virtual DbSet<ReportesEspecialidades> ReportesEspecialidades { get; set; }
+        public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<UsuariosSectores> UsuariosSectores { get; set; }
+        public virtual DbSet<Establecimientos> Establecimientos { get; set; }
         public virtual DbSet<Sectores> Sectores { get; set; }
         public virtual DbSet<Turno> Turno { get; set; }
         public virtual DbSet<Turno_Historicos> Turno_Historicos { get; set; }
         public virtual DbSet<TurnosReserva> TurnosReserva { get; set; }
-        public virtual DbSet<Paciente> Paciente { get; set; }
-        public virtual DbSet<Usuarios> Usuarios { get; set; }
-        public virtual DbSet<UsuariosSectores> UsuariosSectores { get; set; }
-        public virtual DbSet<Reportes> Reportes { get; set; }
-        public virtual DbSet<ReportesEspecialidades> ReportesEspecialidades { get; set; }
     
         public virtual ObjectResult<SP_OBTENER_SEMANAL_ATENCIONES_Result> SP_OBTENER_SEMANAL_ATENCIONES(string mes, string anio, Nullable<int> idSector, Nullable<int> idEstablecimiento)
         {
@@ -361,6 +361,24 @@ namespace KlinicosDirectivos
                 new ObjectParameter("delimiter", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<split_Result>("[Klinicos_BEntities].[split](@delimited, @delimiter)", delimitedParameter, delimiterParameter);
+        }
+    
+        public virtual ObjectResult<Especialidades> SP_ESPECIALIDADES_X_PROFESIONAL(Nullable<int> idProfesional)
+        {
+            var idProfesionalParameter = idProfesional.HasValue ?
+                new ObjectParameter("idProfesional", idProfesional) :
+                new ObjectParameter("idProfesional", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Especialidades>("SP_ESPECIALIDADES_X_PROFESIONAL", idProfesionalParameter);
+        }
+    
+        public virtual ObjectResult<Especialidades> SP_ESPECIALIDADES_X_PROFESIONAL(Nullable<int> idProfesional, MergeOption mergeOption)
+        {
+            var idProfesionalParameter = idProfesional.HasValue ?
+                new ObjectParameter("idProfesional", idProfesional) :
+                new ObjectParameter("idProfesional", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Especialidades>("SP_ESPECIALIDADES_X_PROFESIONAL", mergeOption, idProfesionalParameter);
         }
     }
 }

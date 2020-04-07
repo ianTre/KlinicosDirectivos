@@ -27,10 +27,10 @@ namespace KlinicosDirectivos
     
         public virtual Atenciones Atenciones { get; set; }
         public virtual AtencionesEstados AtencionesEstados { get; set; }
-        public virtual Especialidades Especialidades { get; set; }
-        public virtual Establecimientos Establecimientos { get; set; }
-        public virtual Profesionales Profesionales { get; set; }
         public virtual EvolucionesSM EvolucionesSM { get; set; }
         public virtual EvolucionesSOAP EvolucionesSOAP { get; set; }
+        public virtual Especialidades Especialidades { get; set; }
+        public virtual Profesionales Profesionales { get; set; }
+        public virtual Establecimientos Establecimientos { get; set; }
     }
 }

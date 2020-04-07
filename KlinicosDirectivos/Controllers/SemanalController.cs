@@ -43,11 +43,13 @@ namespace KlinicosDirectivos.Controllers
 
             List<ProfesionalVM> listProfesionalesVM = new List<ProfesionalVM>();
             IEnumerable<Profesionales> listProfesionales = entidades.ProfesionalesDisponibles.Join(entidades.Profesionales, pd => pd.id, p => p.id, (pd, p) => p);
-            var EspecialidadesXProfesional = entidades.ProfesionalesEspecialidades.Join(entidades.Especialidades, pe => pe.idEspecialidad, e => e.id, (pe, e) => new { idProfesional = pe.idProfesional, especialidad = e });
-
+            //var EspecialidadesXProfesional = entidades.ProfesionalesEspecialidades.Join(entidades.Especialidades, pe => pe.idEspecialidad, e => e.id, (pe, e) => new { idProfesional = pe.idProfesional, especialidad = e });
+            var EspecialidadesXProfesional = new List<Especialidades>();
             foreach (Profesionales profesional in listProfesionales)
             {
-                List<Especialidades> listaEspecialidades = EspecialidadesXProfesional.Where(x => x.idProfesional == profesional.id).Select(exp => (Especialidades)exp.especialidad).ToList();
+                int? idprof = profesional.id;
+                var  listaresultado = entidades.SP_ESPECIALIDADES_X_PROFESIONAL(idprof).ToList();
+                List<Especialidades> listaEspecialidades = listaresultado;
                 ProfesionalVM profesionalVM = new ProfesionalVM(profesional, listaEspecialidades);
                 listProfesionalesVM.Add(profesionalVM);
             }
@@ -67,7 +69,7 @@ namespace KlinicosDirectivos.Controllers
 
                 List<ProfesionalVM> listProfesionalesVM = new List<ProfesionalVM>();
                 IEnumerable<Profesionales> listProfesionales = entidades.ProfesionalesDisponibles.Join(entidades.Profesionales, pd => pd.id, p => p.id, (pd, p) => p);
-                var EspecialidadesXProfesional = entidades.ProfesionalesEspecialidades.Join(entidades.Especialidades, pe => pe.idEspecialidad, e => e.id, (pe, e) => new { idProfesional = pe.idProfesional, especialidad = e });
+                //var EspecialidadesXProfesional = entidades.ProfesionalesEspecialidades.Join(entidades.Especialidades, pe => pe.idEspecialidad, e => e.id, (pe, e) => new { idProfesional = pe.idProfesional, especialidad = e });
 
                 var listProfEnSector = entidades.UsuariosSectores.Where(x => x.Sectores.id == idSector).Select(x => x.Usuarios.idProfesional).ToList();
 
@@ -75,7 +77,8 @@ namespace KlinicosDirectivos.Controllers
                 {
                     if (listProfEnSector.Contains(profesional.id))
                     {
-                        List<Especialidades> listaEspecialidades = EspecialidadesXProfesional.Where(x => x.idProfesional == profesional.id).Select(exp => (Especialidades)exp.especialidad).ToList();
+                        //List<Especialidades> listaEspecialidades = EspecialidadesXProfesional.Where(x => x.idProfesional == profesional.id).Select(exp => (Especialidades)exp.especialidad).ToList();
+                        List<Especialidades> listaEspecialidades = entidades.SP_ESPECIALIDADES_X_PROFESIONAL(profesional.id).ToList();
                         ProfesionalVM profesionalVM = new ProfesionalVM(profesional, listaEspecialidades);
                         listProfesionalesVM.Add(profesionalVM);
                     }

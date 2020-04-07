@@ -45,6 +45,5 @@ namespace KlinicosDirectivos
         public int PlanillaDiariaRefId { get; set; }
     
         public virtual Profesionales Profesionales { get; set; }
-        public virtual Paciente Paciente { get; set; }
     }
 }

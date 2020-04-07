@@ -160,6 +160,14 @@
           <Property Name="usuarioModi" Type="nvarchar" MaxLength="50" />
           <Property Name="fechaModi" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="EspecialidadesDisponibles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="usuarioCrea" Type="nvarchar" MaxLength="50" />
+          <Property Name="fechaCrea" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="ProfesionalesDisponibles">
           <Key>
             <PropertyRef Name="id" />
@@ -293,43 +301,6 @@
           <Property Name="edadAparente" Type="int" Nullable="false" />
           <Property Name="edadAparenteUnidad" Type="nvarchar" MaxLength="1" />
         </EntityType>
-        <EntityType Name="Paciente">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="idTipoDocumento" Type="int" Nullable="false" />
-          <Property Name="numeroDocumento" Type="nvarchar" MaxLength="10" />
-          <Property Name="idSexo" Type="int" Nullable="false" />
-          <Property Name="primerApellido" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="primerNombre" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="otrosNombres" Type="nvarchar" MaxLength="100" />
-          <Property Name="primerApellidoMaterno" Type="nvarchar" MaxLength="100" />
-          <Property Name="fechaNacimiento" Type="datetime" />
-          <Property Name="fechaObito" Type="datetime" />
-          <Property Name="observaciones" Type="nvarchar(max)" />
-          <Property Name="denunciado" Type="bit" Nullable="false" />
-          <Property Name="grupoSanguineo" Type="nvarchar" MaxLength="3" />
-          <Property Name="idEtnia" Type="int" />
-          <Property Name="estado" Type="nvarchar" MaxLength="4" />
-          <Property Name="idUltimoPacienteDomicilio" Type="uniqueidentifier" />
-          <Property Name="idUltimoPacienteContacto" Type="uniqueidentifier" />
-          <Property Name="idUltimoPacienteCorreoElectronico" Type="uniqueidentifier" />
-          <Property Name="idUltimoPacienteNivelInstruccion" Type="uniqueidentifier" />
-          <Property Name="idUltimoPacienteSituacionLaboral" Type="uniqueidentifier" />
-          <Property Name="idUltimoPacienteNacionalidad" Type="uniqueidentifier" />
-          <Property Name="idUltimoPacienteEstadoCivil" Type="uniqueidentifier" />
-          <Property Name="usuarioCrea" Type="nvarchar" MaxLength="50" />
-          <Property Name="fechaCrea" Type="datetime" Nullable="false" />
-          <Property Name="usuarioModi" Type="nvarchar" MaxLength="50" />
-          <Property Name="fechaModi" Type="datetime" Nullable="false" />
-          <Property Name="idTipoDocumentoMaterno" Type="int" />
-          <Property Name="numeroDocumentoMaterno" Type="nvarchar" MaxLength="10" />
-          <Property Name="nombresMaterno" Type="nvarchar" MaxLength="100" />
-          <Property Name="idDniFrente" Type="uniqueidentifier" />
-          <Property Name="idDniDorso" Type="uniqueidentifier" />
-          <Property Name="idGenero" Type="int" />
-        </EntityType>
         <EntityType Name="ProfesionalesEspecialidades">
           <Key>
             <PropertyRef Name="idProfesional" />
@@ -377,18 +348,6 @@
           <Property Name="fechaModi" Type="datetime" Nullable="false" />
           <Property Name="roles" Type="nvarchar(max)" />
         </EntityType>
-        <Association Name="FK_Atencion_Atenciones_Persona_Paciente_idPaciente">
-          <End Role="Paciente" Type="Self.Paciente" Multiplicity="1" />
-          <End Role="Atenciones" Type="Self.Atenciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Paciente">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Atenciones">
-              <PropertyRef Name="idPaciente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion">
           <End Role="Atenciones" Type="Self.Atenciones" Multiplicity="1" />
           <End Role="AtencionesEstados" Type="Self.AtencionesEstados" Multiplicity="*" />
@@ -533,6 +492,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GeneralLocal_EspecialidadesDisponibles_General_Especialidades_id">
+          <End Role="Especialidades" Type="Self.Especialidades" Multiplicity="1" />
+          <End Role="EspecialidadesDisponibles" Type="Self.EspecialidadesDisponibles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EspecialidadesDisponibles">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id">
           <End Role="Profesionales" Type="Self.Profesionales" Multiplicity="1" />
           <End Role="ProfesionalesDisponibles" Type="Self.ProfesionalesDisponibles" Multiplicity="0..1" />
@@ -605,18 +576,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GestionTurnos_Turno_Historicos_Persona_Paciente_idPaciente">
-          <End Role="Paciente" Type="Self.Paciente" Multiplicity="0..1" />
-          <End Role="Turno_Historicos" Type="Self.Turno_Historicos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Paciente">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Turno_Historicos">
-              <PropertyRef Name="idPaciente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno">
           <End Role="Turno" Type="Self.Turno" Multiplicity="1" />
           <End Role="TurnosReserva" Type="Self.TurnosReserva" Multiplicity="0..1" />
@@ -626,18 +585,6 @@
             </Principal>
             <Dependent Role="TurnosReserva">
               <PropertyRef Name="idTurno" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GestionTurnos_TurnosReserva_Persona_Paciente_idPaciente">
-          <End Role="Paciente" Type="Self.Paciente" Multiplicity="0..1" />
-          <End Role="TurnosReserva" Type="Self.TurnosReserva" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Paciente">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TurnosReserva">
-              <PropertyRef Name="idPaciente" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -731,6 +678,9 @@
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_ESPECIALIDADES_X_PROFESIONAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProfesional" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -819,6 +769,7 @@
           <EntitySet Name="Especialidades" EntityType="Self.Especialidades" Schema="General" store:Type="Tables" />
           <EntitySet Name="Establecimientos" EntityType="Self.Establecimientos" Schema="General" store:Type="Tables" />
           <EntitySet Name="Profesionales" EntityType="Self.Profesionales" Schema="General" store:Type="Tables" />
+          <EntitySet Name="EspecialidadesDisponibles" EntityType="Self.EspecialidadesDisponibles" Schema="GeneralLocal" store:Type="Tables" />
           <EntitySet Name="ProfesionalesDisponibles" EntityType="Self.ProfesionalesDisponibles" Schema="GeneralLocal" store:Type="Tables" />
           <EntitySet Name="Reportes" EntityType="Self.Reportes" Schema="GeneralLocal" store:Type="Tables" />
           <EntitySet Name="ReportesEspecialidades" EntityType="Self.ReportesEspecialidades" Schema="GeneralLocal" store:Type="Tables" />
@@ -826,14 +777,9 @@
           <EntitySet Name="Turno" EntityType="Self.Turno" Schema="GestionTurnos" store:Type="Tables" />
           <EntitySet Name="Turno_Historicos" EntityType="Self.Turno_Historicos" Schema="GestionTurnos" store:Type="Tables" />
           <EntitySet Name="TurnosReserva" EntityType="Self.TurnosReserva" Schema="GestionTurnos" store:Type="Tables" />
-          <EntitySet Name="Paciente" EntityType="Self.Paciente" Schema="Persona" store:Type="Tables" />
           <EntitySet Name="ProfesionalesEspecialidades" EntityType="Self.ProfesionalesEspecialidades" Schema="Persona" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="Usuario" store:Type="Tables" />
           <EntitySet Name="UsuariosSectores" EntityType="Self.UsuariosSectores" Schema="Usuario" store:Type="Tables" />
-          <AssociationSet Name="FK_Atencion_Atenciones_Persona_Paciente_idPaciente" Association="Self.FK_Atencion_Atenciones_Persona_Paciente_idPaciente">
-            <End Role="Paciente" EntitySet="Paciente" />
-            <End Role="Atenciones" EntitySet="Atenciones" />
-          </AssociationSet>
           <AssociationSet Name="FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion" Association="Self.FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion">
             <End Role="Atenciones" EntitySet="Atenciones" />
             <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
@@ -882,6 +828,10 @@
             <End Role="Evoluciones" EntitySet="Evoluciones" />
             <End Role="EvolucionesSOAP" EntitySet="EvolucionesSOAP" />
           </AssociationSet>
+          <AssociationSet Name="FK_GeneralLocal_EspecialidadesDisponibles_General_Especialidades_id" Association="Self.FK_GeneralLocal_EspecialidadesDisponibles_General_Especialidades_id">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="EspecialidadesDisponibles" EntitySet="EspecialidadesDisponibles" />
+          </AssociationSet>
           <AssociationSet Name="FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id" Association="Self.FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id">
             <End Role="Profesionales" EntitySet="Profesionales" />
             <End Role="ProfesionalesDisponibles" EntitySet="ProfesionalesDisponibles" />
@@ -906,16 +856,8 @@
             <End Role="Profesionales" EntitySet="Profesionales" />
             <End Role="Turno_Historicos" EntitySet="Turno_Historicos" />
           </AssociationSet>
-          <AssociationSet Name="FK_GestionTurnos_Turno_Historicos_Persona_Paciente_idPaciente" Association="Self.FK_GestionTurnos_Turno_Historicos_Persona_Paciente_idPaciente">
-            <End Role="Paciente" EntitySet="Paciente" />
-            <End Role="Turno_Historicos" EntitySet="Turno_Historicos" />
-          </AssociationSet>
           <AssociationSet Name="FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno" Association="Self.FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno">
             <End Role="Turno" EntitySet="Turno" />
-            <End Role="TurnosReserva" EntitySet="TurnosReserva" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GestionTurnos_TurnosReserva_Persona_Paciente_idPaciente" Association="Self.FK_GestionTurnos_TurnosReserva_Persona_Paciente_idPaciente">
-            <End Role="Paciente" EntitySet="Paciente" />
             <End Role="TurnosReserva" EntitySet="TurnosReserva" />
           </AssociationSet>
           <AssociationSet Name="FK_Persona_ProfesionalesEspecialidades_General_Especialidades_idEspecialidad" Association="Self.FK_Persona_ProfesionalesEspecialidades_General_Especialidades_idEspecialidad">
@@ -956,118 +898,6 @@
             <Parameter Name="idSector" Mode="In" Type="Int32" />
             <Parameter Name="idEstablecimiento" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Atenciones" EntityType="Klinicos_BModel.Atenciones" />
-          <EntitySet Name="AtencionesEstados" EntityType="Klinicos_BModel.AtencionesEstados" />
-          <EntitySet Name="Evoluciones" EntityType="Klinicos_BModel.Evoluciones" />
-          <EntitySet Name="EvolucionesSM" EntityType="Klinicos_BModel.EvolucionesSM" />
-          <EntitySet Name="EvolucionesSOAP" EntityType="Klinicos_BModel.EvolucionesSOAP" />
-          <EntitySet Name="Especialidades" EntityType="Klinicos_BModel.Especialidades" />
-          <EntitySet Name="Establecimientos" EntityType="Klinicos_BModel.Establecimientos" />
-          <EntitySet Name="Profesionales" EntityType="Klinicos_BModel.Profesionales" />
-          <EntitySet Name="ProfesionalesDisponibles" EntityType="Klinicos_BModel.ProfesionalesDisponibles" />
-          <EntitySet Name="Sectores" EntityType="Klinicos_BModel.Sectores" />
-          <EntitySet Name="Turno" EntityType="Klinicos_BModel.Turno" />
-          <EntitySet Name="Turno_Historicos" EntityType="Klinicos_BModel.Turno_Historicos" />
-          <EntitySet Name="TurnosReserva" EntityType="Klinicos_BModel.TurnosReserva" />
-          <EntitySet Name="Paciente" EntityType="Klinicos_BModel.Paciente" />
-          <EntitySet Name="Usuarios" EntityType="Klinicos_BModel.Usuarios" />
-          <EntitySet Name="UsuariosSectores" EntityType="Klinicos_BModel.UsuariosSectores" />
-          <AssociationSet Name="FK_Atencion_Atenciones_Persona_Paciente_idPaciente" Association="Klinicos_BModel.FK_Atencion_Atenciones_Persona_Paciente_idPaciente">
-            <End Role="Paciente" EntitySet="Paciente" />
-            <End Role="Atenciones" EntitySet="Atenciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion" Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion">
-            <End Role="Atenciones" EntitySet="Atenciones" />
-            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion" Association="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion">
-            <End Role="Atenciones" EntitySet="Atenciones" />
-            <End Role="Evoluciones" EntitySet="Evoluciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadDestino" Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadDestino">
-            <End Role="Especialidades" EntitySet="Especialidades" />
-            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen" Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen">
-            <End Role="Especialidades" EntitySet="Especialidades" />
-            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalDestino" Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalDestino">
-            <End Role="Profesionales" EntitySet="Profesionales" />
-            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen" Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen">
-            <End Role="Profesionales" EntitySet="Profesionales" />
-            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados" Association="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados">
-            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
-            <End Role="Evoluciones" EntitySet="Evoluciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_Evoluciones_General_Especialidades_idEspecialidad" Association="Klinicos_BModel.FK_Atencion_Evoluciones_General_Especialidades_idEspecialidad">
-            <End Role="Especialidades" EntitySet="Especialidades" />
-            <End Role="Evoluciones" EntitySet="Evoluciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_Evoluciones_General_Establecimientos_idEstablecimiento" Association="Klinicos_BModel.FK_Atencion_Evoluciones_General_Establecimientos_idEstablecimiento">
-            <End Role="Establecimientos" EntitySet="Establecimientos" />
-            <End Role="Evoluciones" EntitySet="Evoluciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_Evoluciones_General_Profesionales_idProfesional" Association="Klinicos_BModel.FK_Atencion_Evoluciones_General_Profesionales_idProfesional">
-            <End Role="Profesionales" EntitySet="Profesionales" />
-            <End Role="Evoluciones" EntitySet="Evoluciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id" Association="Klinicos_BModel.FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id">
-            <End Role="Evoluciones" EntitySet="Evoluciones" />
-            <End Role="EvolucionesSM" EntitySet="EvolucionesSM" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id" Association="Klinicos_BModel.FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id">
-            <End Role="Evoluciones" EntitySet="Evoluciones" />
-            <End Role="EvolucionesSOAP" EntitySet="EvolucionesSOAP" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id" Association="Klinicos_BModel.FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id">
-            <End Role="Profesionales" EntitySet="Profesionales" />
-            <End Role="ProfesionalesDisponibles" EntitySet="ProfesionalesDisponibles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId" Association="Klinicos_BModel.FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId">
-            <End Role="Profesionales" EntitySet="Profesionales" />
-            <End Role="Turno" EntitySet="Turno" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId" Association="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId">
-            <End Role="Profesionales" EntitySet="Profesionales" />
-            <End Role="Turno_Historicos" EntitySet="Turno_Historicos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuario_Usuarios_General_Profesionales_idProfesional" Association="Klinicos_BModel.FK_Usuario_Usuarios_General_Profesionales_idProfesional">
-            <End Role="Profesionales" EntitySet="Profesionales" />
-            <End Role="Usuarios" EntitySet="Usuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre" Association="Klinicos_BModel.FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre">
-            <End Role="Sectores" EntitySet="Sectores" />
-            <End Role="Sectores1" EntitySet="Sectores" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector" Association="Klinicos_BModel.FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector">
-            <End Role="Sectores" EntitySet="Sectores" />
-            <End Role="UsuariosSectores" EntitySet="UsuariosSectores" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno" Association="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno">
-            <End Role="Turno" EntitySet="Turno" />
-            <End Role="TurnosReserva" EntitySet="TurnosReserva" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GestionTurnos_Turno_Historicos_Persona_Paciente_idPaciente" Association="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_Persona_Paciente_idPaciente">
-            <End Role="Paciente" EntitySet="Paciente" />
-            <End Role="Turno_Historicos" EntitySet="Turno_Historicos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GestionTurnos_TurnosReserva_Persona_Paciente_idPaciente" Association="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_Persona_Paciente_idPaciente">
-            <End Role="Paciente" EntitySet="Paciente" />
-            <End Role="TurnosReserva" EntitySet="TurnosReserva" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario" Association="Klinicos_BModel.FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="UsuariosSectores" EntitySet="UsuariosSectores" />
-          </AssociationSet>
-          <AssociationSet Name="ProfesionalesEspecialidades" Association="Klinicos_BModel.ProfesionalesEspecialidades">
-            <End Role="Especialidades" EntitySet="Especialidades" />
-            <End Role="Profesionales" EntitySet="Profesionales" />
-          </AssociationSet>
           <FunctionImport Name="consultaPorEstablecimiento" ReturnType="Collection(Klinicos_BModel.consultaPorEstablecimiento_Result)">
           <Parameter Name="idestablecimiento" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1146,16 +976,123 @@
             <Parameter Name="delimited" Mode="In" Type="String" />
             <Parameter Name="delimiter" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Atenciones" EntityType="Klinicos_BModel.Atenciones" />
+          <EntitySet Name="AtencionesEstados" EntityType="Klinicos_BModel.AtencionesEstados" />
+          <EntitySet Name="Evoluciones" EntityType="Klinicos_BModel.Evoluciones" />
+          <EntitySet Name="EvolucionesSM" EntityType="Klinicos_BModel.EvolucionesSM" />
+          <EntitySet Name="EvolucionesSOAP" EntityType="Klinicos_BModel.EvolucionesSOAP" />
+          <AssociationSet Name="FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion" Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion">
+            <End Role="Atenciones" EntitySet="Atenciones" />
+            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion" Association="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion">
+            <End Role="Atenciones" EntitySet="Atenciones" />
+            <End Role="Evoluciones" EntitySet="Evoluciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados" Association="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados">
+            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
+            <End Role="Evoluciones" EntitySet="Evoluciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id" Association="Klinicos_BModel.FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id">
+            <End Role="Evoluciones" EntitySet="Evoluciones" />
+            <End Role="EvolucionesSM" EntitySet="EvolucionesSM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id" Association="Klinicos_BModel.FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id">
+            <End Role="Evoluciones" EntitySet="Evoluciones" />
+            <End Role="EvolucionesSOAP" EntitySet="EvolucionesSOAP" />
+          </AssociationSet>
+          <EntitySet Name="Especialidades" EntityType="Klinicos_BModel.Especialidades" />
+          <EntitySet Name="Profesionales" EntityType="Klinicos_BModel.Profesionales" />
+          <AssociationSet Name="FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadDestino" Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadDestino">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen" Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalDestino" Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalDestino">
+            <End Role="Profesionales" EntitySet="Profesionales" />
+            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen" Association="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen">
+            <End Role="Profesionales" EntitySet="Profesionales" />
+            <End Role="AtencionesEstados" EntitySet="AtencionesEstados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Atencion_Evoluciones_General_Especialidades_idEspecialidad" Association="Klinicos_BModel.FK_Atencion_Evoluciones_General_Especialidades_idEspecialidad">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="Evoluciones" EntitySet="Evoluciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Atencion_Evoluciones_General_Profesionales_idProfesional" Association="Klinicos_BModel.FK_Atencion_Evoluciones_General_Profesionales_idProfesional">
+            <End Role="Profesionales" EntitySet="Profesionales" />
+            <End Role="Evoluciones" EntitySet="Evoluciones" />
+          </AssociationSet>
+          <AssociationSet Name="ProfesionalesEspecialidades1" Association="Klinicos_BModel.ProfesionalesEspecialidades1">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="Profesionales" EntitySet="Profesionales" />
+          </AssociationSet>
+          <EntitySet Name="EspecialidadesDisponibles" EntityType="Klinicos_BModel.EspecialidadesDisponibles" />
+          <EntitySet Name="ProfesionalesDisponibles" EntityType="Klinicos_BModel.ProfesionalesDisponibles" />
           <EntitySet Name="Reportes" EntityType="Klinicos_BModel.Reportes" />
           <EntitySet Name="ReportesEspecialidades" EntityType="Klinicos_BModel.ReportesEspecialidades" />
+          <AssociationSet Name="FK_GeneralLocal_EspecialidadesDisponibles_General_Especialidades_id" Association="Klinicos_BModel.FK_GeneralLocal_EspecialidadesDisponibles_General_Especialidades_id">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="EspecialidadesDisponibles" EntitySet="EspecialidadesDisponibles" />
+          </AssociationSet>
           <AssociationSet Name="FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad" Association="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad">
             <End Role="Especialidades" EntitySet="Especialidades" />
             <End Role="ReportesEspecialidades" EntitySet="ReportesEspecialidades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id" Association="Klinicos_BModel.FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id">
+            <End Role="Profesionales" EntitySet="Profesionales" />
+            <End Role="ProfesionalesDisponibles" EntitySet="ProfesionalesDisponibles" />
           </AssociationSet>
           <AssociationSet Name="FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte" Association="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte">
             <End Role="Reportes" EntitySet="Reportes" />
             <End Role="ReportesEspecialidades" EntitySet="ReportesEspecialidades" />
           </AssociationSet>
+          <EntitySet Name="Usuarios" EntityType="Klinicos_BModel.Usuarios" />
+          <EntitySet Name="UsuariosSectores" EntityType="Klinicos_BModel.UsuariosSectores" />
+          <AssociationSet Name="FK_Usuario_Usuarios_General_Profesionales_idProfesional" Association="Klinicos_BModel.FK_Usuario_Usuarios_General_Profesionales_idProfesional">
+            <End Role="Profesionales" EntitySet="Profesionales" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario" Association="Klinicos_BModel.FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosSectores" EntitySet="UsuariosSectores" />
+          </AssociationSet>
+          <EntitySet Name="Establecimientos" EntityType="Klinicos_BModel.Establecimientos" />
+          <EntitySet Name="Sectores" EntityType="Klinicos_BModel.Sectores" />
+          <AssociationSet Name="FK_Atencion_Evoluciones_General_Establecimientos_idEstablecimiento" Association="Klinicos_BModel.FK_Atencion_Evoluciones_General_Establecimientos_idEstablecimiento">
+            <End Role="Establecimientos" EntitySet="Establecimientos" />
+            <End Role="Evoluciones" EntitySet="Evoluciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre" Association="Klinicos_BModel.FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre">
+            <End Role="Sectores" EntitySet="Sectores" />
+            <End Role="Sectores1" EntitySet="Sectores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector" Association="Klinicos_BModel.FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector">
+            <End Role="Sectores" EntitySet="Sectores" />
+            <End Role="UsuariosSectores" EntitySet="UsuariosSectores" />
+          </AssociationSet>
+          <EntitySet Name="Turno" EntityType="Klinicos_BModel.Turno" />
+          <EntitySet Name="Turno_Historicos" EntityType="Klinicos_BModel.Turno_Historicos" />
+          <EntitySet Name="TurnosReserva" EntityType="Klinicos_BModel.TurnosReserva" />
+          <AssociationSet Name="FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId" Association="Klinicos_BModel.FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId">
+            <End Role="Profesionales" EntitySet="Profesionales" />
+            <End Role="Turno" EntitySet="Turno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId" Association="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId">
+            <End Role="Profesionales" EntitySet="Profesionales" />
+            <End Role="Turno_Historicos" EntitySet="Turno_Historicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno" Association="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno">
+            <End Role="Turno" EntitySet="Turno" />
+            <End Role="TurnosReserva" EntitySet="TurnosReserva" />
+          </AssociationSet>
+          <FunctionImport Name="SP_ESPECIALIDADES_X_PROFESIONAL" EntitySet="Especialidades" ReturnType="Collection(Klinicos_BModel.Especialidades)">
+          <Parameter Name="idProfesional" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="SP_OBTENER_SEMANAL_ATENCIONES_Result">
           <Property Type="Int32" Name="idprof" Nullable="true" />
@@ -1167,663 +1104,6 @@
           <Property Type="Int32" Name="idProfesional" Nullable="false" />
           <Property Type="Int32" Name="cantidad" Nullable="true" />
         </ComplexType>
-        <EntityType Name="Atenciones">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="motivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="edadAparente" Type="Int32" Nullable="false" />
-          <Property Name="edadAparenteUnidad" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="conPrioridad" Type="Boolean" Nullable="false" />
-          <Property Name="idFormaIngreso" Type="Int32" Nullable="false" />
-          <Property Name="idClasificacionRiesgo" Type="Int32" Nullable="false" />
-          <Property Name="idPaciente" Type="Guid" Nullable="false" />
-          <Property Name="responsable" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="idParentescoResponsable" Type="Int32" Nullable="false" />
-          <Property Name="idTurno" Type="Int32" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="idUltimoPacienteDomicilio" Type="Guid" />
-          <Property Name="idUltimoPacienteNivelInstruccion" Type="Guid" />
-          <Property Name="idUltimoPacienteSituacionLaboral" Type="Guid" />
-          <Property Name="idUltimoPacienteNacionalidad" Type="Guid" />
-          <Property Name="idUltimoPacienteEstadoCivil" Type="Guid" />
-          <Property Name="idEstablecimiento" Type="Int32" />
-          <Property Name="Discriminator" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Paciente" Relationship="Klinicos_BModel.FK_Atencion_Atenciones_Persona_Paciente_idPaciente" FromRole="Atenciones" ToRole="Paciente" />
-          <NavigationProperty Name="AtencionesEstados" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion" FromRole="Atenciones" ToRole="AtencionesEstados" />
-          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion" FromRole="Atenciones" ToRole="Evoluciones" />
-        </EntityType>
-        <EntityType Name="AtencionesEstados">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="idAtencion" Type="Guid" Nullable="false" />
-          <Property Name="idAtencionEstado" Type="Int32" Nullable="false" />
-          <Property Name="idProfesionalDestino" Type="Int32" />
-          <Property Name="idEspecialidadDestino" Type="Int32" Nullable="false" />
-          <Property Name="estado" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="motivoDerivacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="tipoRegistro" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="llamadosCantidad" Type="Int32" />
-          <Property Name="llamadosUltimaFechayHora" Type="DateTime" Precision="3" />
-          <Property Name="llamadosPuestoTrabajoNombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="sectorOrigenNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="idProfesionalOrigen" Type="Int32" />
-          <Property Name="idEspecialidadOrigen" Type="Int32" />
-          <Property Name="sectorDestinoNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="puestoTrabajoNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="conPrioridad" Type="Boolean" Nullable="false" />
-          <Property Name="usuarioFinaliza" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaFinaliza" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Atenciones" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion" FromRole="AtencionesEstados" ToRole="Atenciones" />
-          <NavigationProperty Name="Especialidades" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadDestino" FromRole="AtencionesEstados" ToRole="Especialidades" />
-          <NavigationProperty Name="Especialidades1" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen" FromRole="AtencionesEstados" ToRole="Especialidades" />
-          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalDestino" FromRole="AtencionesEstados" ToRole="Profesionales" />
-          <NavigationProperty Name="Profesionales1" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen" FromRole="AtencionesEstados" ToRole="Profesionales" />
-          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados" FromRole="AtencionesEstados" ToRole="Evoluciones" />
-        </EntityType>
-        <EntityType Name="Evoluciones">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="idProblemaSalud" Type="Guid" Nullable="false" />
-          <Property Name="idProfesional" Type="Int32" Nullable="false" />
-          <Property Name="idEspecialidad" Type="Int32" Nullable="false" />
-          <Property Name="idEstablecimiento" Type="Int32" Nullable="false" />
-          <Property Name="idAtencion" Type="Guid" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="idSector" Type="Int32" Nullable="false" />
-          <Property Name="idAtencionesEstados" Type="Guid" />
-          <NavigationProperty Name="Atenciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion" FromRole="Evoluciones" ToRole="Atenciones" />
-          <NavigationProperty Name="AtencionesEstados" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados" FromRole="Evoluciones" ToRole="AtencionesEstados" />
-          <NavigationProperty Name="Especialidades" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Especialidades_idEspecialidad" FromRole="Evoluciones" ToRole="Especialidades" />
-          <NavigationProperty Name="Establecimientos" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Establecimientos_idEstablecimiento" FromRole="Evoluciones" ToRole="Establecimientos" />
-          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Profesionales_idProfesional" FromRole="Evoluciones" ToRole="Profesionales" />
-          <NavigationProperty Name="EvolucionesSM" Relationship="Klinicos_BModel.FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id" FromRole="Evoluciones" ToRole="EvolucionesSM" />
-          <NavigationProperty Name="EvolucionesSOAP" Relationship="Klinicos_BModel.FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id" FromRole="Evoluciones" ToRole="EvolucionesSOAP" />
-        </EntityType>
-        <EntityType Name="EvolucionesSM">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="anamnesis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="notasPropias" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="notasPropiasCompartirCon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="idSNOMed" Type="Int32" />
-          <Property Name="diagnosticoDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="tratamiento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="fechaProximaConsulta" Type="DateTime" Precision="3" />
-          <Property Name="orientacion" Type="Boolean" Nullable="false" />
-          <Property Name="tipoEntrevista" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id" FromRole="EvolucionesSM" ToRole="Evoluciones" />
-        </EntityType>
-        <EntityType Name="EvolucionesSOAP">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="subjetivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="objetivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="idSNOMed" Type="Int32" Nullable="false" />
-          <Property Name="planNoFarmacologico" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="seguimiento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="diagnosticoDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="notasPropias" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="notasPropiasCompartirCon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id" FromRole="EvolucionesSOAP" ToRole="Evoluciones" />
-        </EntityType>
-        <EntityType Name="Especialidades">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codigo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="vigente" Type="Boolean" Nullable="false" />
-          <Property Name="tipoEspecialidad" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AtencionesEstados" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadDestino" FromRole="Especialidades" ToRole="AtencionesEstados" />
-          <NavigationProperty Name="AtencionesEstados1" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen" FromRole="Especialidades" ToRole="AtencionesEstados" />
-          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Especialidades_idEspecialidad" FromRole="Especialidades" ToRole="Evoluciones" />
-          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.ProfesionalesEspecialidades" FromRole="Especialidades" ToRole="Profesionales" />
-          <NavigationProperty Name="ReportesEspecialidades" Relationship="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad" FromRole="Especialidades" ToRole="ReportesEspecialidades" />
-        </EntityType>
-        <EntityType Name="Establecimientos">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="idLocalidad" Type="Int32" Nullable="false" />
-          <Property Name="calle" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="numeroPuerta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="otrasReferencias" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="codPostal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="vigente" Type="Boolean" Nullable="false" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="numero" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="regionSanitaria" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MailSistema_Id" Type="Int32" />
-          <Property Name="MailSistemaSMTP_Id" Type="Int32" />
-          <Property Name="ApiBaseUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Establecimientos_idEstablecimiento" FromRole="Establecimientos" ToRole="Evoluciones" />
-        </EntityType>
-        <EntityType Name="Profesionales">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idTipoDocumento" Type="Int32" Nullable="false" />
-          <Property Name="numeroDocumento" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
-          <Property Name="idSexo" Type="Int32" Nullable="false" />
-          <Property Name="primerApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="primerNombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="otrosNombres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="tipoTelefono" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="contactoObservaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="matricula" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="vigente" Type="Boolean" Nullable="false" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AtencionesEstados" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalDestino" FromRole="Profesionales" ToRole="AtencionesEstados" />
-          <NavigationProperty Name="AtencionesEstados1" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen" FromRole="Profesionales" ToRole="AtencionesEstados" />
-          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Profesionales_idProfesional" FromRole="Profesionales" ToRole="Evoluciones" />
-          <NavigationProperty Name="ProfesionalesDisponibles" Relationship="Klinicos_BModel.FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id" FromRole="Profesionales" ToRole="ProfesionalesDisponibles" />
-          <NavigationProperty Name="Turno" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId" FromRole="Profesionales" ToRole="Turno" />
-          <NavigationProperty Name="Turno_Historicos" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId" FromRole="Profesionales" ToRole="Turno_Historicos" />
-          <NavigationProperty Name="Usuarios" Relationship="Klinicos_BModel.FK_Usuario_Usuarios_General_Profesionales_idProfesional" FromRole="Profesionales" ToRole="Usuarios" />
-          <NavigationProperty Name="Especialidades" Relationship="Klinicos_BModel.ProfesionalesEspecialidades" FromRole="Profesionales" ToRole="Especialidades" />
-        </EntityType>
-        <EntityType Name="ProfesionalesDisponibles">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="modoAtencion" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id" FromRole="ProfesionalesDisponibles" ToRole="Profesionales" />
-        </EntityType>
-        <EntityType Name="Sectores">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="nombreAbreviado" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="orden" Type="Int32" Nullable="false" />
-          <Property Name="tipo" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
-          <Property Name="vigente" Type="Boolean" Nullable="false" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="idSectorPadre" Type="Int32" />
-          <NavigationProperty Name="Sectores1" Relationship="Klinicos_BModel.FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre" FromRole="Sectores" ToRole="Sectores1" />
-          <NavigationProperty Name="Sectores2" Relationship="Klinicos_BModel.FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre" FromRole="Sectores1" ToRole="Sectores" />
-          <NavigationProperty Name="UsuariosSectores" Relationship="Klinicos_BModel.FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector" FromRole="Sectores" ToRole="UsuariosSectores" />
-        </EntityType>
-        <EntityType Name="Turno">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FechaYHora" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="AtendidoEnRefId" Type="Int32" />
-          <Property Name="AtendidoPorRefId" Type="Int32" />
-          <Property Name="UltimoEstadoRefId" Type="Int32" />
-          <Property Name="PlanillaDiariaRefId" Type="Int32" Nullable="false" />
-          <Property Name="clase" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId" FromRole="Turno" ToRole="Profesionales" />
-          <NavigationProperty Name="TurnosReserva" Relationship="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno" FromRole="Turno" ToRole="TurnosReserva" />
-        </EntityType>
-        <EntityType Name="Turno_Historicos">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="FechaYHora" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="AtendidoEnRefId" Type="Int32" />
-          <Property Name="AtendidoPorRefId" Type="Int32" />
-          <Property Name="UltimoEstado" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="UltimoEstadoObservacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="UltimoEstadoFechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="clase" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="idPaciente" Type="Guid" />
-          <Property Name="idTipoDocumento" Type="Int32" Nullable="false" />
-          <Property Name="numeroDocumento" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="idSexo" Type="Int32" />
-          <Property Name="primerApellido" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="primerNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="otrosNombres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="tipoTelefono" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="motivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="edadAparente" Type="Int32" Nullable="false" />
-          <Property Name="edadAparenteUnidad" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="responsable" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="idParentescoResponsable" Type="Int32" Nullable="false" />
-          <Property Name="formaReserva" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PlanillaDiariaRefId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId" FromRole="Turno_Historicos" ToRole="Profesionales" />
-          <NavigationProperty Name="Paciente" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_Persona_Paciente_idPaciente" FromRole="Turno_Historicos" ToRole="Paciente" />
-        </EntityType>
-        <EntityType Name="TurnosReserva">
-          <Key>
-            <PropertyRef Name="idTurno" />
-          </Key>
-          <Property Name="idTurno" Type="Int32" Nullable="false" />
-          <Property Name="idPaciente" Type="Guid" />
-          <Property Name="idTipoDocumento" Type="Int32" Nullable="false" />
-          <Property Name="numeroDocumento" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="idSexo" Type="Int32" />
-          <Property Name="primerApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="primerNombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="otrosNombres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="tipoTelefono" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="responsable" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="idParentescoResponsable" Type="Int32" Nullable="false" />
-          <Property Name="formaReserva" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="motivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="edadAparente" Type="Int32" Nullable="false" />
-          <Property Name="edadAparenteUnidad" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Turno" Relationship="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno" FromRole="TurnosReserva" ToRole="Turno" />
-          <NavigationProperty Name="Paciente" Relationship="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_Persona_Paciente_idPaciente" FromRole="TurnosReserva" ToRole="Paciente" />
-        </EntityType>
-        <EntityType Name="Paciente">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="idTipoDocumento" Type="Int32" Nullable="false" />
-          <Property Name="numeroDocumento" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="idSexo" Type="Int32" Nullable="false" />
-          <Property Name="primerApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="primerNombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="otrosNombres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="primerApellidoMaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
-          <Property Name="fechaObito" Type="DateTime" Precision="3" />
-          <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="denunciado" Type="Boolean" Nullable="false" />
-          <Property Name="grupoSanguineo" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="idEtnia" Type="Int32" />
-          <Property Name="estado" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
-          <Property Name="idUltimoPacienteDomicilio" Type="Guid" />
-          <Property Name="idUltimoPacienteContacto" Type="Guid" />
-          <Property Name="idUltimoPacienteCorreoElectronico" Type="Guid" />
-          <Property Name="idUltimoPacienteNivelInstruccion" Type="Guid" />
-          <Property Name="idUltimoPacienteSituacionLaboral" Type="Guid" />
-          <Property Name="idUltimoPacienteNacionalidad" Type="Guid" />
-          <Property Name="idUltimoPacienteEstadoCivil" Type="Guid" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="idTipoDocumentoMaterno" Type="Int32" />
-          <Property Name="numeroDocumentoMaterno" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="nombresMaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="idDniFrente" Type="Guid" />
-          <Property Name="idDniDorso" Type="Guid" />
-          <Property Name="idGenero" Type="Int32" />
-          <NavigationProperty Name="Atenciones" Relationship="Klinicos_BModel.FK_Atencion_Atenciones_Persona_Paciente_idPaciente" FromRole="Paciente" ToRole="Atenciones" />
-          <NavigationProperty Name="Turno_Historicos" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_Persona_Paciente_idPaciente" FromRole="Paciente" ToRole="Turno_Historicos" />
-          <NavigationProperty Name="TurnosReserva" Relationship="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_Persona_Paciente_idPaciente" FromRole="Paciente" ToRole="TurnosReserva" />
-        </EntityType>
-        <EntityType Name="Usuarios">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="roles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="idTipoDocumento" Type="Int32" Nullable="false" />
-          <Property Name="numeroDocumento" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
-          <Property Name="idSexo" Type="Int32" Nullable="false" />
-          <Property Name="primerApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="primerNombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="otrosNombres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="nombreUsuario" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="contraseña" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="idProfesional" Type="Int32" />
-          <Property Name="ultimoIngreso" Type="DateTime" Precision="3" />
-          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="tipoUsuario" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="vigente" Type="Boolean" Nullable="false" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="usuarioModi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_Usuario_Usuarios_General_Profesionales_idProfesional" FromRole="Usuarios" ToRole="Profesionales" />
-          <NavigationProperty Name="UsuariosSectores" Relationship="Klinicos_BModel.FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario" FromRole="Usuarios" ToRole="UsuariosSectores" />
-        </EntityType>
-        <EntityType Name="UsuariosSectores">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idSector" Type="Int32" Nullable="false" />
-          <Property Name="idUsuario" Type="Int32" Nullable="false" />
-          <Property Name="usuarioCrea" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="usuarioModi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="roles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Sectores" Relationship="Klinicos_BModel.FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector" FromRole="UsuariosSectores" ToRole="Sectores" />
-          <NavigationProperty Name="Usuarios" Relationship="Klinicos_BModel.FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario" FromRole="UsuariosSectores" ToRole="Usuarios" />
-        </EntityType>
-        <Association Name="FK_Atencion_Atenciones_Persona_Paciente_idPaciente">
-          <End Type="Klinicos_BModel.Paciente" Role="Paciente" Multiplicity="1" />
-          <End Type="Klinicos_BModel.Atenciones" Role="Atenciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Paciente">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Atenciones">
-              <PropertyRef Name="idPaciente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion">
-          <End Type="Klinicos_BModel.Atenciones" Role="Atenciones" Multiplicity="1" />
-          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Atenciones">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="AtencionesEstados">
-              <PropertyRef Name="idAtencion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion">
-          <End Type="Klinicos_BModel.Atenciones" Role="Atenciones" Multiplicity="0..1" />
-          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Atenciones">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Evoluciones">
-              <PropertyRef Name="idAtencion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadDestino">
-          <End Type="Klinicos_BModel.Especialidades" Role="Especialidades" Multiplicity="1" />
-          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Especialidades">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="AtencionesEstados">
-              <PropertyRef Name="idEspecialidadDestino" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen">
-          <End Type="Klinicos_BModel.Especialidades" Role="Especialidades" Multiplicity="0..1" />
-          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Especialidades">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="AtencionesEstados">
-              <PropertyRef Name="idEspecialidadOrigen" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalDestino">
-          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="0..1" />
-          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Profesionales">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="AtencionesEstados">
-              <PropertyRef Name="idProfesionalDestino" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen">
-          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="0..1" />
-          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Profesionales">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="AtencionesEstados">
-              <PropertyRef Name="idProfesionalOrigen" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados">
-          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="0..1" />
-          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AtencionesEstados">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Evoluciones">
-              <PropertyRef Name="idAtencionesEstados" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_Evoluciones_General_Especialidades_idEspecialidad">
-          <End Type="Klinicos_BModel.Especialidades" Role="Especialidades" Multiplicity="1" />
-          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Especialidades">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Evoluciones">
-              <PropertyRef Name="idEspecialidad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_Evoluciones_General_Establecimientos_idEstablecimiento">
-          <End Type="Klinicos_BModel.Establecimientos" Role="Establecimientos" Multiplicity="1" />
-          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Establecimientos">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Evoluciones">
-              <PropertyRef Name="idEstablecimiento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_Evoluciones_General_Profesionales_idProfesional">
-          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="1" />
-          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Profesionales">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Evoluciones">
-              <PropertyRef Name="idProfesional" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id">
-          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="1" />
-          <End Type="Klinicos_BModel.EvolucionesSM" Role="EvolucionesSM" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Evoluciones">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="EvolucionesSM">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id">
-          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="1" />
-          <End Type="Klinicos_BModel.EvolucionesSOAP" Role="EvolucionesSOAP" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Evoluciones">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="EvolucionesSOAP">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id">
-          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="1" />
-          <End Type="Klinicos_BModel.ProfesionalesDisponibles" Role="ProfesionalesDisponibles" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Profesionales">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="ProfesionalesDisponibles">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId">
-          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="0..1" />
-          <End Type="Klinicos_BModel.Turno" Role="Turno" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Profesionales">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Turno">
-              <PropertyRef Name="AtendidoPorRefId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId">
-          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="0..1" />
-          <End Type="Klinicos_BModel.Turno_Historicos" Role="Turno_Historicos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Profesionales">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Turno_Historicos">
-              <PropertyRef Name="AtendidoPorRefId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuario_Usuarios_General_Profesionales_idProfesional">
-          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="0..1" />
-          <End Type="Klinicos_BModel.Usuarios" Role="Usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Profesionales">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Usuarios">
-              <PropertyRef Name="idProfesional" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre">
-          <End Type="Klinicos_BModel.Sectores" Role="Sectores" Multiplicity="0..1" />
-          <End Type="Klinicos_BModel.Sectores" Role="Sectores1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sectores">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Sectores1">
-              <PropertyRef Name="idSectorPadre" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector">
-          <End Type="Klinicos_BModel.Sectores" Role="Sectores" Multiplicity="1" />
-          <End Type="Klinicos_BModel.UsuariosSectores" Role="UsuariosSectores" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sectores">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="UsuariosSectores">
-              <PropertyRef Name="idSector" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno">
-          <End Type="Klinicos_BModel.Turno" Role="Turno" Multiplicity="1" />
-          <End Type="Klinicos_BModel.TurnosReserva" Role="TurnosReserva" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Turno">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TurnosReserva">
-              <PropertyRef Name="idTurno" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GestionTurnos_Turno_Historicos_Persona_Paciente_idPaciente">
-          <End Type="Klinicos_BModel.Paciente" Role="Paciente" Multiplicity="0..1" />
-          <End Type="Klinicos_BModel.Turno_Historicos" Role="Turno_Historicos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Paciente">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Turno_Historicos">
-              <PropertyRef Name="idPaciente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GestionTurnos_TurnosReserva_Persona_Paciente_idPaciente">
-          <End Type="Klinicos_BModel.Paciente" Role="Paciente" Multiplicity="0..1" />
-          <End Type="Klinicos_BModel.TurnosReserva" Role="TurnosReserva" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Paciente">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="TurnosReserva">
-              <PropertyRef Name="idPaciente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario">
-          <End Type="Klinicos_BModel.Usuarios" Role="Usuarios" Multiplicity="1" />
-          <End Type="Klinicos_BModel.UsuariosSectores" Role="UsuariosSectores" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="UsuariosSectores">
-              <PropertyRef Name="idUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ProfesionalesEspecialidades">
-          <End Type="Klinicos_BModel.Especialidades" Role="Especialidades" Multiplicity="*" />
-          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="*" />
-        </Association>
         <ComplexType Name="consultaPorEstablecimiento_Result">
           <Property Type="Int32" Name="Pacientes_Creados" Nullable="true" />
           <Property Type="Int32" Name="Pacientes_Con_Atenciones" Nullable="true" />
@@ -1886,6 +1166,325 @@
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="val" Nullable="true" />
         </ComplexType>
+        <EntityType Name="Atenciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="motivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="edadAparente" Type="Int32" Nullable="false" />
+          <Property Name="edadAparenteUnidad" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="conPrioridad" Type="Boolean" Nullable="false" />
+          <Property Name="idFormaIngreso" Type="Int32" Nullable="false" />
+          <Property Name="idClasificacionRiesgo" Type="Int32" Nullable="false" />
+          <Property Name="idPaciente" Type="Guid" Nullable="false" />
+          <Property Name="responsable" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idParentescoResponsable" Type="Int32" Nullable="false" />
+          <Property Name="idTurno" Type="Int32" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idUltimoPacienteDomicilio" Type="Guid" />
+          <Property Name="idUltimoPacienteNivelInstruccion" Type="Guid" />
+          <Property Name="idUltimoPacienteSituacionLaboral" Type="Guid" />
+          <Property Name="idUltimoPacienteNacionalidad" Type="Guid" />
+          <Property Name="idUltimoPacienteEstadoCivil" Type="Guid" />
+          <Property Name="idEstablecimiento" Type="Int32" />
+          <Property Name="Discriminator" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AtencionesEstados" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion" FromRole="Atenciones" ToRole="AtencionesEstados" />
+          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion" FromRole="Atenciones" ToRole="Evoluciones" />
+        </EntityType>
+        <EntityType Name="AtencionesEstados">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="idAtencion" Type="Guid" Nullable="false" />
+          <Property Name="idAtencionEstado" Type="Int32" Nullable="false" />
+          <Property Name="idProfesionalDestino" Type="Int32" />
+          <Property Name="idEspecialidadDestino" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="motivoDerivacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="tipoRegistro" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="llamadosCantidad" Type="Int32" />
+          <Property Name="llamadosUltimaFechayHora" Type="DateTime" Precision="3" />
+          <Property Name="llamadosPuestoTrabajoNombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sectorOrigenNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="idProfesionalOrigen" Type="Int32" />
+          <Property Name="idEspecialidadOrigen" Type="Int32" />
+          <Property Name="sectorDestinoNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="puestoTrabajoNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="conPrioridad" Type="Boolean" Nullable="false" />
+          <Property Name="usuarioFinaliza" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaFinaliza" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Atenciones" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion" FromRole="AtencionesEstados" ToRole="Atenciones" />
+          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados" FromRole="AtencionesEstados" ToRole="Evoluciones" />
+          <NavigationProperty Name="Especialidades" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadDestino" FromRole="AtencionesEstados" ToRole="Especialidades" />
+          <NavigationProperty Name="Especialidades1" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen" FromRole="AtencionesEstados" ToRole="Especialidades" />
+          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalDestino" FromRole="AtencionesEstados" ToRole="Profesionales" />
+          <NavigationProperty Name="Profesionales1" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen" FromRole="AtencionesEstados" ToRole="Profesionales" />
+        </EntityType>
+        <EntityType Name="Evoluciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="idProblemaSalud" Type="Guid" Nullable="false" />
+          <Property Name="idProfesional" Type="Int32" Nullable="false" />
+          <Property Name="idEspecialidad" Type="Int32" Nullable="false" />
+          <Property Name="idEstablecimiento" Type="Int32" Nullable="false" />
+          <Property Name="idAtencion" Type="Guid" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idSector" Type="Int32" Nullable="false" />
+          <Property Name="idAtencionesEstados" Type="Guid" />
+          <NavigationProperty Name="Atenciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion" FromRole="Evoluciones" ToRole="Atenciones" />
+          <NavigationProperty Name="AtencionesEstados" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados" FromRole="Evoluciones" ToRole="AtencionesEstados" />
+          <NavigationProperty Name="EvolucionesSM" Relationship="Klinicos_BModel.FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id" FromRole="Evoluciones" ToRole="EvolucionesSM" />
+          <NavigationProperty Name="EvolucionesSOAP" Relationship="Klinicos_BModel.FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id" FromRole="Evoluciones" ToRole="EvolucionesSOAP" />
+          <NavigationProperty Name="Especialidades" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Especialidades_idEspecialidad" FromRole="Evoluciones" ToRole="Especialidades" />
+          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Profesionales_idProfesional" FromRole="Evoluciones" ToRole="Profesionales" />
+          <NavigationProperty Name="Establecimientos" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Establecimientos_idEstablecimiento" FromRole="Evoluciones" ToRole="Establecimientos" />
+        </EntityType>
+        <EntityType Name="EvolucionesSM">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="anamnesis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="notasPropias" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="notasPropiasCompartirCon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idSNOMed" Type="Int32" />
+          <Property Name="diagnosticoDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tratamiento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fechaProximaConsulta" Type="DateTime" Precision="3" />
+          <Property Name="orientacion" Type="Boolean" Nullable="false" />
+          <Property Name="tipoEntrevista" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id" FromRole="EvolucionesSM" ToRole="Evoluciones" />
+        </EntityType>
+        <EntityType Name="EvolucionesSOAP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="subjetivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="objetivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idSNOMed" Type="Int32" Nullable="false" />
+          <Property Name="planNoFarmacologico" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="seguimiento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="diagnosticoDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="notasPropias" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="notasPropiasCompartirCon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id" FromRole="EvolucionesSOAP" ToRole="Evoluciones" />
+        </EntityType>
+        <Association Name="FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion">
+          <End Type="Klinicos_BModel.Atenciones" Role="Atenciones" Multiplicity="1" />
+          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Atenciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AtencionesEstados">
+              <PropertyRef Name="idAtencion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Atencion_Evoluciones_Atencion_Atenciones_idAtencion">
+          <End Type="Klinicos_BModel.Atenciones" Role="Atenciones" Multiplicity="0..1" />
+          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Atenciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Evoluciones">
+              <PropertyRef Name="idAtencion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Atencion_Evoluciones_Atencion_AtencionesEstados_idAtencionesEstados">
+          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="0..1" />
+          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AtencionesEstados">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Evoluciones">
+              <PropertyRef Name="idAtencionesEstados" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Atencion_EvolucionesSM_Atencion_Evoluciones_id">
+          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="1" />
+          <End Type="Klinicos_BModel.EvolucionesSM" Role="EvolucionesSM" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Evoluciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EvolucionesSM">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Atencion_EvolucionesSOAP_Atencion_Evoluciones_id">
+          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="1" />
+          <End Type="Klinicos_BModel.EvolucionesSOAP" Role="EvolucionesSOAP" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Evoluciones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EvolucionesSOAP">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Especialidades">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="vigente" Type="Boolean" Nullable="false" />
+          <Property Name="tipoEspecialidad" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AtencionesEstados" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadDestino" FromRole="Especialidades" ToRole="AtencionesEstados" />
+          <NavigationProperty Name="AtencionesEstados1" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen" FromRole="Especialidades" ToRole="AtencionesEstados" />
+          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Especialidades_idEspecialidad" FromRole="Especialidades" ToRole="Evoluciones" />
+          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.ProfesionalesEspecialidades1" FromRole="Especialidades" ToRole="Profesionales" />
+          <NavigationProperty Name="EspecialidadesDisponibles" Relationship="Klinicos_BModel.FK_GeneralLocal_EspecialidadesDisponibles_General_Especialidades_id" FromRole="Especialidades" ToRole="EspecialidadesDisponibles" />
+          <NavigationProperty Name="ReportesEspecialidades" Relationship="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad" FromRole="Especialidades" ToRole="ReportesEspecialidades" />
+        </EntityType>
+        <EntityType Name="Profesionales">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTipoDocumento" Type="Int32" Nullable="false" />
+          <Property Name="numeroDocumento" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="idSexo" Type="Int32" Nullable="false" />
+          <Property Name="primerApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="primerNombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="otrosNombres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="tipoTelefono" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contactoObservaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="matricula" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="vigente" Type="Boolean" Nullable="false" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AtencionesEstados" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalDestino" FromRole="Profesionales" ToRole="AtencionesEstados" />
+          <NavigationProperty Name="AtencionesEstados1" Relationship="Klinicos_BModel.FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen" FromRole="Profesionales" ToRole="AtencionesEstados" />
+          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Profesionales_idProfesional" FromRole="Profesionales" ToRole="Evoluciones" />
+          <NavigationProperty Name="Especialidades" Relationship="Klinicos_BModel.ProfesionalesEspecialidades1" FromRole="Profesionales" ToRole="Especialidades" />
+          <NavigationProperty Name="ProfesionalesDisponibles" Relationship="Klinicos_BModel.FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id" FromRole="Profesionales" ToRole="ProfesionalesDisponibles" />
+          <NavigationProperty Name="Usuarios" Relationship="Klinicos_BModel.FK_Usuario_Usuarios_General_Profesionales_idProfesional" FromRole="Profesionales" ToRole="Usuarios" />
+          <NavigationProperty Name="Turno" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId" FromRole="Profesionales" ToRole="Turno" />
+          <NavigationProperty Name="Turno_Historicos" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId" FromRole="Profesionales" ToRole="Turno_Historicos" />
+        </EntityType>
+        <Association Name="FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadDestino">
+          <End Type="Klinicos_BModel.Especialidades" Role="Especialidades" Multiplicity="1" />
+          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AtencionesEstados">
+              <PropertyRef Name="idEspecialidadDestino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Atencion_AtencionesEstados_General_Especialidades_idEspecialidadOrigen">
+          <End Type="Klinicos_BModel.Especialidades" Role="Especialidades" Multiplicity="0..1" />
+          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AtencionesEstados">
+              <PropertyRef Name="idEspecialidadOrigen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalDestino">
+          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="0..1" />
+          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesionales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AtencionesEstados">
+              <PropertyRef Name="idProfesionalDestino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Atencion_AtencionesEstados_General_Profesionales_idProfesionalOrigen">
+          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="0..1" />
+          <End Type="Klinicos_BModel.AtencionesEstados" Role="AtencionesEstados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesionales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AtencionesEstados">
+              <PropertyRef Name="idProfesionalOrigen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Atencion_Evoluciones_General_Especialidades_idEspecialidad">
+          <End Type="Klinicos_BModel.Especialidades" Role="Especialidades" Multiplicity="1" />
+          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Evoluciones">
+              <PropertyRef Name="idEspecialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Atencion_Evoluciones_General_Profesionales_idProfesional">
+          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="1" />
+          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesionales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Evoluciones">
+              <PropertyRef Name="idProfesional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProfesionalesEspecialidades1">
+          <End Type="Klinicos_BModel.Especialidades" Role="Especialidades" Multiplicity="*" />
+          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="*" />
+        </Association>
+        <EntityType Name="EspecialidadesDisponibles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Especialidades" Relationship="Klinicos_BModel.FK_GeneralLocal_EspecialidadesDisponibles_General_Especialidades_id" FromRole="EspecialidadesDisponibles" ToRole="Especialidades" />
+        </EntityType>
+        <EntityType Name="ProfesionalesDisponibles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modoAtencion" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id" FromRole="ProfesionalesDisponibles" ToRole="Profesionales" />
+        </EntityType>
         <EntityType Name="Reportes">
           <Key>
             <PropertyRef Name="id" />
@@ -1925,6 +1524,18 @@
           <NavigationProperty Name="Especialidades" Relationship="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad" FromRole="ReportesEspecialidades" ToRole="Especialidades" />
           <NavigationProperty Name="Reportes" Relationship="Klinicos_BModel.FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte" FromRole="ReportesEspecialidades" ToRole="Reportes" />
         </EntityType>
+        <Association Name="FK_GeneralLocal_EspecialidadesDisponibles_General_Especialidades_id">
+          <End Type="Klinicos_BModel.Especialidades" Role="Especialidades" Multiplicity="1" />
+          <End Type="Klinicos_BModel.EspecialidadesDisponibles" Role="EspecialidadesDisponibles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EspecialidadesDisponibles">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GeneralLocal_ReportesEspecialidades_General_Especialidades_idEspecialidad">
           <End Type="Klinicos_BModel.Especialidades" Role="Especialidades" Multiplicity="1" />
           <End Type="Klinicos_BModel.ReportesEspecialidades" Role="ReportesEspecialidades" Multiplicity="*" />
@@ -1937,6 +1548,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GeneralLocal_ProfesionalesDisponibles_General_Profesionales_id">
+          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="1" />
+          <End Type="Klinicos_BModel.ProfesionalesDisponibles" Role="ProfesionalesDisponibles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Profesionales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProfesionalesDisponibles">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GeneralLocal_ReportesEspecialidades_GeneralLocal_Reportes_idReporte">
           <End Type="Klinicos_BModel.Reportes" Role="Reportes" Multiplicity="1" />
           <End Type="Klinicos_BModel.ReportesEspecialidades" Role="ReportesEspecialidades" Multiplicity="*" />
@@ -1946,6 +1569,263 @@
             </Principal>
             <Dependent Role="ReportesEspecialidades">
               <PropertyRef Name="idReporte" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idTipoDocumento" Type="Int32" Nullable="false" />
+          <Property Name="numeroDocumento" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="idSexo" Type="Int32" Nullable="false" />
+          <Property Name="primerApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="primerNombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="otrosNombres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="nombreUsuario" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="contraseña" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idProfesional" Type="Int32" />
+          <Property Name="ultimoIngreso" Type="DateTime" Precision="3" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tipoUsuario" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="vigente" Type="Boolean" Nullable="false" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuarioModi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_Usuario_Usuarios_General_Profesionales_idProfesional" FromRole="Usuarios" ToRole="Profesionales" />
+          <NavigationProperty Name="UsuariosSectores" Relationship="Klinicos_BModel.FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario" FromRole="Usuarios" ToRole="UsuariosSectores" />
+        </EntityType>
+        <EntityType Name="UsuariosSectores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSector" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuarioModi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="roles" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuarios" Relationship="Klinicos_BModel.FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario" FromRole="UsuariosSectores" ToRole="Usuarios" />
+          <NavigationProperty Name="Sectores" Relationship="Klinicos_BModel.FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector" FromRole="UsuariosSectores" ToRole="Sectores" />
+        </EntityType>
+        <Association Name="FK_Usuario_Usuarios_General_Profesionales_idProfesional">
+          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="0..1" />
+          <End Type="Klinicos_BModel.Usuarios" Role="Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesionales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="idProfesional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_UsuariosSectores_Usuario_Usuarios_idUsuario">
+          <End Type="Klinicos_BModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="Klinicos_BModel.UsuariosSectores" Role="UsuariosSectores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosSectores">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Establecimientos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idLocalidad" Type="Int32" Nullable="false" />
+          <Property Name="calle" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="numeroPuerta" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="otrasReferencias" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="codPostal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="vigente" Type="Boolean" Nullable="false" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="numero" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="regionSanitaria" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MailSistema_Id" Type="Int32" />
+          <Property Name="MailSistemaSMTP_Id" Type="Int32" />
+          <Property Name="ApiBaseUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Evoluciones" Relationship="Klinicos_BModel.FK_Atencion_Evoluciones_General_Establecimientos_idEstablecimiento" FromRole="Establecimientos" ToRole="Evoluciones" />
+        </EntityType>
+        <EntityType Name="Sectores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="nombreAbreviado" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="orden" Type="Int32" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="vigente" Type="Boolean" Nullable="false" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idSectorPadre" Type="Int32" />
+          <NavigationProperty Name="Sectores1" Relationship="Klinicos_BModel.FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre" FromRole="Sectores" ToRole="Sectores1" />
+          <NavigationProperty Name="Sectores2" Relationship="Klinicos_BModel.FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre" FromRole="Sectores1" ToRole="Sectores" />
+          <NavigationProperty Name="UsuariosSectores" Relationship="Klinicos_BModel.FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector" FromRole="Sectores" ToRole="UsuariosSectores" />
+        </EntityType>
+        <Association Name="FK_Atencion_Evoluciones_General_Establecimientos_idEstablecimiento">
+          <End Type="Klinicos_BModel.Establecimientos" Role="Establecimientos" Multiplicity="1" />
+          <End Type="Klinicos_BModel.Evoluciones" Role="Evoluciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Establecimientos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Evoluciones">
+              <PropertyRef Name="idEstablecimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralLocal_Sectores_GeneralLocal_Sectores_idSectorPadre">
+          <End Type="Klinicos_BModel.Sectores" Role="Sectores" Multiplicity="0..1" />
+          <End Type="Klinicos_BModel.Sectores" Role="Sectores1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sectores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Sectores1">
+              <PropertyRef Name="idSectorPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_UsuariosSectores_GeneralLocal_Sectores_idSector">
+          <End Type="Klinicos_BModel.Sectores" Role="Sectores" Multiplicity="1" />
+          <End Type="Klinicos_BModel.UsuariosSectores" Role="UsuariosSectores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sectores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosSectores">
+              <PropertyRef Name="idSector" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Turno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaYHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AtendidoEnRefId" Type="Int32" />
+          <Property Name="AtendidoPorRefId" Type="Int32" />
+          <Property Name="UltimoEstadoRefId" Type="Int32" />
+          <Property Name="PlanillaDiariaRefId" Type="Int32" Nullable="false" />
+          <Property Name="clase" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId" FromRole="Turno" ToRole="Profesionales" />
+          <NavigationProperty Name="TurnosReserva" Relationship="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno" FromRole="Turno" ToRole="TurnosReserva" />
+        </EntityType>
+        <EntityType Name="Turno_Historicos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FechaYHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AtendidoEnRefId" Type="Int32" />
+          <Property Name="AtendidoPorRefId" Type="Int32" />
+          <Property Name="UltimoEstado" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UltimoEstadoObservacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UltimoEstadoFechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="clase" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="idPaciente" Type="Guid" />
+          <Property Name="idTipoDocumento" Type="Int32" Nullable="false" />
+          <Property Name="numeroDocumento" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="idSexo" Type="Int32" />
+          <Property Name="primerApellido" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="primerNombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="otrosNombres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tipoTelefono" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="motivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="edadAparente" Type="Int32" Nullable="false" />
+          <Property Name="edadAparenteUnidad" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="responsable" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idParentescoResponsable" Type="Int32" Nullable="false" />
+          <Property Name="formaReserva" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PlanillaDiariaRefId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Profesionales" Relationship="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId" FromRole="Turno_Historicos" ToRole="Profesionales" />
+        </EntityType>
+        <EntityType Name="TurnosReserva">
+          <Key>
+            <PropertyRef Name="idTurno" />
+          </Key>
+          <Property Name="idTurno" Type="Int32" Nullable="false" />
+          <Property Name="idPaciente" Type="Guid" />
+          <Property Name="idTipoDocumento" Type="Int32" Nullable="false" />
+          <Property Name="numeroDocumento" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="idSexo" Type="Int32" />
+          <Property Name="primerApellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="primerNombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="otrosNombres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tipoTelefono" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="responsable" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="idParentescoResponsable" Type="Int32" Nullable="false" />
+          <Property Name="formaReserva" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="usuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="usuarioModi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaModi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="motivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="edadAparente" Type="Int32" Nullable="false" />
+          <Property Name="edadAparenteUnidad" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Turno" Relationship="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno" FromRole="TurnosReserva" ToRole="Turno" />
+        </EntityType>
+        <Association Name="FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId">
+          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="0..1" />
+          <End Type="Klinicos_BModel.Turno" Role="Turno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesionales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Turno">
+              <PropertyRef Name="AtendidoPorRefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId">
+          <End Type="Klinicos_BModel.Profesionales" Role="Profesionales" Multiplicity="0..1" />
+          <End Type="Klinicos_BModel.Turno_Historicos" Role="Turno_Historicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesionales">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Turno_Historicos">
+              <PropertyRef Name="AtendidoPorRefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno">
+          <End Type="Klinicos_BModel.Turno" Role="Turno" Multiplicity="1" />
+          <End Type="Klinicos_BModel.TurnosReserva" Role="TurnosReserva" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Turno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TurnosReserva">
+              <PropertyRef Name="idTurno" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1970,6 +1850,107 @@
               <ComplexTypeMapping TypeName="Klinicos_BModel.SP_OBTENER_SEMANAL_EVOLUCIONES_Result">
                 <ScalarProperty Name="idProfesional" ColumnName="idProfesional" />
                 <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="consultaPorEstablecimiento" FunctionName="Klinicos_BModel.Store.consultaPorEstablecimiento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Klinicos_BModel.consultaPorEstablecimiento_Result">
+                <ScalarProperty Name="Pacientes_Creados" ColumnName="Pacientes_Creados" />
+                <ScalarProperty Name="Pacientes_Con_Atenciones" ColumnName="Pacientes_Con_Atenciones" />
+                <ScalarProperty Name="Pacientes_Con_HC" ColumnName="Pacientes_Con_HC" />
+                <ScalarProperty Name="Evoluciones" ColumnName="Evoluciones" />
+                <ScalarProperty Name="Evoluciones_A_30_días" ColumnName="Evoluciones_A_30_días" />
+                <ScalarProperty Name="Turnos_Reservados" ColumnName="Turnos_Reservados" />
+                <ScalarProperty Name="Control_Antropometrica" ColumnName="Control_Antropometrica" />
+                <ScalarProperty Name="Odontograma" ColumnName="Odontograma" />
+                <ScalarProperty Name="Usuarios_Creados" ColumnName="Usuarios_Creados" />
+                <ScalarProperty Name="Vacunas_Aplicadas" ColumnName="Vacunas_Aplicadas" />
+                <ScalarProperty Name="CLAPs" ColumnName="CLAPs" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Klinicos_BModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Klinicos_BModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Klinicos_BModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Klinicos_BModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Klinicos_BModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Klinicos_BModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Klinicos_BModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Insertar_Profesional" FunctionName="Klinicos_BModel.Store.SP_Insertar_Profesional" />
+          <FunctionImportMapping FunctionImportName="SP_Insertar_Profesional_Especialidad" FunctionName="Klinicos_BModel.Store.SP_Insertar_Profesional_Especialidad" />
+          <FunctionImportMapping FunctionImportName="SP_OBTENER_ESPECIALIDADES" FunctionName="Klinicos_BModel.Store.SP_OBTENER_ESPECIALIDADES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Klinicos_BModel.SP_OBTENER_ESPECIALIDADES_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="vigente" ColumnName="vigente" />
+                <ScalarProperty Name="tipoEspecialidad" ColumnName="tipoEspecialidad" />
+                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
+                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
+                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_OBTENER_PROFESIONALES" FunctionName="Klinicos_BModel.Store.SP_OBTENER_PROFESIONALES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Klinicos_BModel.SP_OBTENER_PROFESIONALES_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idTipoDocumento" ColumnName="idTipoDocumento" />
+                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
+                <ScalarProperty Name="idSexo" ColumnName="idSexo" />
+                <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
+                <ScalarProperty Name="primerNombre" ColumnName="primerNombre" />
+                <ScalarProperty Name="otrosNombres" ColumnName="otrosNombres" />
+                <ScalarProperty Name="tipoTelefono" ColumnName="tipoTelefono" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="contactoObservaciones" ColumnName="contactoObservaciones" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="matricula" ColumnName="matricula" />
+                <ScalarProperty Name="vigente" ColumnName="vigente" />
+                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
+                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
+                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_OBTENER_SEMANAL" FunctionName="Klinicos_BModel.Store.SP_OBTENER_SEMANAL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Klinicos_BModel.SP_OBTENER_SEMANAL_Result">
+                <ScalarProperty Name="idProfesional" ColumnName="idProfesional" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Klinicos_BModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="SP_TOTAL_EVOLUCIONES" FunctionName="Klinicos_BModel.Store.SP_TOTAL_EVOLUCIONES" />
+          <FunctionImportMapping FunctionImportName="SP_TOTAL_MEDICOS_ACTIVOS" FunctionName="Klinicos_BModel.Store.SP_TOTAL_MEDICOS_ACTIVOS" />
+          <FunctionImportMapping FunctionImportName="SP_TOTAL_PRACTICAS" FunctionName="Klinicos_BModel.Store.SP_TOTAL_PRACTICAS" />
+          <FunctionImportMapping FunctionImportName="SP_TOTAL_PROFESIONALES" FunctionName="Klinicos_BModel.Store.SP_TOTAL_PROFESIONALES" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Klinicos_BModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="split" FunctionName="Klinicos_BModel.Store.split">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Klinicos_BModel.split_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="val" ColumnName="val" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2090,29 +2071,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Establecimientos">
-            <EntityTypeMapping TypeName="Klinicos_BModel.Establecimientos">
-              <MappingFragment StoreEntitySet="Establecimientos">
-                <ScalarProperty Name="ApiBaseUrl" ColumnName="ApiBaseUrl" />
-                <ScalarProperty Name="MailSistemaSMTP_Id" ColumnName="MailSistemaSMTP_Id" />
-                <ScalarProperty Name="MailSistema_Id" ColumnName="MailSistema_Id" />
-                <ScalarProperty Name="regionSanitaria" ColumnName="regionSanitaria" />
-                <ScalarProperty Name="numero" ColumnName="numero" />
-                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
-                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
-                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
-                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
-                <ScalarProperty Name="vigente" ColumnName="vigente" />
-                <ScalarProperty Name="codPostal" ColumnName="codPostal" />
-                <ScalarProperty Name="otrasReferencias" ColumnName="otrasReferencias" />
-                <ScalarProperty Name="numeroPuerta" ColumnName="numeroPuerta" />
-                <ScalarProperty Name="calle" ColumnName="calle" />
-                <ScalarProperty Name="idLocalidad" ColumnName="idLocalidad" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Profesionales">
             <EntityTypeMapping TypeName="Klinicos_BModel.Profesionales">
               <MappingFragment StoreEntitySet="Profesionales">
@@ -2136,12 +2094,131 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="ProfesionalesEspecialidades1" TypeName="Klinicos_BModel.ProfesionalesEspecialidades1" StoreEntitySet="ProfesionalesEspecialidades">
+            <EndProperty Name="Profesionales">
+              <ScalarProperty Name="id" ColumnName="idProfesional" />
+            </EndProperty>
+            <EndProperty Name="Especialidades">
+              <ScalarProperty Name="id" ColumnName="idEspecialidad" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="EspecialidadesDisponibles">
+            <EntityTypeMapping TypeName="Klinicos_BModel.EspecialidadesDisponibles">
+              <MappingFragment StoreEntitySet="EspecialidadesDisponibles">
+                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
+                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ProfesionalesDisponibles">
             <EntityTypeMapping TypeName="Klinicos_BModel.ProfesionalesDisponibles">
               <MappingFragment StoreEntitySet="ProfesionalesDisponibles">
                 <ScalarProperty Name="modoAtencion" ColumnName="modoAtencion" />
                 <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
                 <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reportes">
+            <EntityTypeMapping TypeName="Klinicos_BModel.Reportes">
+              <MappingFragment StoreEntitySet="Reportes">
+                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
+                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="fomatosSalida" ColumnName="fomatosSalida" />
+                <ScalarProperty Name="tipoEspecialidad" ColumnName="tipoEspecialidad" />
+                <ScalarProperty Name="tipoSector" ColumnName="tipoSector" />
+                <ScalarProperty Name="validateRules" ColumnName="validateRules" />
+                <ScalarProperty Name="divShown" ColumnName="divShown" />
+                <ScalarProperty Name="pageMarginsTop" ColumnName="pageMarginsTop" />
+                <ScalarProperty Name="pageMarginsRight" ColumnName="pageMarginsRight" />
+                <ScalarProperty Name="pageMarginsBottom" ColumnName="pageMarginsBottom" />
+                <ScalarProperty Name="pageMarginsLeft" ColumnName="pageMarginsLeft" />
+                <ScalarProperty Name="pageSize" ColumnName="pageSize" />
+                <ScalarProperty Name="pageOrientation" ColumnName="pageOrientation" />
+                <ScalarProperty Name="roles" ColumnName="roles" />
+                <ScalarProperty Name="defaultStoreProcedure" ColumnName="defaultStoreProcedure" />
+                <ScalarProperty Name="defaultHtml" ColumnName="defaultHtml" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="grupo" ColumnName="grupo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportesEspecialidades">
+            <EntityTypeMapping TypeName="Klinicos_BModel.ReportesEspecialidades">
+              <MappingFragment StoreEntitySet="ReportesEspecialidades">
+                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
+                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="storeProcedure" ColumnName="storeProcedure" />
+                <ScalarProperty Name="html" ColumnName="html" />
+                <ScalarProperty Name="idEspecialidad" ColumnName="idEspecialidad" />
+                <ScalarProperty Name="idReporte" ColumnName="idReporte" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="Klinicos_BModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
+                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
+                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
+                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="vigente" ColumnName="vigente" />
+                <ScalarProperty Name="tipoUsuario" ColumnName="tipoUsuario" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="ultimoIngreso" ColumnName="ultimoIngreso" />
+                <ScalarProperty Name="idProfesional" ColumnName="idProfesional" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+                <ScalarProperty Name="otrosNombres" ColumnName="otrosNombres" />
+                <ScalarProperty Name="primerNombre" ColumnName="primerNombre" />
+                <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
+                <ScalarProperty Name="idSexo" ColumnName="idSexo" />
+                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
+                <ScalarProperty Name="idTipoDocumento" ColumnName="idTipoDocumento" />
+                <ScalarProperty Name="roles" ColumnName="roles" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosSectores">
+            <EntityTypeMapping TypeName="Klinicos_BModel.UsuariosSectores">
+              <MappingFragment StoreEntitySet="UsuariosSectores">
+                <ScalarProperty Name="roles" ColumnName="roles" />
+                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
+                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
+                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
+                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idSector" ColumnName="idSector" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Establecimientos">
+            <EntityTypeMapping TypeName="Klinicos_BModel.Establecimientos">
+              <MappingFragment StoreEntitySet="Establecimientos">
+                <ScalarProperty Name="ApiBaseUrl" ColumnName="ApiBaseUrl" />
+                <ScalarProperty Name="MailSistemaSMTP_Id" ColumnName="MailSistemaSMTP_Id" />
+                <ScalarProperty Name="MailSistema_Id" ColumnName="MailSistema_Id" />
+                <ScalarProperty Name="regionSanitaria" ColumnName="regionSanitaria" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
+                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
+                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
+                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
+                <ScalarProperty Name="vigente" ColumnName="vigente" />
+                <ScalarProperty Name="codPostal" ColumnName="codPostal" />
+                <ScalarProperty Name="otrasReferencias" ColumnName="otrasReferencias" />
+                <ScalarProperty Name="numeroPuerta" ColumnName="numeroPuerta" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="idLocalidad" ColumnName="idLocalidad" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2238,233 +2315,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Paciente">
-            <EntityTypeMapping TypeName="Klinicos_BModel.Paciente">
-              <MappingFragment StoreEntitySet="Paciente">
-                <ScalarProperty Name="idGenero" ColumnName="idGenero" />
-                <ScalarProperty Name="idDniDorso" ColumnName="idDniDorso" />
-                <ScalarProperty Name="idDniFrente" ColumnName="idDniFrente" />
-                <ScalarProperty Name="nombresMaterno" ColumnName="nombresMaterno" />
-                <ScalarProperty Name="numeroDocumentoMaterno" ColumnName="numeroDocumentoMaterno" />
-                <ScalarProperty Name="idTipoDocumentoMaterno" ColumnName="idTipoDocumentoMaterno" />
-                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
-                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
-                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
-                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
-                <ScalarProperty Name="idUltimoPacienteEstadoCivil" ColumnName="idUltimoPacienteEstadoCivil" />
-                <ScalarProperty Name="idUltimoPacienteNacionalidad" ColumnName="idUltimoPacienteNacionalidad" />
-                <ScalarProperty Name="idUltimoPacienteSituacionLaboral" ColumnName="idUltimoPacienteSituacionLaboral" />
-                <ScalarProperty Name="idUltimoPacienteNivelInstruccion" ColumnName="idUltimoPacienteNivelInstruccion" />
-                <ScalarProperty Name="idUltimoPacienteCorreoElectronico" ColumnName="idUltimoPacienteCorreoElectronico" />
-                <ScalarProperty Name="idUltimoPacienteContacto" ColumnName="idUltimoPacienteContacto" />
-                <ScalarProperty Name="idUltimoPacienteDomicilio" ColumnName="idUltimoPacienteDomicilio" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="idEtnia" ColumnName="idEtnia" />
-                <ScalarProperty Name="grupoSanguineo" ColumnName="grupoSanguineo" />
-                <ScalarProperty Name="denunciado" ColumnName="denunciado" />
-                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
-                <ScalarProperty Name="fechaObito" ColumnName="fechaObito" />
-                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
-                <ScalarProperty Name="primerApellidoMaterno" ColumnName="primerApellidoMaterno" />
-                <ScalarProperty Name="otrosNombres" ColumnName="otrosNombres" />
-                <ScalarProperty Name="primerNombre" ColumnName="primerNombre" />
-                <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
-                <ScalarProperty Name="idSexo" ColumnName="idSexo" />
-                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
-                <ScalarProperty Name="idTipoDocumento" ColumnName="idTipoDocumento" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="Klinicos_BModel.Usuarios">
-              <MappingFragment StoreEntitySet="Usuarios">
-                <ScalarProperty Name="avatar" ColumnName="avatar" />
-                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
-                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
-                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
-                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
-                <ScalarProperty Name="vigente" ColumnName="vigente" />
-                <ScalarProperty Name="tipoUsuario" ColumnName="tipoUsuario" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="ultimoIngreso" ColumnName="ultimoIngreso" />
-                <ScalarProperty Name="idProfesional" ColumnName="idProfesional" />
-                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
-                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
-                <ScalarProperty Name="otrosNombres" ColumnName="otrosNombres" />
-                <ScalarProperty Name="primerNombre" ColumnName="primerNombre" />
-                <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
-                <ScalarProperty Name="idSexo" ColumnName="idSexo" />
-                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
-                <ScalarProperty Name="idTipoDocumento" ColumnName="idTipoDocumento" />
-                <ScalarProperty Name="roles" ColumnName="roles" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UsuariosSectores">
-            <EntityTypeMapping TypeName="Klinicos_BModel.UsuariosSectores">
-              <MappingFragment StoreEntitySet="UsuariosSectores">
-                <ScalarProperty Name="roles" ColumnName="roles" />
-                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
-                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
-                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
-                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
-                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-                <ScalarProperty Name="idSector" ColumnName="idSector" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="ProfesionalesEspecialidades" TypeName="Klinicos_BModel.ProfesionalesEspecialidades" StoreEntitySet="ProfesionalesEspecialidades">
-            <EndProperty Name="Profesionales">
-              <ScalarProperty Name="id" ColumnName="idProfesional" />
-            </EndProperty>
-            <EndProperty Name="Especialidades">
-              <ScalarProperty Name="id" ColumnName="idEspecialidad" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="consultaPorEstablecimiento" FunctionName="Klinicos_BModel.Store.consultaPorEstablecimiento">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Klinicos_BModel.consultaPorEstablecimiento_Result">
-                <ScalarProperty Name="Pacientes_Creados" ColumnName="Pacientes_Creados" />
-                <ScalarProperty Name="Pacientes_Con_Atenciones" ColumnName="Pacientes_Con_Atenciones" />
-                <ScalarProperty Name="Pacientes_Con_HC" ColumnName="Pacientes_Con_HC" />
-                <ScalarProperty Name="Evoluciones" ColumnName="Evoluciones" />
-                <ScalarProperty Name="Evoluciones_A_30_días" ColumnName="Evoluciones_A_30_días" />
-                <ScalarProperty Name="Turnos_Reservados" ColumnName="Turnos_Reservados" />
-                <ScalarProperty Name="Control_Antropometrica" ColumnName="Control_Antropometrica" />
-                <ScalarProperty Name="Odontograma" ColumnName="Odontograma" />
-                <ScalarProperty Name="Usuarios_Creados" ColumnName="Usuarios_Creados" />
-                <ScalarProperty Name="Vacunas_Aplicadas" ColumnName="Vacunas_Aplicadas" />
-                <ScalarProperty Name="CLAPs" ColumnName="CLAPs" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Klinicos_BModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Klinicos_BModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Klinicos_BModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Klinicos_BModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Klinicos_BModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Klinicos_BModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Klinicos_BModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_Insertar_Profesional" FunctionName="Klinicos_BModel.Store.SP_Insertar_Profesional" />
-          <FunctionImportMapping FunctionImportName="SP_Insertar_Profesional_Especialidad" FunctionName="Klinicos_BModel.Store.SP_Insertar_Profesional_Especialidad" />
-          <FunctionImportMapping FunctionImportName="SP_OBTENER_ESPECIALIDADES" FunctionName="Klinicos_BModel.Store.SP_OBTENER_ESPECIALIDADES">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Klinicos_BModel.SP_OBTENER_ESPECIALIDADES_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="codigo" ColumnName="codigo" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="vigente" ColumnName="vigente" />
-                <ScalarProperty Name="tipoEspecialidad" ColumnName="tipoEspecialidad" />
-                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
-                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
-                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
-                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_OBTENER_PROFESIONALES" FunctionName="Klinicos_BModel.Store.SP_OBTENER_PROFESIONALES">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Klinicos_BModel.SP_OBTENER_PROFESIONALES_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="idTipoDocumento" ColumnName="idTipoDocumento" />
-                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
-                <ScalarProperty Name="idSexo" ColumnName="idSexo" />
-                <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
-                <ScalarProperty Name="primerNombre" ColumnName="primerNombre" />
-                <ScalarProperty Name="otrosNombres" ColumnName="otrosNombres" />
-                <ScalarProperty Name="tipoTelefono" ColumnName="tipoTelefono" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="contactoObservaciones" ColumnName="contactoObservaciones" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="matricula" ColumnName="matricula" />
-                <ScalarProperty Name="vigente" ColumnName="vigente" />
-                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
-                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
-                <ScalarProperty Name="usuarioModi" ColumnName="usuarioModi" />
-                <ScalarProperty Name="fechaModi" ColumnName="fechaModi" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_OBTENER_SEMANAL" FunctionName="Klinicos_BModel.Store.SP_OBTENER_SEMANAL">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Klinicos_BModel.SP_OBTENER_SEMANAL_Result">
-                <ScalarProperty Name="idProfesional" ColumnName="idProfesional" />
-                <ScalarProperty Name="Column1" ColumnName="Column1" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Klinicos_BModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="SP_TOTAL_EVOLUCIONES" FunctionName="Klinicos_BModel.Store.SP_TOTAL_EVOLUCIONES" />
-          <FunctionImportMapping FunctionImportName="SP_TOTAL_MEDICOS_ACTIVOS" FunctionName="Klinicos_BModel.Store.SP_TOTAL_MEDICOS_ACTIVOS" />
-          <FunctionImportMapping FunctionImportName="SP_TOTAL_PRACTICAS" FunctionName="Klinicos_BModel.Store.SP_TOTAL_PRACTICAS" />
-          <FunctionImportMapping FunctionImportName="SP_TOTAL_PROFESIONALES" FunctionName="Klinicos_BModel.Store.SP_TOTAL_PROFESIONALES" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Klinicos_BModel.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="split" FunctionName="Klinicos_BModel.Store.split">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Klinicos_BModel.split_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="val" ColumnName="val" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="Reportes">
-            <EntityTypeMapping TypeName="Klinicos_BModel.Reportes">
-              <MappingFragment StoreEntitySet="Reportes">
-                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
-                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
-                <ScalarProperty Name="fomatosSalida" ColumnName="fomatosSalida" />
-                <ScalarProperty Name="tipoEspecialidad" ColumnName="tipoEspecialidad" />
-                <ScalarProperty Name="tipoSector" ColumnName="tipoSector" />
-                <ScalarProperty Name="validateRules" ColumnName="validateRules" />
-                <ScalarProperty Name="divShown" ColumnName="divShown" />
-                <ScalarProperty Name="pageMarginsTop" ColumnName="pageMarginsTop" />
-                <ScalarProperty Name="pageMarginsRight" ColumnName="pageMarginsRight" />
-                <ScalarProperty Name="pageMarginsBottom" ColumnName="pageMarginsBottom" />
-                <ScalarProperty Name="pageMarginsLeft" ColumnName="pageMarginsLeft" />
-                <ScalarProperty Name="pageSize" ColumnName="pageSize" />
-                <ScalarProperty Name="pageOrientation" ColumnName="pageOrientation" />
-                <ScalarProperty Name="roles" ColumnName="roles" />
-                <ScalarProperty Name="defaultStoreProcedure" ColumnName="defaultStoreProcedure" />
-                <ScalarProperty Name="defaultHtml" ColumnName="defaultHtml" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="grupo" ColumnName="grupo" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReportesEspecialidades">
-            <EntityTypeMapping TypeName="Klinicos_BModel.ReportesEspecialidades">
-              <MappingFragment StoreEntitySet="ReportesEspecialidades">
-                <ScalarProperty Name="fechaCrea" ColumnName="fechaCrea" />
-                <ScalarProperty Name="usuarioCrea" ColumnName="usuarioCrea" />
-                <ScalarProperty Name="storeProcedure" ColumnName="storeProcedure" />
-                <ScalarProperty Name="html" ColumnName="html" />
-                <ScalarProperty Name="idEspecialidad" ColumnName="idEspecialidad" />
-                <ScalarProperty Name="idReporte" ColumnName="idReporte" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="SP_ESPECIALIDADES_X_PROFESIONAL" FunctionName="Klinicos_BModel.Store.SP_ESPECIALIDADES_X_PROFESIONAL" />
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

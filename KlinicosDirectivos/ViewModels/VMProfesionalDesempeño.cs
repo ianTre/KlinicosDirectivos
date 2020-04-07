@@ -17,7 +17,7 @@ namespace KlinicosDirectivos.ViewModels
         private DateTime ultimoTurno;
         private DateTime ultimoLlamado;
 
-        enum diasSemana { lunes , martes, miercoles , jueves, viernes , sabado , domingo }
+        public enum diasSemana { lunes , martes, miercoles , jueves, viernes , sabado , domingo }
         
 
         public string nombreUsuario;
@@ -34,7 +34,7 @@ namespace KlinicosDirectivos.ViewModels
         public int totalIngresos;
         public int totalAtendidos;
 
-        private Dictionary<diasSemana, bool> diasAtencion;
+        public Dictionary<diasSemana, bool> diasAtencion;
 
 
         public VMProfesionalDesempeño(Usuarios usuario  , Profesionales profesional , List<Especialidades> lstEspecialidades)
@@ -64,6 +64,32 @@ namespace KlinicosDirectivos.ViewModels
         }
 
 
+
+        public VMProfesionalDesempeño(Usuarios usuario, Profesionales profesional)
+        {
+            this.apellido = profesional.primerApellido;
+            this.profesional = profesional;
+            if (Object.Equals(null, usuario.ultimoIngreso))
+            {
+                this.ultimaConexion = "El usuario no tiene conexiones";
+            }
+            else
+            {
+                this.ultimaConexion = ((DateTime)usuario.ultimoIngreso).ToShortDateString();
+            }
+            this.especialidad = string.Empty;
+
+            
+            
+                this.especialidad = "NONE";
+            
+            this.especialidad = this.especialidad.Substring(0, this.especialidad.Length - 2);
+
+            this.matricula = profesional.matricula;
+            this.nombre = profesional.primerNombre;
+            this.nombreUsuario = usuario.nombreUsuario;
+            this.dni = profesional.numeroDocumento;
+        }
 
         private void ObtenerDiasAtencion(List<Evoluciones> evoluciones)
         {
