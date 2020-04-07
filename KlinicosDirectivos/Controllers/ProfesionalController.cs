@@ -56,8 +56,8 @@ namespace KlinicosDirectivos.Controllers
             viewModel.cantidadTurnosReservados = cantidadTurnosReservados;
             viewModel.totalAtendidos = evolucionesXProfesional.Count();
             viewModel.totalIngresos = ingresosXProfesional.Count();
-            
 
+            viewModel.ObtenerDiasAtencion(evolucionesXProfesional.ToList());
             return View(viewModel);
         }
 

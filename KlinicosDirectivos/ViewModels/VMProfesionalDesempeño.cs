@@ -34,7 +34,7 @@ namespace KlinicosDirectivos.ViewModels
         public int totalIngresos;
         public int totalAtendidos;
 
-        public Dictionary<diasSemana, bool> diasAtencion;
+        public Dictionary<string, bool> diasAtencion;
 
 
         public VMProfesionalDesempeño(Usuarios usuario  , Profesionales profesional , List<Especialidades> lstEspecialidades)
@@ -91,17 +91,17 @@ namespace KlinicosDirectivos.ViewModels
             this.dni = profesional.numeroDocumento;
         }
 
-        private void ObtenerDiasAtencion(List<Evoluciones> evoluciones)
+        public void ObtenerDiasAtencion(List<Evoluciones> evoluciones)
         {
-            Dictionary<diasSemana, bool> diccionario = new Dictionary<diasSemana, bool>();
-
-            diccionario.Add(diasSemana.domingo, ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.domingo));
-            diccionario.Add(diasSemana.lunes, ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.lunes));
-            diccionario.Add(diasSemana.martes, ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.martes));
-            diccionario.Add(diasSemana.miercoles, ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.miercoles));
-            diccionario.Add(diasSemana.jueves, ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.jueves));
-            diccionario.Add(diasSemana.viernes, ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.viernes));
-            diccionario.Add(diasSemana.sabado, ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.sabado));
+            Dictionary<string, bool> diccionario = new Dictionary<string, bool>();
+            
+            diccionario.Add("domingo", ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.domingo));
+            diccionario.Add("lunes", ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.lunes));
+            diccionario.Add("martes", ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.martes));
+            diccionario.Add("miercoles", ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.miercoles));
+            diccionario.Add("jueves", ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.jueves));
+            diccionario.Add("viernes", ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.viernes));
+            diccionario.Add("sabado", ComprobarAtencionEnElDia(evoluciones, (int)diasSemana.sabado));
 
             this.diasAtencion = diccionario;
         }

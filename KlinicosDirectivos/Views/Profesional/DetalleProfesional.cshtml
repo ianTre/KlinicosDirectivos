@@ -165,28 +165,28 @@
                         Total atendidos: @Model.totalAtendidos  .
                     </h3>
                     <h3>
-                        Dias de atencion: @Model.diasAtencion
+                        Dias de atencion: 
                     </h3>
                     <h3>
-                        <input type="checkbox" checked="checked">
+                        <input id="chkLunes" type="checkbox"  readOnly="readonly" onclick="return false"  >
                   
                         Lunes
-                        <input type="checkbox" checked="checked">
+                        <input id="chkMartes" type="checkbox" readOnly="readonly" onclick="return false"  >
             
                         Martes
-                        <input type="checkbox" checked="checked">
+                        <input id="chkMiercoles" type="checkbox"  readOnly="readonly" onclick="return false"   >
        
                         Miercoles
-                        <input type="checkbox" checked="checked">
+                        <input id="chkJueves" type="checkbox"  readOnly="readonly" onclick="return false"  >
  
                         Jueves
-                        <input type="checkbox" checked="checked">
+                        <input id="chkViernes" type="checkbox"  readOnly="readonly" onclick="return false"  >
 
                         Viernes
-                        <input type="checkbox" checked="checked">
+                        <input id="chkSabado"type="checkbox"  readOnly="readonly" onclick="return false"  >
    
                         Sabado
-                        <input type="checkbox" checked="checked">
+                        <input id="chkDomingo" type="checkbox"  readOnly="readonly" onclick="return false"  >
                         Domingo
 
                     </h3>
@@ -199,3 +199,56 @@
 <div>
     <input class="boton" value="Volver" onclick="history.go(-1)" />
 </div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var lunes = '@Model.diasAtencion["lunes"].ToString()'
+        var martes = '@Model.diasAtencion["martes"].ToString()'
+        var miercoles = '@Model.diasAtencion["miercoles"].ToString()'
+        var jueves = '@Model.diasAtencion["jueves"].ToString()'
+        var viernes = '@Model.diasAtencion["viernes"].ToString()'
+        var sabado = '@Model.diasAtencion["sabado"].ToString()'
+        var domingo = '@Model.diasAtencion["domingo"].ToString()'
+
+     
+
+        if (lunes == "True") {
+           
+            $('#chkLunes').attr("checked", "checked")
+        }
+
+        if (martes == "True") {
+           
+            $('#chkMartes').attr("checked", "checked")
+        }
+
+        if (miercoles == "True") {
+           
+            $('#chkMiercoles').attr("checked", "checked")
+        }
+
+        if (jueves == "True") {
+           
+            $('#chkJueves').attr("checked", "checked")
+        }
+
+        if (viernes == "True") {
+           
+            $('#chkViernes').attr("checked", "checked")
+        }
+
+        if (sabado == "True") {
+            $('#chkSabado').attr("checked", "checked")
+        }
+
+        if (domingo == true) {
+            $('#chkDomingo').attr("checked", "checked")
+        }
+
+
+
+    });
+
+</script>
