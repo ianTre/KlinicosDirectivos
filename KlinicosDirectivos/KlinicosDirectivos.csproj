@@ -162,6 +162,7 @@
     <Compile Include="consultaPorEstablecimiento_Result.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfesionalController.cs" />
     <Compile Include="Controllers\SemanalController.cs" />

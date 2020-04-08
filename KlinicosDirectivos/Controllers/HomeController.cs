@@ -15,17 +15,27 @@ namespace KlinicosDirectivos.Controllers
 
         public ActionResult Index()
         {
-            Klinicos_BEntities entidades = new Klinicos_BEntities();
-            List<Establecimientos> listaEstablecimientos = entidades.Establecimientos.ToList();
-            List<SelectListItem> establecimientos = new List<SelectListItem>();
-            foreach (var establecimiento in listaEstablecimientos)
+            try
             {
-                establecimientos.Add(new SelectListItem() { Text = establecimiento.nombre, Value = establecimiento.id.ToString() });
+
+
+                Klinicos_BEntities entidades = new Klinicos_BEntities();
+                List<Establecimientos> listaEstablecimientos = entidades.Establecimientos.ToList();
+                List<SelectListItem> establecimientos = new List<SelectListItem>();
+                foreach (var establecimiento in listaEstablecimientos)
+                {
+                    establecimientos.Add(new SelectListItem() { Text = establecimiento.nombre, Value = establecimiento.id.ToString() });
+                }
+
+
+                ViewBag.Establecimientos = establecimientos;
+                return View("Index");
+            }   
+            catch (Exception)
+            {
+
+                throw;
             }
-
-
-            ViewBag.Establecimientos = establecimientos;
-            return View("Index");
         }
 
         public ActionResult establecimiento(int id)
