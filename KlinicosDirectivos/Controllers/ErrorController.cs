@@ -9,8 +9,10 @@ namespace KlinicosDirectivos.Controllers
     public class ErrorController : Controller
     {
         // GET: Error
-        public ActionResult Index(int error = 0 , string desc = "")
+        public ActionResult Index(int error = 0 )
         {
+            string desc = (string)Session["desc"];
+
             switch (error)
             {
                 case 505:
@@ -32,7 +34,7 @@ namespace KlinicosDirectivos.Controllers
                     break;
             }
 
-            return View("~/views/error/_ErrorPage.cshtml");
+            return View("~/views/Shared/Error.cshtml");
         }
     }
 }

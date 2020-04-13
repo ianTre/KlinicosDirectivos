@@ -20,15 +20,26 @@ namespace KlinicosDirectivos
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            Exception exception = Server.GetLastError();
-            Response.Clear();
+            try
+            {
 
-            HttpException httpException = exception as HttpException;
 
-            int error = httpException != null ? httpException.GetHttpCode() : 0;
+                Exception exception = Server.GetLastError();
+                Response.Clear();
 
-            Server.ClearError();
-            Response.Redirect(String.Format("~/Error/?error={0}&desc={1}", error, exception.Message));
+                HttpException httpException = exception as HttpException;
+
+                int error = httpException != null ? httpException.GetHttpCode() : 0;
+
+                Server.ClearError();
+                Session.Add("desc", exception.Message);
+                Response.Redirect(String.Format("~/Error/?error={0}", error));
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }
